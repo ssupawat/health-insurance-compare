@@ -5,194 +5,261 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Health Insurance Comparison Tool</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            canvas: '#fafafa',
+            elevated: '#ffffff',
+            ink: '#171717',
+            body: '#4d4d4d',
+            mute: '#8f8f8f',
+            faint: '#a1a1a1',
+            hairline: '#ebebeb',
+            hairlineSoft: '#f2f2f2',
+            accent: '#0070f3',
+            accentDeep: '#0761d1',
+            accentSoft: '#d3e5ff',
+          },
+          fontFamily: {
+            sans: ['Sarabun', 'sans-serif'],
+          },
+        },
+      },
+    };
+  </script>
   <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    body { font-family: 'Sarabun', sans-serif; }
+    body { font-family: 'Sarabun', sans-serif; background: #fafafa; color: #171717; }
     .dicebear-ring { border-radius: 9999px; overflow: hidden; flex-shrink: 0; }
     .dicebear-ring img { width: 100%; height: 100%; display: block; }
-    .dicebear-stamp { border-radius: 16px; overflow: hidden; flex-shrink: 0; }
-    .dicebear-stamp img { width: 100%; height: 100%; display: block; }
+
+    /* Hero mesh gradient */
+    .hero-gradient {
+      background:
+        radial-gradient(ellipse 80% 80% at 20% 0%, rgba(121, 40, 202, 0.06) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 60% at 80% 0%, rgba(0, 124, 240, 0.06) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 50% at 50% 100%, rgba(235, 54, 127, 0.04) 0%, transparent 60%);
+    }
+
+    /* Slider styling */
+    input[type=range] {
+      -webkit-appearance: none;
+      appearance: none;
+      height: 6px;
+      border-radius: 3px;
+      background: #ebebeb;
+      outline: none;
+    }
+    input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 18px;
+      height: 18px;
+      border-radius: 9999px;
+      background: #171717;
+      cursor: pointer;
+      border: 2px solid #ffffff;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+    }
+
+    /* Select styling */
+    select {
+      -webkit-appearance: none;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%238f8f8f' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      padding-right: 36px;
+    }
   </style>
 </head>
-<body class="bg-slate-900 text-slate-100 min-h-screen antialiased selection:bg-indigo-500 selection:text-white">
+<body class="min-h-screen antialiased">
 
-  <div class="max-w-6xl mx-auto px-4 py-8 md:py-16">
+  <!-- Hero mesh gradient band -->
+  <div class="hero-gradient pt-12 md:pt-20 pb-16 md:pb-24">
+    <div class="max-w-6xl mx-auto px-4">
 
-    <!-- Header -->
-    <header class="text-center mb-12">
-      <span class="text-xs font-bold tracking-widest text-indigo-400 uppercase bg-indigo-500/10 px-3 py-1.5 rounded-full">Financial Risk Management</span>
-      <div class="flex items-center justify-center gap-4 mt-4 mb-3">
-        <div class="dicebear-ring w-14 h-14 md:w-16 md:h-16 border-2 border-indigo-500/40">
-          <img data-s="lorelei" data-seed="health-shield" data-sz="128" alt="Health Guardian" />
+      <!-- Header -->
+      <header class="text-center">
+        <span class="inline-block font-semibold text-xs tracking-widest uppercase text-mute bg-accentSoft/50 px-3 py-1.5 rounded-[64px] mb-4">
+          Financial Risk Management
+        </span>
+        <div class="flex items-center justify-center gap-3 md:gap-5">
+          <div class="dicebear-ring w-14 h-14 md:w-16 md:h-16 border-2 border-hairline">
+            <img data-s="lorelei" data-seed="health-shield" data-sz="128" alt="Health Guardian" />
+          </div>
+          <h1 class="text-3xl md:text-5xl font-semibold text-ink tracking-tight leading-tight">
+            เครื่องมือวิเคราะห์และเปรียบเทียบประกันสุขภาพ
+          </h1>
+          <div class="dicebear-ring w-14 h-14 md:w-16 md:h-16 border-2 border-hairline">
+            <img data-s="lorelei" data-seed="health-shield" data-sz="128" alt="Health Guardian" />
+          </div>
         </div>
-        <h1 class="text-3xl md:text-5xl font-extrabold text-white tracking-tight">
-          เครื่องมือวิเคราะห์และเปรียบเทียบประกันสุขภาพ
-        </h1>
-        <div class="dicebear-ring w-14 h-14 md:w-16 md:h-16 border-2 border-indigo-500/40">
-          <img data-s="lorelei" data-seed="health-shield" data-sz="128" alt="Health Guardian" />
-        </div>
-      </div>
-      <p class="text-slate-400 text-sm md:text-base max-w-2xl mx-auto">
-        เปรียบเทียบส่วนต่างเบี้ยประกันและวิเคราะห์ค่าเสียโอกาสระหว่าง ประกันสุขภาพทั่วไป กับ ประกันสุขภาพแบบมีความรับผิดส่วนแรก (Deductible)
-      </p>
-    </header>
+        <p class="text-body text-sm md:text-base max-w-2xl mx-auto mt-3">
+          เปรียบเทียบส่วนต่างเบี้ยประกันและวิเคราะห์ค่าเสียโอกาสระหว่าง ประกันสุขภาพทั่วไป กับ ประกันสุขภาพแบบมีความรับผิดส่วนแรก (Deductible)
+        </p>
+      </header>
+    </div>
+  </div>
 
-    <!-- Interactive Calculator & Stats Grid -->
-    <div class="grid lg:grid-cols-12 gap-8 mb-12">
+  <div class="max-w-6xl mx-auto px-4 -mt-8 pb-16">
 
-      <!-- Left Side: Interactive Controls -->
-      <div class="lg:col-span-5 bg-slate-800/50 border border-slate-700/50 rounded-2xl p-6 backdrop-blur-sm flex flex-col justify-between">
+    <!-- Interactive Calculator & Cards Grid -->
+    <div class="grid lg:grid-cols-12 gap-6 mb-16">
+
+      <!-- Left: Controls -->
+      <div class="lg:col-span-5 bg-elevated border border-hairline rounded-[12px] p-6 flex flex-col justify-between shadow-[0_1px_1px_rgba(0,0,0,0.04)]">
         <div>
           <div class="flex items-center gap-3 mb-6">
-            <div class="dicebear-ring w-10 h-10 border border-indigo-500/30">
+            <div class="dicebear-ring w-10 h-10 border border-hairline">
               <img data-s="bottts" data-seed="calculator-bot" data-sz="80" alt="Calculator" />
             </div>
-            <h3 class="text-lg font-bold text-white flex items-center gap-2">
-              <span class="w-2 h-6 bg-indigo-500 rounded-full"></span>
-              ตั้งค่าเงื่อนไขการคำนวณ
-            </h3>
+            <div>
+              <span class="text-xs tracking-widest uppercase text-mute font-semibold">Parameters</span>
+              <h3 class="text-lg font-semibold text-ink">ตั้งค่าเงื่อนไขการคำนวณ</h3>
+            </div>
           </div>
 
-          <!-- Input: Gender -->
-          <div class="mb-6">
-            <label class="block text-sm font-medium text-slate-300 mb-2">เพศ</label>
+          <!-- Gender -->
+          <div class="mb-5">
+            <label class="block text-sm font-medium text-body mb-2">เพศ</label>
             <div class="grid grid-cols-2 gap-2">
-              <button onclick="setGender('male')" id="btn-gender-male" class="py-2.5 px-4 rounded-xl border font-semibold text-sm transition text-center border-indigo-500 bg-indigo-500/20 text-indigo-300">
+              <button onclick="setGender('male')" id="btn-gender-male" class="py-2 px-4 rounded-[6px] font-medium text-sm transition text-center bg-ink text-white">
                 เพศชาย
               </button>
-              <button onclick="setGender('female')" id="btn-gender-female" class="py-2.5 px-4 rounded-xl border font-semibold text-sm transition text-center border-slate-700 bg-slate-800 text-slate-400 hover:border-slate-600">
+              <button onclick="setGender('female')" id="btn-gender-female" class="py-2 px-4 rounded-[6px] border font-medium text-sm transition text-center bg-elevated text-body border-hairline hover:border-ink">
                 เพศหญิง
               </button>
             </div>
           </div>
 
-          <!-- Input: Coverage Limit -->
-          <div class="mb-6">
-            <label class="block text-sm font-medium text-slate-300 mb-2">วงเงินความคุ้มครองเหมาจ่าย</label>
+          <!-- Coverage -->
+          <div class="mb-5">
+            <label class="block text-sm font-medium text-body mb-2">วงเงินความคุ้มครองเหมาจ่าย</label>
             <div class="grid grid-cols-2 gap-2">
-              <button onclick="setCoverage(1000000)" id="btn-cov-1m" class="py-2.5 px-4 rounded-xl border font-semibold text-sm transition text-center border-indigo-500 bg-indigo-500/20 text-indigo-300">
+              <button onclick="setCoverage(1000000)" id="btn-cov-1m" class="py-2 px-4 rounded-[6px] font-medium text-sm transition text-center bg-ink text-white">
                 1 ล้านบาท
               </button>
-              <button onclick="setCoverage(5000000)" id="btn-cov-5m" class="py-2.5 px-4 rounded-xl border font-semibold text-sm transition text-center border-slate-700 bg-slate-800 text-slate-400 hover:border-slate-600">
+              <button onclick="setCoverage(5000000)" id="btn-cov-5m" class="py-2 px-4 rounded-[6px] border font-medium text-sm transition text-center bg-elevated text-body border-hairline hover:border-ink">
                 5 ล้านบาท
               </button>
             </div>
           </div>
 
-          <!-- Slider: Age -->
-          <div class="mb-6">
+          <!-- Age Slider -->
+          <div class="mb-5">
             <div class="flex justify-between items-center mb-2">
-              <label class="text-sm font-medium text-slate-300">อายุของผู้ทำประกัน</label>
-              <span class="text-indigo-400 font-bold" id="ageVal">25 ปี</span>
+              <label class="text-sm font-medium text-body">อายุของผู้ทำประกัน</label>
+              <span class="text-accent font-semibold text-sm" id="ageVal">25 ปี</span>
             </div>
-            <input type="range" id="ageSlider" min="20" max="55" value="25" class="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-indigo-500">
-            <p class="text-slate-500 text-xs mt-1">ฐานราคาเริ่มต้นที่อายุ 25 ปี (ระบบจะคำนวณเบี้ยเพิ่มขึ้นตามความเสี่ยงของอายุ)</p>
+            <input type="range" id="ageSlider" min="20" max="55" value="25" class="w-full">
+            <p class="text-mute text-xs mt-1">ฐานราคาเริ่มต้นที่อายุ 25 ปี (ระบบจะคำนวณเบี้ยเพิ่มขึ้นตามความเสี่ยงของอายุ)</p>
           </div>
 
-          <!-- Input: Corporate Coverage -->
-          <div class="mb-6">
-            <label class="block text-sm font-medium text-slate-300 mb-2">วงเงินรับผิดส่วนแรกที่เลือก (Deductible)</label>
-            <select id="deductibleSelect" class="w-full bg-slate-700 border border-slate-600 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-indigo-500 transition">
+          <!-- Deductible -->
+          <div class="mb-5">
+            <label class="block text-sm font-medium text-body mb-2">วงเงินรับผิดส่วนแรกที่เลือก (Deductible)</label>
+            <select id="deductibleSelect" class="w-full bg-elevated border border-hairline rounded-[6px] px-3 py-2.5 text-ink text-sm focus:outline-none focus:border-ink transition">
               <option value="20000">20,000 บาท (เหมาะกับคนไม่มีประกันกลุ่ม หรือประกันกลุ่มวงเงินจำกัด)</option>
               <option value="30000" selected>30,000 บาท (แนะนำ - ล้อกับประกันกลุ่มส่วนใหญ่)</option>
               <option value="50000">50,000 บาท (เหมาะกับประกันกลุ่มวงเงินสูง)</option>
             </select>
           </div>
 
-          <!-- Input: Target Investment Return -->
+          <!-- Return Rate -->
           <div>
             <div class="flex justify-between items-center mb-2">
-              <label class="text-sm font-medium text-slate-300">ผลตอบแทนการลงทุนคาดหวังต่อปี</label>
-              <span class="text-indigo-400 font-bold" id="returnVal">7%</span>
+              <label class="text-sm font-medium text-body">ผลตอบแทนการลงทุนคาดหวังต่อปี</label>
+              <span class="text-accent font-semibold text-sm" id="returnVal">7%</span>
             </div>
-            <input type="range" id="returnSlider" min="2" max="15" value="7" class="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-indigo-500">
-            <p class="text-slate-500 text-xs mt-1">อัตราผลตอบแทนจากการนำเงินส่วนต่างเบี้ยไปลงทุนในสินทรัพย์เติบโต</p>
+            <input type="range" id="returnSlider" min="2" max="15" value="7" class="w-full">
+            <p class="text-mute text-xs mt-1">อัตราผลตอบแทนจากการนำเงินส่วนต่างเบี้ยไปลงทุนในสินทรัพย์เติบโต</p>
           </div>
         </div>
 
-        <div class="mt-8 pt-6 border-t border-slate-700/50">
-          <p class="text-slate-400 text-xs leading-relaxed font-semibold mb-1">
+        <div class="mt-8 pt-6 border-t border-hairline">
+          <p class="text-body text-xs leading-relaxed font-semibold mb-1">
             แหล่งอ้างอิงข้อมูลเบี้ยประกัน (อัปเดตข้อมูลปี 2026):
           </p>
-          <ul class="text-slate-400 text-xs leading-relaxed list-disc pl-4 space-y-1">
-            <li><strong>เมืองไทยประกันชีวิต (MTL):</strong> อ้างอิงแผน D Health Plus และ D Health Lite</li>
-            <li><strong>เอไอเอ (AIA):</strong> อ้างอิงแผน AIA Health Happy</li>
-            <li><strong>ชับบ์ไลฟ์ (Chubb):</strong> อ้างอิงแผน Health Premium Extra Deductible (HPED)</li>
+          <ul class="text-mute text-xs leading-relaxed list-disc pl-4 space-y-1">
+            <li><strong class="text-body">เมืองไทยประกันชีวิต (MTL):</strong> อ้างอิงแผน D Health Plus และ D Health Lite</li>
+            <li><strong class="text-body">เอไอเอ (AIA):</strong> อ้างอิงแผน AIA Health Happy</li>
+            <li><strong class="text-body">ชับบ์ไลฟ์ (Chubb):</strong> อ้างอิงแผน Health Premium Extra Deductible (HPED)</li>
           </ul>
-          <p class="text-slate-500 text-xs mt-2 italic">
+          <p class="text-faint text-xs mt-2 italic">
             *ตัวเลขเป็นค่าเฉลี่ยเบี้ยประกันภัยรายปีตามมาตรฐาน New Health Standard ราคาจริงอาจเปลี่ยนแปลงตามการพิจารณารับประกัน
           </p>
         </div>
       </div>
 
-      <!-- Right Side: Comparison & Opportunity Cost Output -->
+      <!-- Right: Comparison Cards -->
       <div class="lg:col-span-7 grid md:grid-cols-2 gap-6">
 
         <!-- Normal Card -->
-        <div class="bg-slate-800/30 border border-slate-700/50 rounded-2xl p-6 flex flex-col justify-between">
+        <div class="bg-elevated border border-hairline rounded-[12px] p-6 flex flex-col justify-between shadow-[0_1px_1px_rgba(0,0,0,0.04)]">
           <div>
-            <div class="flex items-center gap-3 mb-3">
-              <span class="bg-rose-500/10 text-rose-400 text-xs font-semibold px-2.5 py-1 rounded-full">คุ้มครองตั้งแต่บาทแรก</span>
-            </div>
+            <span class="inline-block bg-accentSoft text-accentDeep text-xs font-semibold px-2.5 py-0.5 rounded-[64px] mb-3">คุ้มครองตั้งแต่บาทแรก</span>
             <div class="flex items-center gap-3 mb-1">
-              <div class="dicebear-ring w-12 h-12 border border-rose-500/30">
-                <img data-s="bottts" data-seed="insurance-normal" data-sz="96" alt="Normal Insurance" />
+              <div class="dicebear-ring w-11 h-11 border border-hairline">
+                <img data-s="bottts" data-seed="insurance-normal" data-sz="88" alt="Normal Insurance" />
               </div>
-              <h2 class="text-xl font-bold text-white">ประกันสุขภาพทั่วไป</h2>
+              <h2 class="text-lg font-semibold text-ink">ประกันสุขภาพทั่วไป</h2>
             </div>
-            <p class="text-slate-400 text-xs mt-1">เน้นเคลมโรคเล็กๆ บ่อยๆ ตั้งแต่วันแรกที่ทำ</p>
+            <p class="text-mute text-xs">เน้นเคลมโรคเล็กๆ บ่อยๆ ตั้งแต่วันแรกที่ทำ</p>
 
             <div class="my-6">
-              <div class="text-xs text-slate-400">เบี้ยเฉลี่ยรายปีจริงในตลาด</div>
-              <div class="text-3xl font-extrabold text-white" id="normalPremiumText">- บาท</div>
+              <div class="text-xs text-mute">เบี้ยเฉลี่ยรายปีจริงในตลาด</div>
+              <div class="text-[28px] font-semibold text-ink tracking-tight" id="normalPremiumText">- บาท</div>
             </div>
 
-            <ul class="space-y-3 text-xs text-slate-300 border-t border-slate-700/50 pt-4">
+            <ul class="space-y-2.5 text-xs text-body border-t border-hairline pt-4">
               <li class="flex items-start gap-2">
-                <span class="text-rose-500">✕</span>
+                <span class="text-[#ee0000] font-bold">✕</span>
                 <span>ค่าเบี้ยสูงกว่า ขัดขวางการนำเงินก้อนไปลงทุน</span>
               </li>
               <li class="flex items-start gap-2">
-                <span class="text-rose-500">✕</span>
+                <span class="text-[#ee0000] font-bold">✕</span>
                 <span>จ่ายเบี้ยทิ้งไปฟรีๆ หากตลอดปีคุณแข็งแรงดี</span>
               </li>
               <li class="flex items-start gap-2">
-                <span class="text-emerald-400">✓</span>
+                <span class="text-[#0070f3] font-bold">✓</span>
                 <span>เคลมหวัด ท้องเสีย เคสยิบย่อยได้หมด</span>
               </li>
             </ul>
           </div>
         </div>
 
-        <!-- Deductible Card -->
-        <div class="bg-gradient-to-b from-indigo-900/40 to-slate-800/40 border-2 border-indigo-500 rounded-2xl p-6 flex flex-col justify-between relative shadow-xl shadow-indigo-500/5">
-          <span class="absolute -top-3 right-6 bg-indigo-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg">ตอบโจทย์การเติบโต</span>
+        <!-- Deductible Card (Featured) -->
+        <div class="bg-elevated border-2 border-ink rounded-[12px] p-6 flex flex-col justify-between relative shadow-[0_1px_1px_rgba(0,0,0,0.04)]">
+          <span class="absolute -top-3 right-6 bg-ink text-white text-xs font-semibold px-3 py-1 rounded-[64px] shadow-[0_1px_2px_rgba(0,0,0,0.1)]">ตอบโจทย์การเติบโต</span>
           <div>
-            <span class="bg-indigo-500/20 text-indigo-300 text-xs font-semibold px-2.5 py-1 rounded-full">มีความรับผิดส่วนแรก</span>
-            <div class="flex items-center gap-3 mt-3 mb-1">
-              <div class="dicebear-ring w-12 h-12 border border-indigo-500/40">
-                <img data-s="adventurer" data-seed="insurance-deductible" data-sz="96" alt="Deductible Insurance" />
+            <span class="inline-block bg-hairlineSoft text-body text-xs font-semibold px-2.5 py-0.5 rounded-[64px] mb-3">มีความรับผิดส่วนแรก</span>
+            <div class="flex items-center gap-3 mb-1">
+              <div class="dicebear-ring w-11 h-11 border border-hairline">
+                <img data-s="adventurer" data-seed="insurance-deductible" data-sz="88" alt="Deductible Insurance" />
               </div>
-              <h2 class="text-xl font-bold text-white">ประกันแบบ Deductible</h2>
+              <h2 class="text-lg font-semibold text-ink">ประกันแบบ Deductible</h2>
             </div>
-            <p class="text-indigo-300 text-xs mt-1">ใช้ประกันกลุ่มรับส่วนแรก ตัวนี้บล็อกโรคใหญ่</p>
+            <p class="text-mute text-xs">ใช้ประกันกลุ่มรับส่วนแรก ตัวนี้บล็อกโรคใหญ่</p>
 
             <div class="my-6">
-              <div class="text-xs text-indigo-300">เบี้ยเฉลี่ยรายปีจริงในตลาด</div>
-              <div class="text-3xl font-extrabold text-indigo-400" id="deductiblePremiumText">- บาท</div>
+              <div class="text-xs text-mute">เบี้ยเฉลี่ยรายปีจริงในตลาด</div>
+              <div class="text-[28px] font-semibold text-ink tracking-tight" id="deductiblePremiumText">- บาท</div>
             </div>
 
-            <ul class="space-y-3 text-xs text-slate-300 border-t border-indigo-500/20 pt-4">
+            <ul class="space-y-2.5 text-xs text-body border-t border-hairline pt-4">
               <li class="flex items-start gap-2">
-                <span class="text-emerald-400">✓</span>
+                <span class="text-[#0070f3] font-bold">✓</span>
                 <span>เบี้ยถูกลงกว่าแผนปกติถึง 60% - 70%</span>
               </li>
               <li class="flex items-start gap-2">
-                <span class="text-emerald-400">✓</span>
+                <span class="text-[#0070f3] font-bold">✓</span>
                 <span>ดึงกระแสเงินสดกลับมาอยู่ในมือเพื่อลงทุนต่อยอด</span>
               </li>
               <li class="flex items-start gap-2">
-                <span class="text-emerald-400">✓</span>
+                <span class="text-[#0070f3] font-bold">✓</span>
                 <span>ปิดความเสี่ยงทางการเงินล้มละลายได้ครบถ้วน</span>
               </li>
             </ul>
@@ -201,168 +268,165 @@
       </div>
     </div>
 
-    <!-- Protection Matrix Section -->
-    <section class="mb-12">
-      <h3 class="text-xl font-bold text-white mb-6 flex items-center gap-2">
-        <span class="text-indigo-400">🛡️</span>
-        วิเคราะห์การปกป้องเงินในกระเป๋า (Protection Matrix)
-      </h3>
+    <!-- Protection Matrix -->
+    <section class="mb-16">
+      <div class="flex items-center gap-2 mb-6">
+        <span class="text-lg">🛡️</span>
+        <h3 class="text-xl font-semibold text-ink tracking-tight">วิเคราะห์การปกป้องเงินในกระเป๋า (Protection Matrix)</h3>
+      </div>
       <div class="grid md:grid-cols-3 gap-4">
 
-        <div class="bg-slate-800/80 border border-slate-700 rounded-xl p-5 hover:border-indigo-500/50 transition">
-          <div class="flex items-center gap-3 border-b border-slate-700 pb-3 mb-3">
-            <div class="dicebear-ring w-10 h-10 bg-slate-700">
+        <div class="bg-elevated border border-hairline rounded-[12px] p-5 hover:border-ink transition shadow-[0_1px_1px_rgba(0,0,0,0.04)]">
+          <div class="flex items-center gap-3 border-b border-hairline pb-3 mb-3">
+            <div class="dicebear-ring w-10 h-10">
               <img data-s="fun-emoji" data-seed="sick-minor" data-sz="80" alt="Minor Illness" />
             </div>
-            <h4 class="font-bold text-white text-sm">ป่วยจุกจิก บ่อยๆ (เล็กน้อย)</h4>
+            <h4 class="font-semibold text-ink text-sm">ป่วยจุกจิก บ่อยๆ (เล็กน้อย)</h4>
           </div>
-          <ul class="space-y-3 text-sm text-slate-300">
-            <li><span class="text-rose-400 font-semibold block">Deductible (จ่ายเอง):</span> ไม่ช่วยปกป้องเงินในกระเป๋าเลย ต้องควักจ่ายเองทั้งหมด (ไม่ตอบโจทย์)</li>
-            <li><span class="text-emerald-400 font-semibold block">ประกันทั่วไป:</span> ปกป้องกระเป๋าเงินได้ดีที่สุด เคลมได้ตั้งแต่บาทแรก</li>
+          <ul class="space-y-2.5 text-sm text-body">
+            <li><span class="text-[#ee0000] font-semibold block text-xs">Deductible (จ่ายเอง):</span> ไม่ช่วยปกป้องเงินในกระเป๋าเลย ต้องควักจ่ายเองทั้งหมด (ไม่ตอบโจทย์)</li>
+            <li><span class="text-accent font-semibold block text-xs">ประกันทั่วไป:</span> ปกป้องกระเป๋าเงินได้ดีที่สุด เคลมได้ตั้งแต่บาทแรก</li>
           </ul>
         </div>
 
-        <div class="bg-slate-800/80 border border-slate-700 rounded-xl p-5 hover:border-indigo-500/50 transition">
-          <div class="flex items-center gap-3 border-b border-slate-700 pb-3 mb-3">
-            <div class="dicebear-ring w-10 h-10 bg-slate-700">
+        <div class="bg-elevated border border-hairline rounded-[12px] p-5 hover:border-ink transition shadow-[0_1px_1px_rgba(0,0,0,0.04)]">
+          <div class="flex items-center gap-3 border-b border-hairline pb-3 mb-3">
+            <div class="dicebear-ring w-10 h-10">
               <img data-s="lorelei" data-seed="healthy-strong" data-sz="80" alt="Healthy" />
             </div>
-            <h4 class="font-bold text-white text-sm">แข็งแรงดี (ป่วยน้อย/ไม่ป่วย)</h4>
+            <h4 class="font-semibold text-ink text-sm">แข็งแรงดี (ป่วยน้อย/ไม่ป่วย)</h4>
           </div>
-          <ul class="space-y-3 text-sm text-slate-300">
-            <li><span class="text-rose-400 font-semibold block">ประกันทั่วไป:</span> ถลุงเงินในกระเป๋า กลายเป็นรายจ่ายก้อนใหญ่ที่ละลายหายไปทุกปี</li>
-            <li><span class="text-emerald-400 font-semibold block">Deductible:</span> ปกป้องความมั่งคั่งได้ดีที่สุด เซฟเงินก้อนใหญ่ไว้เติบโต (ตอบโจทย์สุด)</li>
+          <ul class="space-y-2.5 text-sm text-body">
+            <li><span class="text-[#ee0000] font-semibold block text-xs">ประกันทั่วไป:</span> ถลุงเงินในกระเป๋า กลายเป็นรายจ่ายก้อนใหญ่ที่ละลายหายไปทุกปี</li>
+            <li><span class="text-accent font-semibold block text-xs">Deductible:</span> ปกป้องความมั่งคั่งได้ดีที่สุด เซฟเงินก้อนใหญ่ไว้เติบโต (ตอบโจทย์สุด)</li>
           </ul>
         </div>
 
-        <div class="bg-slate-800/80 border border-slate-700 rounded-xl p-5 hover:border-indigo-500/50 transition">
-          <div class="flex items-center gap-3 border-b border-slate-700 pb-3 mb-3">
-            <div class="dicebear-ring w-10 h-10 bg-slate-700">
+        <div class="bg-elevated border border-hairline rounded-[12px] p-5 hover:border-ink transition shadow-[0_1px_1px_rgba(0,0,0,0.04)]">
+          <div class="flex items-center gap-3 border-b border-hairline pb-3 mb-3">
+            <div class="dicebear-ring w-10 h-10">
               <img data-s="bottts" data-seed="major-illness" data-sz="80" alt="Major Illness" />
             </div>
-            <h4 class="font-bold text-white text-sm">แจ็กพอตแตก (ป่วยหนัก/ผ่าตัด)</h4>
+            <h4 class="font-semibold text-ink text-sm">แจ็กพอตแตก (ป่วยหนัก/ผ่าตัด)</h4>
           </div>
-          <ul class="space-y-3 text-sm text-slate-300">
-            <li><span class="text-emerald-400 font-semibold block">ทั้ง 2 แบบ:</span> ปกป้องเงินล้านในกระเป๋าได้เหมือนกัน</li>
-            <li><span class="text-indigo-400 font-semibold block">Deductible ชนะขาด:</span> เพราะปิดความเสี่ยงระดับหายนะได้ ในราคาที่ถูกกว่ากันมาก (Stop Loss ที่คุ้มค่า)</li>
+          <ul class="space-y-2.5 text-sm text-body">
+            <li><span class="text-accent font-semibold block text-xs">ทั้ง 2 แบบ:</span> ปกป้องเงินล้านในกระเป๋าได้เหมือนกัน</li>
+            <li><span class="text-ink font-semibold block text-xs">Deductible ชนะขาด:</span> เพราะปิดความเสี่ยงระดับหายนะได้ ในราคาที่ถูกกว่ากันมาก (Stop Loss ที่คุ้มค่า)</li>
           </ul>
         </div>
       </div>
     </section>
 
-    <!-- Opportunity Cost Section -->
-    <section class="bg-gradient-to-r from-indigo-950/80 to-slate-900 border border-indigo-500/30 rounded-2xl p-6 md:p-8 mb-12 shadow-inner">
+    <!-- Opportunity Cost -->
+    <section class="bg-elevated border border-hairline rounded-[16px] p-6 md:p-8 mb-16 shadow-[0_1px_1px_rgba(0,0,0,0.04)]">
       <div class="grid md:grid-cols-12 gap-8 items-center">
         <div class="md:col-span-7">
           <div class="flex items-center gap-3 mb-3">
-            <div class="dicebear-ring w-10 h-10 border border-indigo-500/30">
+            <div class="dicebear-ring w-10 h-10 border border-hairline">
               <img data-s="adventurer" data-seed="growth-investor" data-sz="80" alt="Investor" />
             </div>
-            <span class="text-xs font-bold tracking-widest text-indigo-400 uppercase">Opportunity Cost Analysis</span>
+            <span class="text-xs tracking-widest uppercase text-mute font-semibold">Opportunity Cost Analysis</span>
           </div>
-          <h3 class="text-2xl font-bold text-white mt-2 mb-4">มูลค่าการเติบโตของชีวิตที่สูญเสียไป (ในเวลา 10 ปี)</h3>
-          <p class="text-slate-300 text-sm leading-relaxed mb-4">
+          <h3 class="text-2xl font-semibold text-ink mt-1 mb-3 tracking-tight">มูลค่าการเติบโตของชีวิตที่สูญเสียไป (ในเวลา 10 ปี)</h3>
+          <p class="text-body text-sm leading-relaxed mb-4">
             หากเลือกจ่ายเบี้ยแพงเกินความจำเป็นไปกับ ประกันสุขภาพทั่วไป เงินส่วนต่างสะสมแทนที่จะถูกนำไปลงทุนสร้างสินทรัพย์ทบต้น จะถูกจ่ายทิ้งปีต่อปีอย่างน่าเสียดาย การเลือกประกันแบบ Deductible จะปลดล็อกเงินส่วนต่างดังนี้:
           </p>
           <div class="grid grid-cols-2 gap-4">
-            <div class="bg-slate-800/50 p-3.5 rounded-xl border border-slate-700/50">
-              <span class="text-xs text-slate-400 block">ส่วนต่างเบี้ยออมได้ต่อปี</span>
-              <span class="text-lg font-bold text-white" id="diffPerYear">- บาท</span>
+            <div class="bg-hairlineSoft p-3.5 rounded-[12px] border border-hairline">
+              <span class="text-xs text-mute block">ส่วนต่างเบี้ยออมได้ต่อปี</span>
+              <span class="text-lg font-semibold text-ink" id="diffPerYear">- บาท</span>
             </div>
-            <div class="bg-slate-800/50 p-3.5 rounded-xl border border-slate-700/50">
-              <span class="text-xs text-slate-400 block">เงินต้นสะสมใน 10 ปี</span>
-              <span class="text-lg font-bold text-white" id="totalSaved10Y">- บาท</span>
+            <div class="bg-hairlineSoft p-3.5 rounded-[12px] border border-hairline">
+              <span class="text-xs text-mute block">เงินต้นสะสมใน 10 ปี</span>
+              <span class="text-lg font-semibold text-ink" id="totalSaved10Y">- บาท</span>
             </div>
           </div>
         </div>
-        <div class="md:col-span-5 text-center bg-indigo-500/10 p-6 rounded-2xl border border-indigo-500/20">
-          <div class="dicebear-ring w-16 h-16 mx-auto mb-4 border-2 border-indigo-500/30">
+        <div class="md:col-span-5 text-center bg-accentSoft/50 p-6 rounded-[16px] border border-accentSoft">
+          <div class="dicebear-ring w-16 h-16 mx-auto mb-4 border-2 border-hairline">
             <img data-s="fun-emoji" data-seed="wealth-growth" data-sz="128" alt="Wealth Growth" />
           </div>
-          <span class="text-xs text-indigo-400 font-semibold block uppercase tracking-wider">มูลค่าพอร์ตเติบโตรวมดอกเบี้ยทบต้น (10 ปี)</span>
-          <div class="text-4xl md:text-5xl font-extrabold text-indigo-400 my-4 tracking-tight" id="futureValue">- บาท</div>
-          <p class="text-xs text-slate-400 leading-normal">
-            จากการนำเงินประหยัดรายปีไปออมหรือลงทุนตามอัตราดอกผล <span id="returnLabel">7%</span> ต่อปีทบต้นเป็นเวลา 10 ปีเต็ม
+          <span class="text-xs text-accentDeep font-semibold block uppercase tracking-wider">มูลค่าพอร์ตเติบโตรวมดอกเบี้ยทบต้น (10 ปี)</span>
+          <div class="text-4xl md:text-5xl font-semibold text-ink my-4 tracking-tight" id="futureValue">- บาท</div>
+          <p class="text-xs text-mute leading-normal">
+            จากการนำเงินประหยัดรายปีไปออมหรือลงทุนตามอัตราดอกผล <span id="returnLabel" class="font-semibold text-ink">7%</span> ต่อปีทบต้นเป็นเวลา 10 ปีเต็ม
           </p>
         </div>
       </div>
     </section>
 
-    <!-- Dynamic Scenario Simulator -->
-    <section class="bg-slate-950 border border-slate-800 rounded-3xl p-6 md:p-8">
+    <!-- Scenario Simulator -->
+    <section class="bg-elevated border border-hairline rounded-[16px] p-6 md:p-8 shadow-[0_1px_1px_rgba(0,0,0,0.04)]">
       <div class="mb-6">
-        <h3 class="text-xl font-bold text-white flex items-center gap-2">
-          <span class="text-indigo-400">🔍</span>
+        <h3 class="text-xl font-semibold text-ink flex items-center gap-2 tracking-tight">
+          <span>🔍</span>
           จำลองสถานการณ์จริง (Scenario Analysis)
         </h3>
-        <p class="text-slate-400 text-sm mt-1">เลือกเหตุการณ์จำลองด้านล่างเพื่อเปรียบเทียบกลไกการจ่ายเงินจริง</p>
+        <p class="text-mute text-sm mt-1">เลือกเหตุการณ์จำลองด้านล่างเพื่อเปรียบเทียบกลไกการจ่ายเงินจริง</p>
       </div>
 
-      <!-- Tabs -->
+      <!-- Scenario Tabs -->
       <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-8">
-        <button onclick="changeScenario('healthy')" id="btn-healthy" class="scenario-tab py-4 px-5 text-left rounded-xl border border-slate-800 bg-slate-900/50 hover:bg-slate-900 hover:border-slate-700 transition flex items-start gap-3">
-          <div class="dicebear-ring w-8 h-8 shrink-0 mt-0.5">
+        <button onclick="changeScenario('healthy')" id="btn-healthy" class="scenario-tab py-4 px-5 text-left rounded-[12px] border border-hairlineSoft bg-hairlineSoft hover:bg-elevated hover:border-hairline transition flex items-start gap-3">
+          <div class="dicebear-ring w-8 h-8 shrink-0">
             <img data-s="fun-emoji" data-seed="scenario-healthy" data-sz="64" alt="Healthy" />
           </div>
           <div>
-            <div class="font-bold text-sm text-white">สุขภาพดี ไม่นอน รพ. เลย</div>
-            <div class="text-slate-500 text-xs mt-1">โอกาสเกิดสูงที่สุดสำหรับคนช่วงอายุ 20-35 ปี</div>
+            <div class="font-semibold text-sm text-ink">สุขภาพดี ไม่นอน รพ. เลย</div>
+            <div class="text-mute text-xs mt-1">โอกาสเกิดสูงที่สุดสำหรับคนช่วงอายุ 20-35 ปี</div>
           </div>
         </button>
-        <button onclick="changeScenario('minor')" id="btn-minor" class="scenario-tab py-4 px-5 text-left rounded-xl border border-slate-800 bg-slate-900/50 hover:bg-slate-900 hover:border-slate-700 transition flex items-start gap-3">
-          <div class="dicebear-ring w-8 h-8 shrink-0 mt-0.5">
+        <button onclick="changeScenario('minor')" id="btn-minor" class="scenario-tab py-4 px-5 text-left rounded-[12px] border border-hairlineSoft bg-hairlineSoft hover:bg-elevated hover:border-hairline transition flex items-start gap-3">
+          <div class="dicebear-ring w-8 h-8 shrink-0">
             <img data-s="fun-emoji" data-seed="scenario-minor" data-sz="64" alt="Minor Illness" />
           </div>
           <div>
-            <div class="font-bold text-sm text-white">ป่วยจุกจิก (ค่ารักษา 25,000 บาท)</div>
-            <div class="text-slate-500 text-xs mt-1">เจ็บป่วยปานกลาง เช่น ไข้หวัดใหญ่ อาหารเป็นพิษ</div>
+            <div class="font-semibold text-sm text-ink">ป่วยจุกจิก (ค่ารักษา 25,000 บาท)</div>
+            <div class="text-mute text-xs mt-1">เจ็บป่วยปานกลาง เช่น ไข้หวัดใหญ่ อาหารเป็นพิษ</div>
           </div>
         </button>
-        <button onclick="changeScenario('major')" id="btn-major" class="scenario-tab py-4 px-5 text-left rounded-xl border border-slate-800 bg-slate-900/50 hover:bg-slate-900 hover:border-slate-700 transition flex items-start gap-3">
-          <div class="dicebear-ring w-8 h-8 shrink-0 mt-0.5">
+        <button onclick="changeScenario('major')" id="btn-major" class="scenario-tab py-4 px-5 text-left rounded-[12px] border border-hairlineSoft bg-hairlineSoft hover:bg-elevated hover:border-hairline transition flex items-start gap-3">
+          <div class="dicebear-ring w-8 h-8 shrink-0">
             <img data-s="fun-emoji" data-seed="scenario-major" data-sz="64" alt="Major Illness" />
           </div>
           <div>
-            <div class="font-bold text-sm text-white">เจอโรคร้าย/อุบัติเหตุใหญ่ (500,000 บาท)</div>
-            <div class="text-slate-500 text-xs mt-1">ความเสี่ยงระดับหายนะ (Tail Risk)</div>
+            <div class="font-semibold text-sm text-ink">เจอโรคร้าย/อุบัติเหตุใหญ่ (500,000 บาท)</div>
+            <div class="text-mute text-xs mt-1">ความเสี่ยงระดับหายนะ (Tail Risk)</div>
           </div>
         </button>
       </div>
 
-      <!-- Scenario Analysis Outcome Grid -->
-      <div class="grid md:grid-cols-3 gap-6 bg-slate-900/40 p-6 rounded-2xl border border-slate-800/80">
+      <!-- Outcome Grid -->
+      <div class="grid md:grid-cols-3 gap-5 bg-hairlineSoft p-5 rounded-[12px] border border-hairline">
 
-        <!-- Normal Plan Outcome -->
-        <div class="border-t-4 border-rose-500 bg-slate-900/60 rounded-xl p-5">
+        <div class="border-t-[3px] border-[#ee0000] bg-elevated rounded-[12px] p-5 shadow-[0_1px_1px_rgba(0,0,0,0.04)]">
           <div class="flex items-center gap-2 mb-3">
             <div class="dicebear-ring w-7 h-7">
               <img data-s="bottts" data-seed="insurance-normal" data-sz="56" alt="Normal" />
             </div>
-            <h4 class="font-bold text-rose-400 text-sm tracking-wider uppercase">ประกันสุขภาพทั่วไป</h4>
+            <h4 class="font-semibold text-[#ee0000] text-xs tracking-wider uppercase">ประกันสุขภาพทั่วไป</h4>
           </div>
-          <p id="outcomeNormalText" class="text-slate-300 text-sm leading-relaxed">-</p>
+          <p id="outcomeNormalText" class="text-body text-sm leading-relaxed">-</p>
         </div>
 
-        <!-- Deductible Plan Outcome -->
-        <div class="border-t-4 border-emerald-500 bg-indigo-950/20 rounded-xl p-5">
+        <div class="border-t-[3px] border-accent bg-elevated rounded-[12px] p-5 shadow-[0_1px_1px_rgba(0,0,0,0.04)]">
           <div class="flex items-center gap-2 mb-3">
             <div class="dicebear-ring w-7 h-7">
               <img data-s="adventurer" data-seed="insurance-deductible" data-sz="56" alt="Deductible" />
             </div>
-            <h4 class="font-bold text-emerald-400 text-sm tracking-wider uppercase">Deductible + ประกันกลุ่ม</h4>
+            <h4 class="font-semibold text-accentDeep text-xs tracking-wider uppercase">Deductible + ประกันกลุ่ม</h4>
           </div>
-          <p id="outcomeDeductibleText" class="text-slate-300 text-sm leading-relaxed">-</p>
+          <p id="outcomeDeductibleText" class="text-body text-sm leading-relaxed">-</p>
         </div>
 
-        <!-- Deductible Solo Plan Outcome -->
-        <div class="border-t-4 border-amber-500 bg-amber-950/20 rounded-xl p-5">
+        <div class="border-t-[3px] border-[#f5a623] bg-elevated rounded-[12px] p-5 shadow-[0_1px_1px_rgba(0,0,0,0.04)]">
           <div class="flex items-center gap-2 mb-3">
             <div class="dicebear-ring w-7 h-7">
               <img data-s="pixel-art" data-seed="solo-deductible" data-sz="56" alt="Solo Deductible" />
             </div>
-            <h4 class="font-bold text-amber-400 text-sm tracking-wider uppercase">Deductible (ไม่มีประกันกลุ่ม)</h4>
+            <h4 class="font-semibold text-[#ab570a] text-xs tracking-wider uppercase">Deductible (ไม่มีประกันกลุ่ม)</h4>
           </div>
-          <p id="outcomeDeductibleSoloText" class="text-slate-300 text-sm leading-relaxed">-</p>
+          <p id="outcomeDeductibleSoloText" class="text-body text-sm leading-relaxed">-</p>
         </div>
       </div>
     </section>
@@ -378,7 +442,7 @@
     });
   </script>
 
-  <!-- Interactive Script -->
+  <!-- App Logic -->
   <script>
     const returnSlider = document.getElementById('returnSlider');
     const returnVal = document.getElementById('returnVal');
@@ -407,37 +471,20 @@
       }
     };
 
+    const ACTIVE_BTN = "py-2 px-4 rounded-[6px] font-medium text-sm transition text-center bg-ink text-white";
+    const INACTIVE_BTN = "py-2 px-4 rounded-[6px] border font-medium text-sm transition text-center bg-elevated text-body border-hairline hover:border-ink";
+
     function setGender(gender) {
       selectedGender = gender;
-      const btnMale = document.getElementById('btn-gender-male');
-      const btnFemale = document.getElementById('btn-gender-female');
-      const activeClass = "py-2.5 px-4 rounded-xl border font-semibold text-sm transition text-center border-indigo-500 bg-indigo-500/20 text-indigo-300";
-      const inactiveClass = "py-2.5 px-4 rounded-xl border font-semibold text-sm transition text-center border-slate-700 bg-slate-800 text-slate-400 hover:border-slate-600";
-
-      if (gender === 'male') {
-        btnMale.className = activeClass;
-        btnFemale.className = inactiveClass;
-      } else {
-        btnFemale.className = activeClass;
-        btnMale.className = inactiveClass;
-      }
+      document.getElementById('btn-gender-male').className = gender === 'male' ? ACTIVE_BTN : INACTIVE_BTN;
+      document.getElementById('btn-gender-female').className = gender === 'female' ? ACTIVE_BTN : INACTIVE_BTN;
       calculatePremiums();
     }
 
     function setCoverage(amount) {
       selectedCoverage = amount;
-      const btn1m = document.getElementById('btn-cov-1m');
-      const btn5m = document.getElementById('btn-cov-5m');
-      const activeClass = "py-2.5 px-4 rounded-xl border font-semibold text-sm transition text-center border-indigo-500 bg-indigo-500/20 text-indigo-300";
-      const inactiveClass = "py-2.5 px-4 rounded-xl border font-semibold text-sm transition text-center border-slate-700 bg-slate-800 text-slate-400 hover:border-slate-600";
-
-      if (amount === 1000000) {
-        btn1m.className = activeClass;
-        btn5m.className = inactiveClass;
-      } else {
-        btn5m.className = activeClass;
-        btn1m.className = inactiveClass;
-      }
+      document.getElementById('btn-cov-1m').className = amount === 1000000 ? ACTIVE_BTN : INACTIVE_BTN;
+      document.getElementById('btn-cov-5m').className = amount === 5000000 ? ACTIVE_BTN : INACTIVE_BTN;
       calculatePremiums();
     }
 
@@ -447,20 +494,14 @@
       const age = parseInt(ageSlider.value);
 
       let ageMultiplier = 1;
-      if (age > 25) {
-        ageMultiplier = 1 + ((age - 25) * 0.04);
-      } else if (age < 25) {
-        ageMultiplier = 1 - ((25 - age) * 0.02);
-      }
+      if (age > 25) ageMultiplier = 1 + ((age - 25) * 0.04);
+      else if (age < 25) ageMultiplier = 1 - ((25 - age) * 0.02);
 
       let finalNormal = premiumMatrix[selectedGender][selectedCoverage].noDeductible * ageMultiplier;
       let finalDeductible = premiumMatrix[selectedGender][selectedCoverage].deductible30k * ageMultiplier;
 
-      if (deductibleVal === "20000") {
-        finalDeductible = premiumMatrix[selectedGender][selectedCoverage].deductible20k * ageMultiplier;
-      } else if (deductibleVal === "50000") {
-        finalDeductible = premiumMatrix[selectedGender][selectedCoverage].deductible50k * ageMultiplier;
-      }
+      if (deductibleVal === "20000") finalDeductible = premiumMatrix[selectedGender][selectedCoverage].deductible20k * ageMultiplier;
+      else if (deductibleVal === "50000") finalDeductible = premiumMatrix[selectedGender][selectedCoverage].deductible50k * ageMultiplier;
 
       finalNormal = Math.round(finalNormal);
       finalDeductible = Math.round(finalDeductible);
@@ -468,12 +509,9 @@
       const annualSavings = finalNormal - finalDeductible;
       const savingsAccumulated = annualSavings * 10;
 
-      let fv = 0;
-      if (rate === 0) {
-        fv = savingsAccumulated;
-      } else {
-        fv = annualSavings * ((Math.pow(1 + rate, 10) - 1) / rate);
-      }
+      let fv = rate === 0
+        ? savingsAccumulated
+        : annualSavings * ((Math.pow(1 + rate, 10) - 1) / rate);
 
       normalPremiumText.innerText = `~${finalNormal.toLocaleString()} บาท/ปี`;
       deductiblePremiumText.innerText = `~${finalDeductible.toLocaleString()} บาท/ปี`;
@@ -500,20 +538,22 @@
       }
     };
 
-    let activeScenario = 'healthy';
     function changeScenario(key) {
-      activeScenario = key;
       document.getElementById('outcomeNormalText').innerHTML = scenarios[key].normal;
       document.getElementById('outcomeDeductibleText').innerHTML = scenarios[key].deductible;
       document.getElementById('outcomeDeductibleSoloText').innerHTML = scenarios[key].deductibleSolo;
 
+      const activeClasses = ['border-ink', 'bg-elevated', 'shadow-[0_1px_2px_rgba(0,0,0,0.06)]'];
+      const inactiveClasses = ['border-hairlineSoft', 'bg-hairlineSoft'];
+
       document.querySelectorAll('.scenario-tab').forEach(btn => {
-        btn.classList.remove('border-indigo-500', 'bg-indigo-950/20', 'ring-1', 'ring-indigo-500/20');
-        btn.classList.add('border-slate-800', 'bg-slate-900/50');
+        inactiveClasses.forEach(c => btn.classList.add(c));
+        activeClasses.forEach(c => btn.classList.remove(c));
       });
+
       const activeBtn = document.getElementById(`btn-${key}`);
-      activeBtn.classList.remove('border-slate-800', 'bg-slate-900/50');
-      activeBtn.classList.add('border-indigo-500', 'bg-indigo-950/20', 'ring-1', 'ring-indigo-500/20');
+      inactiveClasses.forEach(c => activeBtn.classList.remove(c));
+      activeClasses.forEach(c => activeBtn.classList.add(c));
     }
 
     returnSlider.addEventListener('input', (e) => {
@@ -527,9 +567,7 @@
       calculatePremiums();
     });
 
-    deductibleSelect.addEventListener('change', () => {
-      calculatePremiums();
-    });
+    deductibleSelect.addEventListener('change', () => calculatePremiums());
 
     calculatePremiums();
     changeScenario('healthy');
