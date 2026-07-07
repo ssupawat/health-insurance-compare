@@ -297,7 +297,6 @@
             <li><span class="text-[#ee0000] font-semibold block text-xs">Deductible (จ่ายเอง):</span> ไม่ช่วยปกป้องเงินในกระเป๋าเลย ต้องควักจ่ายเองทั้งหมด (ไม่ตอบโจทย์)</li>
             <li><span class="text-accent font-semibold block text-xs">ประกันทั่วไป:</span> ปกป้องกระเป๋าเงินได้ดีที่สุด เคลมได้ตั้งแต่บาทแรก</li>
           </ul>
-          <p class="text-xs text-mute mt-3 pt-3 border-t border-hairline" id="matrixAgeMin">-</p>
         </div>
 
         <div class="bg-elevated border border-hairline rounded-[12px] p-5 hover:border-ink transition shadow-[0_1px_1px_rgba(0,0,0,0.04)]">
@@ -311,7 +310,6 @@
             <li><span class="text-[#ee0000] font-semibold block text-xs">ประกันทั่วไป:</span> ถลุงเงินในกระเป๋า กลายเป็นรายจ่ายก้อนใหญ่ที่ละลายหายไปทุกปี</li>
             <li><span class="text-accent font-semibold block text-xs">Deductible:</span> ปกป้องความมั่งคั่งได้ดีที่สุด เซฟเงินก้อนใหญ่ไว้เติบโต (ตอบโจทย์สุด)</li>
           </ul>
-          <p class="text-xs text-mute mt-3 pt-3 border-t border-hairline" id="matrixAgeStrong">-</p>
         </div>
 
         <div class="bg-elevated border border-hairline rounded-[12px] p-5 hover:border-ink transition shadow-[0_1px_1px_rgba(0,0,0,0.04)]">
@@ -325,7 +323,28 @@
             <li><span class="text-accent font-semibold block text-xs">ทั้ง 2 แบบ:</span> ปกป้องเงินล้านในกระเป๋าได้เหมือนกัน</li>
             <li><span class="text-ink font-semibold block text-xs">Deductible ชนะขาด:</span> เพราะปิดความเสี่ยงระดับหายนะได้ ในราคาที่ถูกกว่ากันมาก (Stop Loss ที่คุ้มค่า)</li>
           </ul>
-          <p class="text-xs text-mute mt-3 pt-3 border-t border-hairline" id="matrixAgeMajor">-</p>
+        </div>
+      </div>
+
+      <!-- Decision Guide -->
+      <div class="mt-6 bg-elevated border border-hairline rounded-[12px] p-5 shadow-[0_1px_1px_rgba(0,0,0,0.04)]">
+        <div class="flex items-start gap-3">
+          <span class="text-lg shrink-0">💡</span>
+          <div>
+            <h4 class="font-semibold text-sm text-ink mb-1">แนวทางเลือกตามพฤติกรรมการใช้</h4>
+            <div class="grid md:grid-cols-2 gap-3 mt-2">
+              <div class="bg-hairlineSoft rounded-[12px] p-3 border border-hairline">
+                <div class="text-xs text-mute mb-1">ป่วยบ่อย · ทีละน้อย</div>
+                <div class="text-sm font-semibold text-ink">ประกันสุขภาพทั่วไป</div>
+                <div class="text-xs text-body mt-1">เคลมถี่ คุ้มครองตั้งแต่บาทแรก</div>
+              </div>
+              <div class="bg-hairlineSoft rounded-[12px] p-3 border border-hairline">
+                <div class="text-xs text-mute mb-1">ไม่ค่อยป่วย · อยากปกป้องเงินออม</div>
+                <div class="text-sm font-semibold text-ink">ประกันแบบ Deductible</div>
+                <div class="text-xs text-body mt-1">เซฟค่าเบี้ย 60-70% เอาเงินไปลงทุน</div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -599,54 +618,10 @@
       savingsLabel.innerText = `${annualSavings.toLocaleString()}`;
     }
 
-    function ageBracket(age) {
-      if (age <= 29) return { range: '20-29 ปี', label: 'วัยเริ่มทำงาน' };
-      if (age <= 39) return { range: '30-39 ปี', label: 'วัยสร้างตัว' };
-      if (age <= 49) return { range: '40-49 ปี', label: 'วัยกลางคน' };
-      return { range: '50-55 ปี', label: 'วัยก่อนเกษียณ' };
-    }
-
     function scenarioDesc(key) {
-      const b = ageBracket(parseInt(ageSlider.value));
-      const r = b.range;
-      if (key === 'healthy') {
-        const sub = r === '20-29 ปี' ? 'โอกาสเกิดสูงสุดในวัยนี้' : r === '30-39 ปี' ? 'ยังพบได้บ่อยในวัยนี้' : 'โอกาสเกิดลดลงเมื่อเทียบกับวัยก่อนหน้า';
-        return `${sub} — ${b.label} (${r}) — ค่ารักษา 0 บาท`;
-      }
-      if (key === 'minor') {
-        const sub = r === '20-29 ปี' ? 'เจ็บป่วยปานกลาง ยังพบบ่อย' : r === '30-39 ปี' ? 'ความถี่ใกล้เคียงวัยเริ่มทำงาน' : 'ความถี่และค่าใช้จ่ายเพิ่มขึ้นตามวัย';
-        return `${sub} — ${b.label} (${r}) — ค่ารักษา 25,000 บาท`;
-      }
-      const sub = r === '20-29 ปี' ? 'โอกาสเกิดต่ำมากทางสถิติ' : r === '30-39 ปี' ? 'ความเสี่ยงเริ่มสะสมจากพฤติกรรม' : 'ความเสี่ยงเพิ่มขึ้นอย่างมีนัยสำคัญ';
-      return `${sub} — ${b.label} (${r}) — ค่ารักษา 500,000 บาท`;
-    }
-
-    function updateMatrixAge() {
-      const b = ageBracket(parseInt(ageSlider.value));
-      const lines = {
-        'matrixAgeMin': {
-          '20-29 ปี': `ใน${b.label} — โอกาสเกิดสูง โรคเล็กน้อยพบได้บ่อยในวัยนี้`,
-          '30-39 ปี': `ใน${b.label} — ความถี่ลดลงจากวัยเริ่มทำงาน ยังพบได้ทั่วไป`,
-          '40-49 ปี': `ใน${b.label} — โรคเล็กน้อยมักสัมพันธ์กับความเครียดและการใช้ชีวิต`,
-          '50-55 ปี': `ใน${b.label} — โรคทั่วไปพบถี่ขึ้นตามวัย ภูมิคุ้มกันเริ่มลดลง`
-        },
-        'matrixAgeStrong': {
-          '20-29 ปี': `ใน${b.label} — ร่างกายฟื้นตัวเร็ว ส่วนใหญ่ไม่ต้องพบแพทย์ทั้งปี`,
-          '30-39 ปี': `ใน${b.label} — ยังแข็งแรงดี แต่น้ำหนักและความดันเริ่มต้องระวัง`,
-          '40-49 ปี': `ใน${b.label} — ตรวจสุขภาพประจำปีเริ่มสำคัญ พบค่าผิดปกติได้บ่อยขึ้น`,
-          '50-55 ปี': `ใน${b.label} — โอกาสไม่พบแพทย์ทั้งปีลดลงเมื่อเทียบกับวัยก่อนหน้า`
-        },
-        'matrixAgeMajor': {
-          '20-29 ปี': `ใน${b.label} — โอกาสต่ำมาก สถิติโรคร้ายแรงยังต่ำในวัยนี้`,
-          '30-39 ปี': `ใน${b.label} — ความเสี่ยงเริ่มเพิ่ม โดยเฉพาะจากพฤติกรรมสะสม`,
-          '40-49 ปี': `ใน${b.label} — กลุ่มโรค NCDs เริ่มแสดงอาการ ค่าใช้จ่ายรักษาสูงขึ้น`,
-          '50-55 ปี': `ใน${b.label} — ความเสี่ยงโรคร้ายแรงเพิ่มขึ้นอย่างมีนัยสำคัญทางสถิติ`
-        }
-      };
-      Object.entries(lines).forEach(([id, map]) => {
-        const el = document.getElementById(id);
-        if (el) el.innerText = map[b.range];
-      });
+      if (key === 'healthy') return 'ไม่ต้องนอนโรงพยาบาล — ค่ารักษา 0 บาท';
+      if (key === 'minor') return 'เจ็บป่วยปานกลาง เช่น ไข้หวัดใหญ่ อาหารเป็นพิษ — ค่ารักษา 25,000 บาท';
+      return 'ความเสี่ยงระดับหายนะ (Tail Risk) — ค่ารักษา 500,000 บาท';
     }
 
     const scenarioMeta = {
@@ -717,8 +692,6 @@
 
     ageSlider.addEventListener('input', (e) => {
       ageVal.innerText = `${e.target.value} ปี`;
-      document.getElementById('scenarioDetailDesc').innerText = scenarioDesc(activeScenario);
-      updateMatrixAge();
       calculatePremiums();
     });
 
@@ -764,7 +737,6 @@
 
     calculatePremiums();
     changeScenario('healthy');
-    updateMatrixAge();
   </script>
 </body>
 </html>
