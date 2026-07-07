@@ -1,0 +1,10 @@
+{
+  "name": "health-insurance-compare",
+  "private": true,
+  "scripts": {
+    "dev": "vercel dev"
+  },
+  "dependencies": {
+    "@vercel/og": "^0.6.5"
+  }
+}
