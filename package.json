@@ -5,6 +5,14 @@
     "dev": "vercel dev"
   },
   "dependencies": {
-    "@vercel/og": "^0.6.5"
-  }
+    "@vercel/og": "^0.6.5",
+    "playwright": "^1.61.1"
+  },
+  "version": "1.0.0",
+  "description": "Health Insurance Comparison & Opportunity Cost Analysis Tool.",
+  "main": "index.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs"
 }

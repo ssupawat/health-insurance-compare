@@ -58,26 +58,14 @@
         radial-gradient(ellipse 40% 40% at 90% 80%, rgba(249, 203, 40, 0.05) 0%, transparent 60%);
     }
 
-    /* Slider styling */
-    input[type=range] {
-      -webkit-appearance: none;
-      appearance: none;
-      height: 6px;
-      border-radius: 3px;
-      background: #ebebeb;
-      outline: none;
-    }
-    input[type=range]::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      appearance: none;
-      width: 18px;
-      height: 18px;
-      border-radius: 9999px;
-      background: #171717;
-      cursor: pointer;
-      border: 2px solid #ffffff;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.12);
-    }
+    /* Custom slider */
+    .custom-slider { position: relative; height: 36px; display: flex; align-items: center; cursor: pointer; user-select: none; -webkit-user-select: none; }
+    .custom-slider input[type=range] { position: absolute; opacity: 0; width: 100%; height: 100%; pointer-events: none; }
+    .custom-slider .slider-track { position: relative; width: 100%; height: 6px; border-radius: 3px; background: #ebebeb; }
+    .custom-slider .slider-fill { position: absolute; top: 0; left: 0; height: 100%; border-radius: 3px; background: #171717; transition: width 0.18s ease-out; }
+    .custom-slider .slider-thumb { position: absolute; top: 50%; width: 18px; height: 18px; border-radius: 9999px; background: #171717; border: 2px solid #ffffff; box-shadow: 0 1px 3px rgba(0,0,0,0.12); transform: translate(-50%, -50%); transition: left 0.18s ease-out; }
+    .custom-slider.dragging .slider-thumb,
+    .custom-slider.dragging .slider-fill { transition: none; }
     .slider-group {
       transition: opacity 0.25s ease;
     }
@@ -173,7 +161,13 @@
               <label class="text-sm font-medium text-body">อายุของผู้ทำประกัน</label>
               <span class="text-ink font-semibold text-sm" id="ageVal">25 ปี</span>
             </div>
-            <input type="range" id="ageSlider" min="20" max="55" value="25" class="w-full">
+            <div class="custom-slider" id="ageSliderWrap">
+              <input type="range" id="ageSlider" min="20" max="55" value="25">
+              <div class="slider-track">
+                <div class="slider-fill" id="ageSliderFill"></div>
+              </div>
+              <div class="slider-thumb" id="ageSliderThumb"></div>
+            </div>
             <p class="text-mute text-xs mt-1">ฐานราคาเริ่มต้นที่อายุ 25 ปี (ระบบจะคำนวณเบี้ยเพิ่มขึ้นตามความเสี่ยงของอายุ)</p>
           </div>
 
@@ -205,7 +199,13 @@
                 <span class="text-xs text-mute">อัตราผลตอบแทนต่อปี</span>
                 <span class="text-ink font-semibold text-sm" id="returnVal">7%</span>
               </div>
-              <input type="range" id="returnSlider" min="2" max="15" value="7" class="w-full">
+              <div class="custom-slider" id="returnSliderWrap">
+                <input type="range" id="returnSlider" min="2" max="15" value="7">
+                <div class="slider-track">
+                  <div class="slider-fill" id="returnSliderFill"></div>
+                </div>
+                <div class="slider-thumb" id="returnSliderThumb"></div>
+              </div>
             </div>
             <p class="text-mute text-xs mt-1">อัตราผลตอบแทนจากการนำเงินส่วนต่างเบี้ยไปลงทุนในสินทรัพย์เติบโต</p>
           </div>
@@ -425,7 +425,13 @@
               <span class="text-xs text-mute">อัตราผลตอบแทนต่อปี</span>
               <span class="text-ink font-semibold text-sm" id="returnValOC">7%</span>
             </div>
-            <input type="range" id="returnSliderOC" min="2" max="15" value="7" class="w-full">
+            <div class="custom-slider" id="returnSliderOCWrap">
+              <input type="range" id="returnSliderOC" min="2" max="15" value="7">
+              <div class="slider-track">
+                <div class="slider-fill" id="returnSliderOCFill"></div>
+              </div>
+              <div class="slider-thumb" id="returnSliderOCThumb"></div>
+            </div>
           </div>
 
           <!-- TVM toggle -->
@@ -588,6 +594,59 @@
 
   <!-- App Logic -->
   <script>
+    // ---- Custom slider driver ----
+    function initSlider(inputId, fillId, thumbId) {
+      const input = document.getElementById(inputId);
+      const fill = document.getElementById(fillId);
+      const thumb = document.getElementById(thumbId);
+      const wrap = input.parentElement;
+      const min = parseFloat(input.min);
+      const max = parseFloat(input.max);
+
+      function updatePos(value) {
+        const pct = ((value - min) / (max - min)) * 100;
+        fill.style.width = pct + '%';
+        thumb.style.left = pct + '%';
+      }
+
+      function valFromClientX(clientX) {
+        const rect = wrap.querySelector('.slider-track').getBoundingClientRect();
+        const pct = Math.max(0, Math.min(1, (clientX - rect.left) / rect.width));
+        return Math.round(min + pct * (max - min));
+      }
+
+      updatePos(parseFloat(input.value));
+
+      input.addEventListener('input', () => updatePos(parseFloat(input.value)));
+
+      // Drag
+      wrap.addEventListener('mousedown', (e) => {
+        e.preventDefault();
+        wrap.classList.add('dragging');
+        input.value = valFromClientX(e.clientX);
+        input.dispatchEvent(new Event('input', { bubbles: true }));
+        updatePos(parseFloat(input.value));
+
+        function onMove(ev) {
+          input.value = valFromClientX(ev.clientX);
+          input.dispatchEvent(new Event('input', { bubbles: true }));
+          updatePos(parseFloat(input.value));
+        }
+        function onUp() {
+          wrap.classList.remove('dragging');
+          document.removeEventListener('mousemove', onMove);
+          document.removeEventListener('mouseup', onUp);
+        }
+        document.addEventListener('mousemove', onMove);
+        document.addEventListener('mouseup', onUp);
+      });
+
+      return { update: (v) => updatePos(v), input };
+    }
+
+    const ageCS = initSlider('ageSlider', 'ageSliderFill', 'ageSliderThumb');
+    const rateCS = initSlider('returnSlider', 'returnSliderFill', 'returnSliderThumb');
+    const rateOCS = initSlider('returnSliderOC', 'returnSliderOCFill', 'returnSliderOCThumb');
     const returnSlider = document.getElementById('returnSlider');
     const returnVal = document.getElementById('returnVal');
     const returnLabel = document.getElementById('returnLabel');
@@ -771,6 +830,8 @@
       if (rl) rl.innerText = `${value}%`;
       returnSlider.value = value;
       returnSliderOC.value = value;
+      rateCS.update(value);
+      rateOCS.update(value);
     }
 
     returnSlider.addEventListener('input', (e) => { syncRateDisplay(e.target.value); scheduleCalc(); });
