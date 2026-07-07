@@ -173,9 +173,18 @@
           <div>
             <div class="flex justify-between items-center mb-2">
               <label class="text-sm font-medium text-body">ผลตอบแทนการลงทุนคาดหวังต่อปี</label>
-              <span class="text-ink font-semibold text-sm" id="returnVal">7%</span>
+              <div class="inline-flex rounded-[6px] border border-hairline overflow-hidden">
+                <button onclick="setTvmMode('principal')" id="btn-tvm2-principal" class="px-2.5 py-0.5 text-xs font-medium transition bg-elevated text-body">ไม่ลงทุน</button>
+                <button onclick="setTvmMode('tvm')" id="btn-tvm2-tvm" class="px-2.5 py-0.5 text-xs font-medium transition bg-ink text-white">ลงทุน</button>
+              </div>
             </div>
-            <input type="range" id="returnSlider" min="2" max="15" value="7" class="w-full">
+            <div id="rateSliderGroup">
+              <div class="flex justify-between items-center mb-2">
+                <span class="text-xs text-mute">อัตราผลตอบแทนต่อปี</span>
+                <span class="text-ink font-semibold text-sm" id="returnVal">7%</span>
+              </div>
+              <input type="range" id="returnSlider" min="2" max="15" value="7" class="w-full">
+            </div>
             <p class="text-mute text-xs mt-1">อัตราผลตอบแทนจากการนำเงินส่วนต่างเบี้ยไปลงทุนในสินทรัพย์เติบโต</p>
           </div>
         </div>
@@ -364,7 +373,7 @@
           </div>
 
           <!-- Inline rate control -->
-          <div class="mb-5">
+          <div class="mb-5" id="rateSliderGroupOC">
             <div class="flex justify-between items-center mb-2">
               <span class="text-xs text-mute">อัตราผลตอบแทนต่อปี</span>
               <span class="text-ink font-semibold text-sm" id="returnValOC">7%</span>
@@ -376,8 +385,8 @@
           <div class="flex items-center justify-between mb-4">
             <span class="text-xs text-mute">การคำนวณ</span>
             <div class="inline-flex rounded-[6px] border border-hairline overflow-hidden">
-              <button onclick="setTvmMode('principal')" id="btn-tvm-principal" class="px-3 py-1 text-xs font-medium transition bg-elevated text-body">เงินต้น</button>
-              <button onclick="setTvmMode('tvm')" id="btn-tvm-tvm" class="px-3 py-1 text-xs font-medium transition bg-ink text-white">TVM</button>
+              <button onclick="setTvmMode('principal')" id="btn-tvm-principal" class="px-2.5 py-0.5 text-xs font-medium transition bg-elevated text-body">ไม่ลงทุน</button>
+              <button onclick="setTvmMode('tvm')" id="btn-tvm-tvm" class="px-2.5 py-0.5 text-xs font-medium transition bg-ink text-white">เอาเงินไปลงทุน</button>
             </div>
           </div>
 
@@ -547,7 +556,8 @@
 
     function calculatePremiums() {
       const deductibleVal = deductibleSelect.value;
-      const rate = parseFloat(returnSlider.value) / 100;
+      const rawRate = parseFloat(returnSlider.value) / 100;
+      const rate = tvmMode === 'principal' ? 0 : rawRate;
       const age = parseInt(ageSlider.value);
 
       let ageMultiplier = 1;
@@ -659,24 +669,36 @@
 
     deductibleSelect.addEventListener('change', () => calculatePremiums());
 
+    const PILL_ACTIVE_TVM = 'px-2.5 py-0.5 text-xs font-medium transition bg-ink text-white';
+    const PILL_INACTIVE_TVM = 'px-2.5 py-0.5 text-xs font-medium transition bg-elevated text-body';
+
     function setTvmMode(mode) {
       tvmMode = mode;
-      const btnPrincipal = document.getElementById('btn-tvm-principal');
-      const btnTvm = document.getElementById('btn-tvm-tvm');
+      const rateGroup = document.getElementById('rateSliderGroup');
       const tvmPrefix = document.getElementById('tvmPrefix');
       const tvmSuffix = document.getElementById('tvmSuffix');
-      const ACTIVE = 'px-3 py-1 text-xs font-medium transition bg-ink text-white';
-      const INACTIVE = 'px-3 py-1 text-xs font-medium transition bg-elevated text-body';
+
+      // Sync both toggle pairs
+      ['btn-tvm-principal', 'btn-tvm2-principal'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.className = mode === 'principal' ? PILL_ACTIVE_TVM : PILL_INACTIVE_TVM;
+      });
+      ['btn-tvm-tvm', 'btn-tvm2-tvm'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.className = mode === 'tvm' ? PILL_ACTIVE_TVM : PILL_INACTIVE_TVM;
+      });
+
+      const rateGroupOC = document.getElementById('rateSliderGroupOC');
       if (mode === 'tvm') {
-        btnTvm.className = ACTIVE;
-        btnPrincipal.className = INACTIVE;
+        rateGroup.style.display = '';
+        if (rateGroupOC) rateGroupOC.style.display = '';
         labelYear5.innerText = 'ปีที่ 5';
         labelYear10.innerText = 'ปีที่ 10';
         tvmPrefix.innerText = 'นำเงิน';
         tvmSuffix.innerHTML = 'บาท/ปี ลงทุนที่ <span id="returnLabel" class="font-semibold text-ink">' + returnSlider.value + '%</span> ต่อปี';
       } else {
-        btnPrincipal.className = ACTIVE;
-        btnTvm.className = INACTIVE;
+        rateGroup.style.display = 'none';
+        if (rateGroupOC) rateGroupOC.style.display = 'none';
         labelYear5.innerText = 'ปีที่ 5';
         labelYear10.innerText = 'ปีที่ 10';
         tvmPrefix.innerText = 'เงินต้นรวม';
