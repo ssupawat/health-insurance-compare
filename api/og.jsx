@@ -42,31 +42,6 @@ export default async function handler() {
           }}
         />
 
-        {/* Eyebrow */}
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            padding: '6px 14px',
-            borderRadius: '64px',
-            border: '1px solid #ebebeb',
-            background: '#ffffff',
-            marginBottom: '24px',
-          }}
-        >
-          <span
-            style={{
-              fontSize: '14px',
-              fontWeight: 600,
-              color: '#8f8f8f',
-              textTransform: 'uppercase',
-              letterSpacing: '2px',
-            }}
-          >
-            Financial Risk Management
-          </span>
-        </div>
-
         {/* Title */}
         <div
           style={{
