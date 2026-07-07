@@ -79,7 +79,7 @@ export default async function handler() {
             marginBottom: '16px',
           }}
         >
-          แบบไหน
+          ทั่วไปหรือ Deductible
         </div>
 
         {/* Subtitle */}
