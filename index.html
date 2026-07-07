@@ -596,10 +596,23 @@
       savingsLabel.innerText = `${annualSavings.toLocaleString()}`;
     }
 
+    function ageBracket(age) {
+      if (age <= 29) return { range: '20-29 ปี', label: 'วัยเริ่มทำงาน' };
+      if (age <= 39) return { range: '30-39 ปี', label: 'วัยสร้างตัว' };
+      if (age <= 49) return { range: '40-49 ปี', label: 'วัยกลางคน' };
+      return { range: '50-55 ปี', label: 'วัยก่อนเกษียณ' };
+    }
+
+    function scenarioDesc(key) {
+      const b = ageBracket(parseInt(ageSlider.value));
+      if (key === 'healthy') return `โอกาสเกิดสูงสำหรับคน${b.label} (${b.range}) — ค่ารักษา 0 บาท`;
+      if (key === 'minor') return `เจ็บป่วยปานกลาง — ความถี่เพิ่มขึ้นตาม${b.label} — ค่ารักษา 25,000 บาท`;
+      return `ความเสี่ยงระดับหายนะ — โอกาสเกิดสูงขึ้นใน${b.label} — ค่ารักษา 500,000 บาท`;
+    }
+
     const scenarioMeta = {
       healthy: {
         title: 'สุขภาพดี ไม่นอน รพ. เลย',
-        desc: 'โอกาสเกิดสูงที่สุดสำหรับคนช่วงอายุ 20-35 ปี — ค่ารักษา 0 บาท',
         icon: 'scenario-healthy',
         normal: 'ไม่ต้องควักเงินสดเพิ่มในการรักษาตัว แต่อย่าลืมว่าจ่ายค่าเบี้ยทิ้งปีละก้อนสะสมยาวนาน 10 ปีเต็ม เงินส่วนต่างสะสมถูกจ่ายทิ้งไปเต็มจำนวนเพื่อแลกความสบายใจที่ไม่ได้ใช้จริง ขัดขวางโอกาสสะสมทุนเพื่อสร้างอนาคต',
         deductible: 'จ่ายจริงเฉลี่ยเพียงไม่กี่พันบาทต่อปี ปลดล็อกให้มีเงินสะสมไหลเข้าพอร์ตเพิ่มขึ้นในระยะยาว ประหยัดต้นทุนไปมากกว่าแสนสี่หมื่นบาท ปิดประตูเงินจมไปได้อย่างมีประสิทธิภาพ',
@@ -607,7 +620,6 @@
       },
       minor: {
         title: 'ป่วยจุกจิก (ค่ารักษา 25,000 บาท)',
-        desc: 'เจ็บป่วยปานกลาง เช่น ไข้หวัดใหญ่ อาหารเป็นพิษ — ค่ารักษา 25,000 บาท',
         icon: 'scenario-minor',
         normal: 'ประกันสุขภาพทั่วไปคุ้มครองให้เต็มจำนวน 25,000 บาทตั้งแต่บาทแรก ไม่ต้องจ่ายเอง แต่ในความเป็นจริง คือต้องจ่ายเบี้ยที่ราคาสูงกว่าเพื่อมาแลกค่าคุ้มครองโรคเล็กๆ ที่แทบไม่ส่งผลกระทบต่อสถานะการเงิน',
         deductible: 'ยอดค่ารักษา 25,000 ไม่ถึงเกณฑ์ขั้นต่ำที่จะเริ่มเคลมของประกันส่วนบุคคลนี้ แต่สิทธิ์นี้จะถูกส่งไปเคลมที่ <strong>ประกันกลุ่มของบริษัท</strong> ซึ่งครอบคลุมเต็มจำนวนแทนพอดิบพอดี ทำให้ไม่ต้องควักเนื้อและเซฟค่าเบี้ยออมในกระเป๋าเท่าเดิม',
@@ -615,7 +627,6 @@
       },
       major: {
         title: 'เจอโรคร้าย/อุบัติเหตุใหญ่ (500,000 บาท)',
-        desc: 'ความเสี่ยงระดับหายนะ (Tail Risk) — ค่ารักษา 500,000 บาท',
         icon: 'scenario-major',
         normal: 'ประกันเคลมยอดผ่าตัดใหญ่และรักษาตัว 500,000 บาทให้ครบ ป้องกันพอร์ตและเงินเก็บไม่ให้พังทลายลงมา',
         deductible: 'วงเงินทำงานประสานงานทันที: หักเงินส่วนแรก (ตามแผนที่เลือก) ไปเบิกเคลมกับประกันกลุ่มของบริษัท จากนั้นส่วนเกินทั้งหมดจนถึง 500,000 บาท ประกัน Deductible เล่มนี้จ่ายให้ทั้งหมด <strong>ผลลัพธ์คือไม่ต้องจ่ายเองเช่นเดียวกัน</strong> แต่ประหยัดเบี้ยสะสมสิบปีได้หลักแสน',
@@ -626,13 +637,16 @@
     const PILL_ACTIVE = 'border-ink bg-ink text-white';
     const PILL_INACTIVE = 'border-hairlineSoft bg-hairlineSoft text-body hover:border-hairline';
 
+    let activeScenario = 'healthy';
+
     function changeScenario(key) {
+      activeScenario = key;
       const meta = scenarioMeta[key];
       document.getElementById('outcomeNormalText').innerHTML = meta.normal;
       document.getElementById('outcomeDeductibleText').innerHTML = meta.deductible;
       document.getElementById('outcomeDeductibleSoloText').innerHTML = meta.deductibleSolo;
       document.getElementById('scenarioDetailTitle').innerText = meta.title;
-      document.getElementById('scenarioDetailDesc').innerText = meta.desc;
+      document.getElementById('scenarioDetailDesc').innerText = scenarioDesc(key);
 
       const iconEl = document.getElementById('scenarioDetailIcon');
       iconEl.dataset.seed = meta.icon;
@@ -664,6 +678,7 @@
 
     ageSlider.addEventListener('input', (e) => {
       ageVal.innerText = `${e.target.value} ปี`;
+      document.getElementById('scenarioDetailDesc').innerText = scenarioDesc(activeScenario);
       calculatePremiums();
     });
 
