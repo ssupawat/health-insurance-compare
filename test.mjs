@@ -114,11 +114,29 @@ try {
   check('cf1 balance = ~325,000', num(cf1bal) === 325000, cf1bal);
   check('cf2 balance = ~198,000', num(cf2bal) === 198000, cf2bal);
   check('cf4 balance = ~448,000', num(cf4bal) === 448000, cf4bal);
-  check('cf1 invest contains 639k or 7%', cf1inv.includes('639') || cf1inv.includes('7%'), cf1inv);
+  check('cf1 invest shows annuity FV (includes all cash)', cf1inv.includes('310') || cf1inv.includes('311'), cf1inv);
   await act(() => page.click('#btn-tvm-principal'));
-  const cf1invP = await page.textContent('#cf1Invest');
-  check('cf1 invest = ไม่ลงทุน in principal mode', cf1invP.includes('ไม่ลงทุน'), cf1invP);
+  const cf4invP = await page.textContent('#cf4Invest');
+  check('cf4 invest shows principal in principal mode', cf4invP.includes('ต้นทุนสะสม') || cf4invP.includes('123'), cf4invP);
   await act(() => page.click('#btn-tvm-tvm'));
+
+  // ---- CASH FLOW BAR SYNC ----
+  const cf1PremH = await page.$eval('#cfCard1 .cf-bar.prem', el => el.style.height);
+  check('cf1 prem bar = 21px at baseline', cf1PremH === '21px', cf1PremH);
+  await page.evaluate(() => {
+    const s = document.getElementById('ageSlider');
+    s.value = 35;
+    s.dispatchEvent(new Event('input', { bubbles: true }));
+  });
+  await act(() => page.click('#btn-gender-male'));
+  await act(() => page.click('#btn-cov-1m'));
+  const cf1PremAge35 = await page.$eval('#cfCard1 .cf-bar.prem', el => el.style.height);
+  check('cf1 prem bar = 29px at age 35', cf1PremAge35 === '29px', cf1PremAge35);
+  await page.evaluate(() => {
+    const s = document.getElementById('ageSlider');
+    s.value = 25;
+    s.dispatchEvent(new Event('input', { bubbles: true }));
+  });
 
   // ---- TVM PRINCIPAL MODE ----
   console.log('\n-- TVM: principal mode --');
