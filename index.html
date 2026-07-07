@@ -367,110 +367,118 @@
 
       <!-- Decision Guide -->
       <div class="mt-6 bg-elevated border border-hairline rounded-[12px] p-6 shadow-[0_1px_1px_rgba(0,0,0,0.04)]">
-        <div class="flex items-start gap-3">
+        <div class="flex items-start gap-3 mb-3">
           <div class="w-5 h-5 rounded-full bg-ink flex items-center justify-center shrink-0 mt-0.5">
             <span class="text-white text-[10px] font-bold leading-none">?</span>
           </div>
-          <div>
-            <h4 class="font-semibold text-sm text-ink mb-1">แนวทางเลือกตามพฤติกรรมการใช้</h4>
-            <div class="grid grid-cols-2 gap-3 mt-2">
+          <h4 class="font-semibold text-sm text-ink">แนวทางเลือกตามพฤติกรรมการใช้</h4>
+        </div>
+        <div class="grid grid-cols-2 gap-3">
 
-              <!-- หัวตาราง -->
-              <div class="text-[10px] text-mute font-medium text-center">ประกันสุขภาพทั่วไป</div>
-              <div class="text-[10px] text-mute font-medium text-center">Deductible</div>
+          <!-- หัวตาราง -->
+          <div class="text-xs text-mute font-medium text-center pb-1">ประกันสุขภาพทั่วไป</div>
+          <div class="text-xs text-mute font-medium text-center pb-1">Deductible</div>
 
-              <!-- ป่วยบ่อย + ทั่วไป = ✓ -->
-              <div class="bg-hairlineSoft rounded-[8px] p-3 border border-hairline">
-                <div class="flex items-center justify-between mb-2">
-                  <span class="text-[11px] text-mute">ป่วยบ่อย</span>
-                  <span class="text-[11px] text-accent font-bold">✓</span>
-                </div>
-                <div class="flex items-end gap-[4px] h-[64px]">
-                  <div class="flex-1 flex flex-col items-center"><div class="w-[3px] h-[48px] bg-error rounded-full"></div></div>
-                  <div class="flex-1 flex flex-col items-center"><div class="w-[3px] h-[48px] bg-error rounded-full"></div></div>
-                  <div class="flex-1 flex flex-col items-center"><div class="w-[3px] h-[48px] bg-error rounded-full"></div></div>
-                  <div class="flex-1 flex flex-col items-center"><div class="w-[3px] h-[48px] bg-error rounded-full"></div></div>
-                </div>
-                <div class="border-t border-hairline my-2"></div>
-                <div class="flex gap-[4px] h-[24px]">
-                  <div class="flex-1"><div class="w-[2px] h-[16px] bg-accent rounded-full mx-auto"></div></div>
-                  <div class="flex-1"><div class="w-[2px] h-[16px] bg-accent rounded-full mx-auto"></div></div>
-                  <div class="flex-1"><div class="w-[2px] h-[16px] bg-accent rounded-full mx-auto"></div></div>
-                  <div class="flex-1"></div>
-                </div>
-                <div class="text-[10px] text-accent mt-1">↑ เคลมคืน</div>
+          <!-- ป่วยบ่อย + ทั่วไป = ✓ -->
+          <div class="bg-hairlineSoft rounded-[12px] p-5 border border-hairline">
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-xs text-mute">ป่วยบ่อย</span>
+              <span class="text-sm text-accent font-bold">✓</span>
+            </div>
+            <div class="flex items-end gap-2 h-[100px] mb-2">
+              <div class="flex-1 flex flex-col items-center"><div class="w-[4px] h-[72px] bg-error rounded-full"></div><span class="text-[10px] text-error mt-0.5">17.5k</span></div>
+              <div class="flex-1 flex flex-col items-center"><div class="w-[4px] h-[72px] bg-error rounded-full"></div><span class="text-[10px] text-error mt-0.5">17.5k</span></div>
+              <div class="flex-1 flex flex-col items-center"><div class="w-[4px] h-[72px] bg-error rounded-full"></div><span class="text-[10px] text-error mt-0.5">17.5k</span></div>
+              <div class="flex-1 flex flex-col items-center"><div class="w-[4px] h-[72px] bg-error rounded-full"></div><span class="text-[10px] text-error mt-0.5">17.5k</span></div>
+            </div>
+            <div class="text-[10px] text-error text-center mb-1">↓ เบี้ยรวม 70,000 ใน 4 ปี</div>
+            <div class="border-t border-hairline mb-2"></div>
+            <div class="flex gap-2 h-[36px] mb-1">
+              <div class="flex-1 flex flex-col items-center"><div class="w-[3px] h-[24px] bg-accent rounded-full"></div><span class="text-[10px] text-accent mt-0.5">25k</span></div>
+              <div class="flex-1 flex flex-col items-center"><div class="w-[3px] h-[24px] bg-accent rounded-full"></div><span class="text-[10px] text-accent mt-0.5">25k</span></div>
+              <div class="flex-1 flex flex-col items-center"><div class="w-[3px] h-[24px] bg-accent rounded-full"></div><span class="text-[10px] text-accent mt-0.5">25k</span></div>
+              <div class="flex-1"></div>
+            </div>
+            <div class="text-[11px] text-accent font-medium">↑ เคลมคืนเมื่อป่วย</div>
+          </div>
+
+          <!-- ป่วยบ่อย + Deductible = ✗ -->
+          <div class="bg-hairlineSoft rounded-[12px] p-5 border border-hairline">
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-xs text-mute">ป่วยบ่อย</span>
+              <span class="text-sm text-error font-bold">✗</span>
+            </div>
+            <div class="flex items-end gap-2 h-[100px] mb-2">
+              <div class="flex-1 flex flex-col items-center">
+                <div class="w-[4px] h-[24px] bg-ink rounded-full"></div>
+                <div class="w-[4px] h-[46px] bg-error rounded-full mt-[2px]"></div>
+                <div class="w-[3px] h-[22px] bg-error rounded-full mt-[2px]"></div>
+                <span class="text-[10px] text-error mt-0.5">5.2k+25k</span>
               </div>
-
-              <!-- ป่วยบ่อย + Deductible = ✗ -->
-              <div class="bg-hairlineSoft rounded-[8px] p-3 border border-hairline">
-                <div class="flex items-center justify-between mb-2">
-                  <span class="text-[11px] text-mute">ป่วยบ่อย</span>
-                  <span class="text-[11px] text-error font-bold">✗</span>
-                </div>
-                <div class="flex items-end gap-[4px] h-[64px]">
-                  <div class="flex-1 flex flex-col items-center">
-                    <div class="w-[3px] h-[18px] bg-ink rounded-full"></div>
-                    <div class="w-[3px] h-[28px] bg-error rounded-full mt-[2px]"></div>
-                    <div class="w-[2px] h-[14px] bg-error rounded-full mt-[2px]"></div>
-                  </div>
-                  <div class="flex-1 flex flex-col items-center">
-                    <div class="w-[3px] h-[18px] bg-ink rounded-full"></div>
-                    <div class="w-[3px] h-[28px] bg-error rounded-full mt-[2px]"></div>
-                  </div>
-                  <div class="flex-1 flex flex-col items-center">
-                    <div class="w-[3px] h-[18px] bg-ink rounded-full"></div>
-                    <div class="w-[3px] h-[28px] bg-error rounded-full mt-[2px]"></div>
-                    <div class="w-[2px] h-[14px] bg-error rounded-full mt-[2px]"></div>
-                  </div>
-                  <div class="flex-1 flex flex-col items-center">
-                    <div class="w-[3px] h-[18px] bg-ink rounded-full"></div>
-                    <div class="w-[3px] h-[28px] bg-error rounded-full mt-[2px]"></div>
-                  </div>
-                </div>
-                <div class="border-t border-hairline my-2"></div>
-                <div class="text-[10px] text-error">↓ จ่ายเองทุกครั้ง</div>
+              <div class="flex-1 flex flex-col items-center">
+                <div class="w-[4px] h-[24px] bg-ink rounded-full"></div>
+                <div class="w-[4px] h-[46px] bg-error rounded-full mt-[2px]"></div>
+                <span class="text-[10px] text-error mt-0.5">5.2k+25k</span>
               </div>
-
-              <!-- ไม่ค่อยป่วย + ทั่วไป = ✗ -->
-              <div class="bg-hairlineSoft rounded-[8px] p-3 border border-hairline">
-                <div class="flex items-center justify-between mb-2">
-                  <span class="text-[11px] text-mute">ไม่ค่อยป่วย</span>
-                  <span class="text-[11px] text-error font-bold">✗</span>
-                </div>
-                <div class="flex items-end gap-[4px] h-[64px]">
-                  <div class="flex-1 flex flex-col items-center"><div class="w-[3px] h-[48px] bg-error rounded-full"></div></div>
-                  <div class="flex-1 flex flex-col items-center"><div class="w-[3px] h-[48px] bg-error rounded-full"></div></div>
-                  <div class="flex-1 flex flex-col items-center"><div class="w-[3px] h-[48px] bg-error rounded-full"></div></div>
-                  <div class="flex-1 flex flex-col items-center"><div class="w-[3px] h-[48px] bg-error rounded-full"></div></div>
-                </div>
-                <div class="border-t border-hairline my-2"></div>
-                <div class="h-[24px]"></div>
-                <div class="text-[10px] text-mute text-center">— ไม่มีเคลม —</div>
+              <div class="flex-1 flex flex-col items-center">
+                <div class="w-[4px] h-[24px] bg-ink rounded-full"></div>
+                <div class="w-[4px] h-[46px] bg-error rounded-full mt-[2px]"></div>
+                <div class="w-[3px] h-[22px] bg-error rounded-full mt-[2px]"></div>
+                <span class="text-[10px] text-error mt-0.5">5.2k+25k</span>
               </div>
-
-              <!-- ไม่ค่อยป่วย + Deductible = ✓ -->
-              <div class="bg-hairlineSoft rounded-[8px] p-3 border border-hairline">
-                <div class="flex items-center justify-between mb-2">
-                  <span class="text-[11px] text-mute">ไม่ค่อยป่วย</span>
-                  <span class="text-[11px] text-accent font-bold">✓</span>
-                </div>
-                <div class="flex items-end gap-[4px] h-[64px]">
-                  <div class="flex-1 flex flex-col items-center"><div class="w-[3px] h-[20px] bg-ink rounded-full"></div></div>
-                  <div class="flex-1 flex flex-col items-center"><div class="w-[3px] h-[20px] bg-ink rounded-full"></div></div>
-                  <div class="flex-1 flex flex-col items-center"><div class="w-[3px] h-[20px] bg-ink rounded-full"></div></div>
-                  <div class="flex-1 flex flex-col items-center"><div class="w-[3px] h-[20px] bg-ink rounded-full"></div></div>
-                </div>
-                <div class="border-t border-hairline my-2"></div>
-                <div class="flex items-center gap-1">
-                  <div class="w-[2px] h-[12px] bg-accent rounded-full"></div>
-                  <div class="flex-1 h-[4px] bg-accent/30 rounded-full"></div>
-                  <div class="w-[2px] h-[20px] bg-accent rounded-full"></div>
-                </div>
-                <div class="text-[10px] text-accent mt-1">↑ เงินส่วนต่างโต</div>
+              <div class="flex-1 flex flex-col items-center">
+                <div class="w-[4px] h-[24px] bg-ink rounded-full"></div>
+                <div class="w-[4px] h-[46px] bg-error rounded-full mt-[2px]"></div>
+                <span class="text-[10px] text-error mt-0.5">5.2k+25k</span>
               </div>
+            </div>
+            <div class="text-[10px] text-error text-center mb-1">↓ เบี้ย + ค่ารักษา = จ่ายเอง ~30k/ครั้ง</div>
+            <div class="border-t border-hairline mb-2"></div>
+            <div class="text-[11px] text-error font-medium">↓ เงินเก็บรั่วทุกครั้งที่ป่วย</div>
+          </div>
 
+          <!-- ไม่ค่อยป่วย + ทั่วไป = ✗ -->
+          <div class="bg-hairlineSoft rounded-[12px] p-5 border border-hairline">
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-xs text-mute">ไม่ค่อยป่วย</span>
+              <span class="text-sm text-error font-bold">✗</span>
+            </div>
+            <div class="flex items-end gap-2 h-[100px] mb-2">
+              <div class="flex-1 flex flex-col items-center"><div class="w-[4px] h-[72px] bg-error rounded-full"></div><span class="text-[10px] text-error mt-0.5">17.5k</span></div>
+              <div class="flex-1 flex flex-col items-center"><div class="w-[4px] h-[72px] bg-error rounded-full"></div><span class="text-[10px] text-error mt-0.5">17.5k</span></div>
+              <div class="flex-1 flex flex-col items-center"><div class="w-[4px] h-[72px] bg-error rounded-full"></div><span class="text-[10px] text-error mt-0.5">17.5k</span></div>
+              <div class="flex-1 flex flex-col items-center"><div class="w-[4px] h-[72px] bg-error rounded-full"></div><span class="text-[10px] text-error mt-0.5">17.5k</span></div>
+            </div>
+            <div class="text-[10px] text-error text-center mb-1">↓ เบี้ยรวม 70,000 ใน 4 ปี</div>
+            <div class="border-t border-hairline mb-2"></div>
+            <div class="h-[36px] flex items-center justify-center">
+              <span class="text-[11px] text-mute">— ไม่มีเคลม —</span>
             </div>
           </div>
+
+          <!-- ไม่ค่อยป่วย + Deductible = ✓ -->
+          <div class="bg-hairlineSoft rounded-[12px] p-5 border border-hairline">
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-xs text-mute">ไม่ค่อยป่วย</span>
+              <span class="text-sm text-accent font-bold">✓</span>
+            </div>
+            <div class="flex items-end gap-2 h-[100px] mb-2">
+              <div class="flex-1 flex flex-col items-center"><div class="w-[4px] h-[28px] bg-ink rounded-full"></div><span class="text-[10px] text-mute mt-0.5">5.2k</span></div>
+              <div class="flex-1 flex flex-col items-center"><div class="w-[4px] h-[28px] bg-ink rounded-full"></div><span class="text-[10px] text-mute mt-0.5">5.2k</span></div>
+              <div class="flex-1 flex flex-col items-center"><div class="w-[4px] h-[28px] bg-ink rounded-full"></div><span class="text-[10px] text-mute mt-0.5">5.2k</span></div>
+              <div class="flex-1 flex flex-col items-center"><div class="w-[4px] h-[28px] bg-ink rounded-full"></div><span class="text-[10px] text-mute mt-0.5">5.2k</span></div>
+            </div>
+            <div class="text-[10px] text-mute text-center mb-1">↓ เบี้ยรวม 20,800 ใน 4 ปี</div>
+            <div class="border-t border-hairline mb-2"></div>
+            <div class="flex items-end gap-1 h-[36px]">
+              <div class="flex flex-col items-center"><div class="w-[3px] h-[18px] bg-accent rounded-full"></div><span class="text-[10px] text-accent mt-0.5">12.3k</span></div>
+              <span class="text-[10px] text-accent">/ปี →</span>
+              <div class="flex-1 h-[6px] bg-accent/30 rounded-full"></div>
+              <div class="flex flex-col items-center"><div class="w-[4px] h-[32px] bg-accent rounded-full"></div><span class="text-[10px] text-accent mt-0.5">170k</span></div>
+            </div>
+            <div class="text-[11px] text-accent font-medium">↑ เงินส่วนต่างโตใน 10 ปี</div>
+          </div>
+
         </div>
       </div>
     </section>
