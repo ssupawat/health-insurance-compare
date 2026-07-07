@@ -624,17 +624,19 @@
     };
 
     let calcPending = false;
+    let calcUrgent = false;
     function scheduleCalc() {
       if (!calcPending) {
         calcPending = true;
-        requestAnimationFrame(() => { calculatePremiums(); calcPending = false; });
+        requestAnimationFrame(() => { calcUrgent = true; calculatePremiums(); calcPending = false; });
       }
     }
 
     function animateValue(el, target, fmt) {
       const current = parseInt((el.innerText.match(/[\d,]+/) || ['0'])[0].replace(/,/g, ''));
       if (current === target) { el.innerText = fmt(target); return; }
-      const duration = 200;
+      const duration = calcUrgent ? 80 : 220;
+      calcUrgent = false;
       const start = performance.now();
       function tick(now) {
         const t = Math.min((now - start) / duration, 1);
