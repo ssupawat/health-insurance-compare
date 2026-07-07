@@ -21,6 +21,8 @@
             accent: '#0070f3',
             accentDeep: '#0761d1',
             accentSoft: '#d3e5ff',
+            error: '#ee0000',
+            warning: '#f5a623',
           },
           fontFamily: {
             sans: ['Sarabun', 'sans-serif'],
@@ -233,15 +235,15 @@
 
             <ul class="space-y-2.5 text-xs text-body border-t border-hairline pt-4">
               <li class="flex items-start gap-2">
-                <span class="text-[#ee0000] font-bold">✕</span>
+                <span class="text-error font-bold">✕</span>
                 <span>ค่าเบี้ยสูงกว่า ขัดขวางการนำเงินก้อนไปลงทุน</span>
               </li>
               <li class="flex items-start gap-2">
-                <span class="text-[#ee0000] font-bold">✕</span>
+                <span class="text-error font-bold">✕</span>
                 <span>จ่ายเบี้ยทิ้งไปฟรีๆ หากตลอดปีคุณแข็งแรงดี</span>
               </li>
               <li class="flex items-start gap-2">
-                <span class="text-[#0070f3] font-bold">✓</span>
+                <span class="text-accent font-bold">✓</span>
                 <span>เคลมหวัด ท้องเสีย เคสยิบย่อยได้หมด</span>
               </li>
             </ul>
@@ -268,15 +270,15 @@
 
             <ul class="space-y-2.5 text-xs text-body border-t border-hairline pt-4">
               <li class="flex items-start gap-2">
-                <span class="text-[#0070f3] font-bold">✓</span>
+                <span class="text-accent font-bold">✓</span>
                 <span>เบี้ยถูกลงกว่าแผนปกติถึง 60% - 70%</span>
               </li>
               <li class="flex items-start gap-2">
-                <span class="text-[#0070f3] font-bold">✓</span>
+                <span class="text-accent font-bold">✓</span>
                 <span>ดึงกระแสเงินสดกลับมาอยู่ในมือเพื่อลงทุนต่อยอด</span>
               </li>
               <li class="flex items-start gap-2">
-                <span class="text-[#0070f3] font-bold">✓</span>
+                <span class="text-accent font-bold">✓</span>
                 <span>ปิดความเสี่ยงทางการเงินล้มละลายได้ครบถ้วน</span>
               </li>
             </ul>
@@ -301,7 +303,7 @@
             <h4 class="font-semibold text-ink text-sm">ป่วยจุกจิก บ่อยๆ (เล็กน้อย)</h4>
           </div>
           <ul class="space-y-2.5 text-sm text-body">
-            <li><span class="text-[#ee0000] font-semibold block text-xs">Deductible (จ่ายเอง):</span> ไม่ช่วยปกป้องเงินในกระเป๋าเลย ต้องควักจ่ายเองทั้งหมด (ไม่ตอบโจทย์)</li>
+            <li><span class="text-error font-semibold block text-xs">Deductible (จ่ายเอง):</span> ไม่ช่วยปกป้องเงินในกระเป๋าเลย ต้องควักจ่ายเองทั้งหมด (ไม่ตอบโจทย์)</li>
             <li><span class="text-accent font-semibold block text-xs">ประกันทั่วไป:</span> ปกป้องกระเป๋าเงินได้ดีที่สุด เคลมได้ตั้งแต่บาทแรก</li>
           </ul>
         </div>
@@ -314,7 +316,7 @@
             <h4 class="font-semibold text-ink text-sm">แข็งแรงดี (ป่วยน้อย/ไม่ป่วย)</h4>
           </div>
           <ul class="space-y-2.5 text-sm text-body">
-            <li><span class="text-[#ee0000] font-semibold block text-xs">ประกันทั่วไป:</span> ถลุงเงินในกระเป๋า กลายเป็นรายจ่ายก้อนใหญ่ที่ละลายหายไปทุกปี</li>
+            <li><span class="text-error font-semibold block text-xs">ประกันทั่วไป:</span> ถลุงเงินในกระเป๋า กลายเป็นรายจ่ายก้อนใหญ่ที่ละลายหายไปทุกปี</li>
             <li><span class="text-accent font-semibold block text-xs">Deductible:</span> ปกป้องความมั่งคั่งได้ดีที่สุด เซฟเงินก้อนใหญ่ไว้เติบโต (ตอบโจทย์สุด)</li>
           </ul>
         </div>
@@ -488,7 +490,7 @@
 
         <div class="bg-elevated border border-hairline rounded-[12px] p-6 shadow-[0_1px_1px_rgba(0,0,0,0.04)]">
           <div class="flex items-center gap-2 mb-3">
-            <span class="w-2 h-2 rounded-full bg-[#ee0000] shrink-0"></span>
+            <span class="w-2 h-2 rounded-full bg-error shrink-0"></span>
             <div class="dicebear-ring w-6 h-6 border border-hairline">
               <img data-s="bottts" data-seed="insurance-normal" data-sz="48" alt="" />
             </div>
@@ -510,7 +512,7 @@
 
         <div class="bg-elevated border border-hairline rounded-[12px] p-6 shadow-[0_1px_1px_rgba(0,0,0,0.04)]">
           <div class="flex items-center gap-2 mb-3">
-            <span class="w-2 h-2 rounded-full bg-[#f5a623] shrink-0"></span>
+            <span class="w-2 h-2 rounded-full bg-warning shrink-0"></span>
             <div class="dicebear-ring w-6 h-6 border border-hairline">
               <img data-s="pixel-art" data-seed="solo-deductible" data-sz="48" alt="" />
             </div>
@@ -550,7 +552,6 @@
     const futureValue = document.getElementById('futureValue');
     const fvYear5 = document.getElementById('fvYear5');
     const savingsLabel = document.getElementById('savingsLabel');
-    const tvmFootnote = document.getElementById('tvmFootnote');
     const labelYear5 = document.getElementById('labelYear5');
     const labelYear10 = document.getElementById('labelYear10');
 
