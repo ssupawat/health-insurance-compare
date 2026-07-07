@@ -64,6 +64,13 @@
       border: 2px solid #ffffff;
       box-shadow: 0 1px 3px rgba(0,0,0,0.12);
     }
+    .slider-group {
+      transition: opacity 0.25s ease;
+    }
+    .slider-group.dimmed {
+      opacity: 0.3;
+      pointer-events: none;
+    }
 
     /* Select styling */
     select {
@@ -178,7 +185,7 @@
                 <button onclick="setTvmMode('tvm')" id="btn-tvm2-tvm" class="px-2.5 py-0.5 text-xs font-medium transition bg-ink text-white">ลงทุน</button>
               </div>
             </div>
-            <div id="rateSliderGroup">
+            <div id="rateSliderGroup" class="slider-group">
               <div class="flex justify-between items-center mb-2">
                 <span class="text-xs text-mute">อัตราผลตอบแทนต่อปี</span>
                 <span class="text-ink font-semibold text-sm" id="returnVal">7%</span>
@@ -395,7 +402,7 @@
           </div>
 
           <!-- Inline rate control -->
-          <div class="mb-5" id="rateSliderGroupOC">
+          <div class="mb-5 slider-group" id="rateSliderGroupOC">
             <div class="flex justify-between items-center mb-2">
               <span class="text-xs text-mute">อัตราผลตอบแทนต่อปี</span>
               <span class="text-ink font-semibold text-sm" id="returnValOC">7%</span>
@@ -722,15 +729,15 @@
 
       const rateGroupOC = document.getElementById('rateSliderGroupOC');
       if (mode === 'tvm') {
-        rateGroup.style.display = '';
-        if (rateGroupOC) rateGroupOC.style.display = '';
+        rateGroup.classList.remove('dimmed');
+        if (rateGroupOC) rateGroupOC.classList.remove('dimmed');
         labelYear5.innerText = 'ปีที่ 5';
         labelYear10.innerText = 'ปีที่ 10';
         tvmPrefix.innerText = 'นำเงิน';
         tvmSuffix.innerHTML = 'บาท/ปี ลงทุนที่ <span id="returnLabel" class="font-semibold text-ink">' + returnSlider.value + '%</span> ต่อปี';
       } else {
-        rateGroup.style.display = 'none';
-        if (rateGroupOC) rateGroupOC.style.display = 'none';
+        rateGroup.classList.add('dimmed');
+        if (rateGroupOC) rateGroupOC.classList.add('dimmed');
         labelYear5.innerText = 'ปีที่ 5';
         labelYear10.innerText = 'ปีที่ 10';
         tvmPrefix.innerText = 'เงินต้นรวม';
