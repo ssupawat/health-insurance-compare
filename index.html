@@ -623,7 +623,22 @@
       }
     };
 
-    const ACTIVE_BTN = "py-2 px-4 rounded-[6px] font-medium text-sm transition text-center bg-ink text-white";
+    function animateValue(el, target, fmt) {
+      const current = parseInt((el.innerText.match(/[\d,]+/) || ['0'])[0].replace(/,/g, ''));
+      if (current === target) { el.innerText = fmt(target); return; }
+      const duration = 200;
+      const start = performance.now();
+      function tick(now) {
+        const t = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - t, 3);
+        el.innerText = fmt(Math.round(current + (target - current) * eased));
+        if (t < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    }
+
+    const fmtTH = (v) => `~${v.toLocaleString()} บาท/ปี`;
+    const fmtTHB = (v) => `${v.toLocaleString()} บาท`;
     const INACTIVE_BTN = "py-2 px-4 rounded-[6px] border font-medium text-sm transition text-center bg-elevated text-body border-hairline hover:border-ink";
 
     function setGender(gender) {
@@ -673,12 +688,12 @@
       const val10 = tvmMode === 'tvm' ? fv : savingsAccumulated;
       const val5 = tvmMode === 'tvm' ? fv5 : annualSavings * 5;
 
-      normalPremiumText.innerText = `~${finalNormal.toLocaleString()} บาท/ปี`;
-      deductiblePremiumText.innerText = `~${finalDeductible.toLocaleString()} บาท/ปี`;
-      diffPerYear.innerText = `${annualSavings.toLocaleString()} บาท`;
-      totalSaved10Y.innerText = `${savingsAccumulated.toLocaleString()} บาท`;
-      futureValue.innerText = `${Math.round(val10).toLocaleString()} บาท`;
-      fvYear5.innerText = `${Math.round(val5).toLocaleString()} บาท`;
+      animateValue(normalPremiumText, finalNormal, fmtTH);
+      animateValue(deductiblePremiumText, finalDeductible, fmtTH);
+      animateValue(diffPerYear, annualSavings, fmtTHB);
+      animateValue(totalSaved10Y, savingsAccumulated, fmtTHB);
+      animateValue(futureValue, Math.round(val10), fmtTHB);
+      animateValue(fvYear5, Math.round(val5), fmtTHB);
       savingsLabel.innerText = `${annualSavings.toLocaleString()}`;
     }
 
