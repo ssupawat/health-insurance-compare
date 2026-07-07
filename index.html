@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Health Insurance Comparison Tool</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Sarabun', sans-serif; }
+    .dicebear-ring { border-radius: 9999px; overflow: hidden; flex-shrink: 0; }
+    .dicebear-ring img { width: 100%; height: 100%; display: block; }
+    .dicebear-stamp { border-radius: 16px; overflow: hidden; flex-shrink: 0; }
+    .dicebear-stamp img { width: 100%; height: 100%; display: block; }
+  </style>
+</head>
+<body class="bg-slate-900 text-slate-100 min-h-screen antialiased selection:bg-indigo-500 selection:text-white">
+
+  <div class="max-w-6xl mx-auto px-4 py-8 md:py-16">
+
+    <!-- Header -->
+    <header class="text-center mb-12">
+      <span class="text-xs font-bold tracking-widest text-indigo-400 uppercase bg-indigo-500/10 px-3 py-1.5 rounded-full">Financial Risk Management</span>
+      <div class="flex items-center justify-center gap-4 mt-4 mb-3">
+        <div class="dicebear-ring w-14 h-14 md:w-16 md:h-16 border-2 border-indigo-500/40">
+          <img data-s="lorelei" data-seed="health-shield" data-sz="128" alt="Health Guardian" />
+        </div>
+        <h1 class="text-3xl md:text-5xl font-extrabold text-white tracking-tight">
+          เครื่องมือวิเคราะห์และเปรียบเทียบประกันสุขภาพ
+        </h1>
+        <div class="dicebear-ring w-14 h-14 md:w-16 md:h-16 border-2 border-indigo-500/40">
+          <img data-s="lorelei" data-seed="health-shield" data-sz="128" alt="Health Guardian" />
+        </div>
+      </div>
+      <p class="text-slate-400 text-sm md:text-base max-w-2xl mx-auto">
+        เปรียบเทียบส่วนต่างเบี้ยประกันและวิเคราะห์ค่าเสียโอกาสระหว่าง ประกันสุขภาพทั่วไป กับ ประกันสุขภาพแบบมีความรับผิดส่วนแรก (Deductible)
+      </p>
+    </header>
+
+    <!-- Interactive Calculator & Stats Grid -->
+    <div class="grid lg:grid-cols-12 gap-8 mb-12">
+
+      <!-- Left Side: Interactive Controls -->
+      <div class="lg:col-span-5 bg-slate-800/50 border border-slate-700/50 rounded-2xl p-6 backdrop-blur-sm flex flex-col justify-between">
+        <div>
+          <div class="flex items-center gap-3 mb-6">
+            <div class="dicebear-ring w-10 h-10 border border-indigo-500/30">
+              <img data-s="bottts" data-seed="calculator-bot" data-sz="80" alt="Calculator" />
+            </div>
+            <h3 class="text-lg font-bold text-white flex items-center gap-2">
+              <span class="w-2 h-6 bg-indigo-500 rounded-full"></span>
+              ตั้งค่าเงื่อนไขการคำนวณ
+            </h3>
+          </div>
+
+          <!-- Input: Gender -->
+          <div class="mb-6">
+            <label class="block text-sm font-medium text-slate-300 mb-2">เพศ</label>
+            <div class="grid grid-cols-2 gap-2">
+              <button onclick="setGender('male')" id="btn-gender-male" class="py-2.5 px-4 rounded-xl border font-semibold text-sm transition text-center border-indigo-500 bg-indigo-500/20 text-indigo-300">
+                เพศชาย
+              </button>
+              <button onclick="setGender('female')" id="btn-gender-female" class="py-2.5 px-4 rounded-xl border font-semibold text-sm transition text-center border-slate-700 bg-slate-800 text-slate-400 hover:border-slate-600">
+                เพศหญิง
+              </button>
+            </div>
+          </div>
+
+          <!-- Input: Coverage Limit -->
+          <div class="mb-6">
+            <label class="block text-sm font-medium text-slate-300 mb-2">วงเงินความคุ้มครองเหมาจ่าย</label>
+            <div class="grid grid-cols-2 gap-2">
+              <button onclick="setCoverage(1000000)" id="btn-cov-1m" class="py-2.5 px-4 rounded-xl border font-semibold text-sm transition text-center border-indigo-500 bg-indigo-500/20 text-indigo-300">
+                1 ล้านบาท
+              </button>
+              <button onclick="setCoverage(5000000)" id="btn-cov-5m" class="py-2.5 px-4 rounded-xl border font-semibold text-sm transition text-center border-slate-700 bg-slate-800 text-slate-400 hover:border-slate-600">
+                5 ล้านบาท
+              </button>
+            </div>
+          </div>
+
+          <!-- Slider: Age -->
+          <div class="mb-6">
+            <div class="flex justify-between items-center mb-2">
+              <label class="text-sm font-medium text-slate-300">อายุของผู้ทำประกัน</label>
+              <span class="text-indigo-400 font-bold" id="ageVal">25 ปี</span>
+            </div>
+            <input type="range" id="ageSlider" min="20" max="55" value="25" class="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-indigo-500">
+            <p class="text-slate-500 text-xs mt-1">ฐานราคาเริ่มต้นที่อายุ 25 ปี (ระบบจะคำนวณเบี้ยเพิ่มขึ้นตามความเสี่ยงของอายุ)</p>
+          </div>
+
+          <!-- Input: Corporate Coverage -->
+          <div class="mb-6">
+            <label class="block text-sm font-medium text-slate-300 mb-2">วงเงินรับผิดส่วนแรกที่เลือก (Deductible)</label>
+            <select id="deductibleSelect" class="w-full bg-slate-700 border border-slate-600 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-indigo-500 transition">
+              <option value="20000">20,000 บาท (เหมาะกับคนไม่มีประกันกลุ่ม หรือประกันกลุ่มวงเงินจำกัด)</option>
+              <option value="30000" selected>30,000 บาท (แนะนำ - ล้อกับประกันกลุ่มส่วนใหญ่)</option>
+              <option value="50000">50,000 บาท (เหมาะกับประกันกลุ่มวงเงินสูง)</option>
+            </select>
+          </div>
+
+          <!-- Input: Target Investment Return -->
+          <div>
+            <div class="flex justify-between items-center mb-2">
+              <label class="text-sm font-medium text-slate-300">ผลตอบแทนการลงทุนคาดหวังต่อปี</label>
+              <span class="text-indigo-400 font-bold" id="returnVal">7%</span>
+            </div>
+            <input type="range" id="returnSlider" min="2" max="15" value="7" class="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-indigo-500">
+            <p class="text-slate-500 text-xs mt-1">อัตราผลตอบแทนจากการนำเงินส่วนต่างเบี้ยไปลงทุนในสินทรัพย์เติบโต</p>
+          </div>
+        </div>
+
+        <div class="mt-8 pt-6 border-t border-slate-700/50">
+          <p class="text-slate-400 text-xs leading-relaxed font-semibold mb-1">
+            แหล่งอ้างอิงข้อมูลเบี้ยประกัน (อัปเดตข้อมูลปี 2026):
+          </p>
+          <ul class="text-slate-400 text-xs leading-relaxed list-disc pl-4 space-y-1">
+            <li><strong>เมืองไทยประกันชีวิต (MTL):</strong> อ้างอิงแผน D Health Plus และ D Health Lite</li>
+            <li><strong>เอไอเอ (AIA):</strong> อ้างอิงแผน AIA Health Happy</li>
+            <li><strong>ชับบ์ไลฟ์ (Chubb):</strong> อ้างอิงแผน Health Premium Extra Deductible (HPED)</li>
+          </ul>
+          <p class="text-slate-500 text-xs mt-2 italic">
+            *ตัวเลขเป็นค่าเฉลี่ยเบี้ยประกันภัยรายปีตามมาตรฐาน New Health Standard ราคาจริงอาจเปลี่ยนแปลงตามการพิจารณารับประกัน
+          </p>
+        </div>
+      </div>
+
+      <!-- Right Side: Comparison & Opportunity Cost Output -->
+      <div class="lg:col-span-7 grid md:grid-cols-2 gap-6">
+
+        <!-- Normal Card -->
+        <div class="bg-slate-800/30 border border-slate-700/50 rounded-2xl p-6 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center gap-3 mb-3">
+              <span class="bg-rose-500/10 text-rose-400 text-xs font-semibold px-2.5 py-1 rounded-full">คุ้มครองตั้งแต่บาทแรก</span>
+            </div>
+            <div class="flex items-center gap-3 mb-1">
+              <div class="dicebear-ring w-12 h-12 border border-rose-500/30">
+                <img data-s="bottts" data-seed="insurance-normal" data-sz="96" alt="Normal Insurance" />
+              </div>
+              <h2 class="text-xl font-bold text-white">ประกันสุขภาพทั่วไป</h2>
+            </div>
+            <p class="text-slate-400 text-xs mt-1">เน้นเคลมโรคเล็กๆ บ่อยๆ ตั้งแต่วันแรกที่ทำ</p>
+
+            <div class="my-6">
+              <div class="text-xs text-slate-400">เบี้ยเฉลี่ยรายปีจริงในตลาด</div>
+              <div class="text-3xl font-extrabold text-white" id="normalPremiumText">- บาท</div>
+            </div>
+
+            <ul class="space-y-3 text-xs text-slate-300 border-t border-slate-700/50 pt-4">
+              <li class="flex items-start gap-2">
+                <span class="text-rose-500">✕</span>
+                <span>ค่าเบี้ยสูงกว่า ขัดขวางการนำเงินก้อนไปลงทุน</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-rose-500">✕</span>
+                <span>จ่ายเบี้ยทิ้งไปฟรีๆ หากตลอดปีคุณแข็งแรงดี</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-emerald-400">✓</span>
+                <span>เคลมหวัด ท้องเสีย เคสยิบย่อยได้หมด</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Deductible Card -->
+        <div class="bg-gradient-to-b from-indigo-900/40 to-slate-800/40 border-2 border-indigo-500 rounded-2xl p-6 flex flex-col justify-between relative shadow-xl shadow-indigo-500/5">
+          <span class="absolute -top-3 right-6 bg-indigo-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg">ตอบโจทย์การเติบโต</span>
+          <div>
+            <span class="bg-indigo-500/20 text-indigo-300 text-xs font-semibold px-2.5 py-1 rounded-full">มีความรับผิดส่วนแรก</span>
+            <div class="flex items-center gap-3 mt-3 mb-1">
+              <div class="dicebear-ring w-12 h-12 border border-indigo-500/40">
+                <img data-s="adventurer" data-seed="insurance-deductible" data-sz="96" alt="Deductible Insurance" />
+              </div>
+              <h2 class="text-xl font-bold text-white">ประกันแบบ Deductible</h2>
+            </div>
+            <p class="text-indigo-300 text-xs mt-1">ใช้ประกันกลุ่มรับส่วนแรก ตัวนี้บล็อกโรคใหญ่</p>
+
+            <div class="my-6">
+              <div class="text-xs text-indigo-300">เบี้ยเฉลี่ยรายปีจริงในตลาด</div>
+              <div class="text-3xl font-extrabold text-indigo-400" id="deductiblePremiumText">- บาท</div>
+            </div>
+
+            <ul class="space-y-3 text-xs text-slate-300 border-t border-indigo-500/20 pt-4">
+              <li class="flex items-start gap-2">
+                <span class="text-emerald-400">✓</span>
+                <span>เบี้ยถูกลงกว่าแผนปกติถึง 60% - 70%</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-emerald-400">✓</span>
+                <span>ดึงกระแสเงินสดกลับมาอยู่ในมือเพื่อลงทุนต่อยอด</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-emerald-400">✓</span>
+                <span>ปิดความเสี่ยงทางการเงินล้มละลายได้ครบถ้วน</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Protection Matrix Section -->
+    <section class="mb-12">
+      <h3 class="text-xl font-bold text-white mb-6 flex items-center gap-2">
+        <span class="text-indigo-400">🛡️</span>
+        วิเคราะห์การปกป้องเงินในกระเป๋า (Protection Matrix)
+      </h3>
+      <div class="grid md:grid-cols-3 gap-4">
+
+        <div class="bg-slate-800/80 border border-slate-700 rounded-xl p-5 hover:border-indigo-500/50 transition">
+          <div class="flex items-center gap-3 border-b border-slate-700 pb-3 mb-3">
+            <div class="dicebear-ring w-10 h-10 bg-slate-700">
+              <img data-s="fun-emoji" data-seed="sick-minor" data-sz="80" alt="Minor Illness" />
+            </div>
+            <h4 class="font-bold text-white text-sm">ป่วยจุกจิก บ่อยๆ (เล็กน้อย)</h4>
+          </div>
+          <ul class="space-y-3 text-sm text-slate-300">
+            <li><span class="text-rose-400 font-semibold block">Deductible (จ่ายเอง):</span> ไม่ช่วยปกป้องเงินในกระเป๋าเลย ต้องควักจ่ายเองทั้งหมด (ไม่ตอบโจทย์)</li>
+            <li><span class="text-emerald-400 font-semibold block">ประกันทั่วไป:</span> ปกป้องกระเป๋าเงินได้ดีที่สุด เคลมได้ตั้งแต่บาทแรก</li>
+          </ul>
+        </div>
+
+        <div class="bg-slate-800/80 border border-slate-700 rounded-xl p-5 hover:border-indigo-500/50 transition">
+          <div class="flex items-center gap-3 border-b border-slate-700 pb-3 mb-3">
+            <div class="dicebear-ring w-10 h-10 bg-slate-700">
+              <img data-s="lorelei" data-seed="healthy-strong" data-sz="80" alt="Healthy" />
+            </div>
+            <h4 class="font-bold text-white text-sm">แข็งแรงดี (ป่วยน้อย/ไม่ป่วย)</h4>
+          </div>
+          <ul class="space-y-3 text-sm text-slate-300">
+            <li><span class="text-rose-400 font-semibold block">ประกันทั่วไป:</span> ถลุงเงินในกระเป๋า กลายเป็นรายจ่ายก้อนใหญ่ที่ละลายหายไปทุกปี</li>
+            <li><span class="text-emerald-400 font-semibold block">Deductible:</span> ปกป้องความมั่งคั่งได้ดีที่สุด เซฟเงินก้อนใหญ่ไว้เติบโต (ตอบโจทย์สุด)</li>
+          </ul>
+        </div>
+
+        <div class="bg-slate-800/80 border border-slate-700 rounded-xl p-5 hover:border-indigo-500/50 transition">
+          <div class="flex items-center gap-3 border-b border-slate-700 pb-3 mb-3">
+            <div class="dicebear-ring w-10 h-10 bg-slate-700">
+              <img data-s="bottts" data-seed="major-illness" data-sz="80" alt="Major Illness" />
+            </div>
+            <h4 class="font-bold text-white text-sm">แจ็กพอตแตก (ป่วยหนัก/ผ่าตัด)</h4>
+          </div>
+          <ul class="space-y-3 text-sm text-slate-300">
+            <li><span class="text-emerald-400 font-semibold block">ทั้ง 2 แบบ:</span> ปกป้องเงินล้านในกระเป๋าได้เหมือนกัน</li>
+            <li><span class="text-indigo-400 font-semibold block">Deductible ชนะขาด:</span> เพราะปิดความเสี่ยงระดับหายนะได้ ในราคาที่ถูกกว่ากันมาก (Stop Loss ที่คุ้มค่า)</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Opportunity Cost Section -->
+    <section class="bg-gradient-to-r from-indigo-950/80 to-slate-900 border border-indigo-500/30 rounded-2xl p-6 md:p-8 mb-12 shadow-inner">
+      <div class="grid md:grid-cols-12 gap-8 items-center">
+        <div class="md:col-span-7">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="dicebear-ring w-10 h-10 border border-indigo-500/30">
+              <img data-s="adventurer" data-seed="growth-investor" data-sz="80" alt="Investor" />
+            </div>
+            <span class="text-xs font-bold tracking-widest text-indigo-400 uppercase">Opportunity Cost Analysis</span>
+          </div>
+          <h3 class="text-2xl font-bold text-white mt-2 mb-4">มูลค่าการเติบโตของชีวิตที่สูญเสียไป (ในเวลา 10 ปี)</h3>
+          <p class="text-slate-300 text-sm leading-relaxed mb-4">
+            หากเลือกจ่ายเบี้ยแพงเกินความจำเป็นไปกับ ประกันสุขภาพทั่วไป เงินส่วนต่างสะสมแทนที่จะถูกนำไปลงทุนสร้างสินทรัพย์ทบต้น จะถูกจ่ายทิ้งปีต่อปีอย่างน่าเสียดาย การเลือกประกันแบบ Deductible จะปลดล็อกเงินส่วนต่างดังนี้:
+          </p>
+          <div class="grid grid-cols-2 gap-4">
+            <div class="bg-slate-800/50 p-3.5 rounded-xl border border-slate-700/50">
+              <span class="text-xs text-slate-400 block">ส่วนต่างเบี้ยออมได้ต่อปี</span>
+              <span class="text-lg font-bold text-white" id="diffPerYear">- บาท</span>
+            </div>
+            <div class="bg-slate-800/50 p-3.5 rounded-xl border border-slate-700/50">
+              <span class="text-xs text-slate-400 block">เงินต้นสะสมใน 10 ปี</span>
+              <span class="text-lg font-bold text-white" id="totalSaved10Y">- บาท</span>
+            </div>
+          </div>
+        </div>
+        <div class="md:col-span-5 text-center bg-indigo-500/10 p-6 rounded-2xl border border-indigo-500/20">
+          <div class="dicebear-ring w-16 h-16 mx-auto mb-4 border-2 border-indigo-500/30">
+            <img data-s="fun-emoji" data-seed="wealth-growth" data-sz="128" alt="Wealth Growth" />
+          </div>
+          <span class="text-xs text-indigo-400 font-semibold block uppercase tracking-wider">มูลค่าพอร์ตเติบโตรวมดอกเบี้ยทบต้น (10 ปี)</span>
+          <div class="text-4xl md:text-5xl font-extrabold text-indigo-400 my-4 tracking-tight" id="futureValue">- บาท</div>
+          <p class="text-xs text-slate-400 leading-normal">
+            จากการนำเงินประหยัดรายปีไปออมหรือลงทุนตามอัตราดอกผล <span id="returnLabel">7%</span> ต่อปีทบต้นเป็นเวลา 10 ปีเต็ม
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Dynamic Scenario Simulator -->
+    <section class="bg-slate-950 border border-slate-800 rounded-3xl p-6 md:p-8">
+      <div class="mb-6">
+        <h3 class="text-xl font-bold text-white flex items-center gap-2">
+          <span class="text-indigo-400">🔍</span>
+          จำลองสถานการณ์จริง (Scenario Analysis)
+        </h3>
+        <p class="text-slate-400 text-sm mt-1">เลือกเหตุการณ์จำลองด้านล่างเพื่อเปรียบเทียบกลไกการจ่ายเงินจริง</p>
+      </div>
+
+      <!-- Tabs -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-8">
+        <button onclick="changeScenario('healthy')" id="btn-healthy" class="scenario-tab py-4 px-5 text-left rounded-xl border border-slate-800 bg-slate-900/50 hover:bg-slate-900 hover:border-slate-700 transition flex items-start gap-3">
+          <div class="dicebear-ring w-8 h-8 shrink-0 mt-0.5">
+            <img data-s="fun-emoji" data-seed="scenario-healthy" data-sz="64" alt="Healthy" />
+          </div>
+          <div>
+            <div class="font-bold text-sm text-white">สุขภาพดี ไม่นอน รพ. เลย</div>
+            <div class="text-slate-500 text-xs mt-1">โอกาสเกิดสูงที่สุดสำหรับคนช่วงอายุ 20-35 ปี</div>
+          </div>
+        </button>
+        <button onclick="changeScenario('minor')" id="btn-minor" class="scenario-tab py-4 px-5 text-left rounded-xl border border-slate-800 bg-slate-900/50 hover:bg-slate-900 hover:border-slate-700 transition flex items-start gap-3">
+          <div class="dicebear-ring w-8 h-8 shrink-0 mt-0.5">
+            <img data-s="fun-emoji" data-seed="scenario-minor" data-sz="64" alt="Minor Illness" />
+          </div>
+          <div>
+            <div class="font-bold text-sm text-white">ป่วยจุกจิก (ค่ารักษา 25,000 บาท)</div>
+            <div class="text-slate-500 text-xs mt-1">เจ็บป่วยปานกลาง เช่น ไข้หวัดใหญ่ อาหารเป็นพิษ</div>
+          </div>
+        </button>
+        <button onclick="changeScenario('major')" id="btn-major" class="scenario-tab py-4 px-5 text-left rounded-xl border border-slate-800 bg-slate-900/50 hover:bg-slate-900 hover:border-slate-700 transition flex items-start gap-3">
+          <div class="dicebear-ring w-8 h-8 shrink-0 mt-0.5">
+            <img data-s="fun-emoji" data-seed="scenario-major" data-sz="64" alt="Major Illness" />
+          </div>
+          <div>
+            <div class="font-bold text-sm text-white">เจอโรคร้าย/อุบัติเหตุใหญ่ (500,000 บาท)</div>
+            <div class="text-slate-500 text-xs mt-1">ความเสี่ยงระดับหายนะ (Tail Risk)</div>
+          </div>
+        </button>
+      </div>
+
+      <!-- Scenario Analysis Outcome Grid -->
+      <div class="grid md:grid-cols-3 gap-6 bg-slate-900/40 p-6 rounded-2xl border border-slate-800/80">
+
+        <!-- Normal Plan Outcome -->
+        <div class="border-t-4 border-rose-500 bg-slate-900/60 rounded-xl p-5">
+          <div class="flex items-center gap-2 mb-3">
+            <div class="dicebear-ring w-7 h-7">
+              <img data-s="bottts" data-seed="insurance-normal" data-sz="56" alt="Normal" />
+            </div>
+            <h4 class="font-bold text-rose-400 text-sm tracking-wider uppercase">ประกันสุขภาพทั่วไป</h4>
+          </div>
+          <p id="outcomeNormalText" class="text-slate-300 text-sm leading-relaxed">-</p>
+        </div>
+
+        <!-- Deductible Plan Outcome -->
+        <div class="border-t-4 border-emerald-500 bg-indigo-950/20 rounded-xl p-5">
+          <div class="flex items-center gap-2 mb-3">
+            <div class="dicebear-ring w-7 h-7">
+              <img data-s="adventurer" data-seed="insurance-deductible" data-sz="56" alt="Deductible" />
+            </div>
+            <h4 class="font-bold text-emerald-400 text-sm tracking-wider uppercase">Deductible + ประกันกลุ่ม</h4>
+          </div>
+          <p id="outcomeDeductibleText" class="text-slate-300 text-sm leading-relaxed">-</p>
+        </div>
+
+        <!-- Deductible Solo Plan Outcome -->
+        <div class="border-t-4 border-amber-500 bg-amber-950/20 rounded-xl p-5">
+          <div class="flex items-center gap-2 mb-3">
+            <div class="dicebear-ring w-7 h-7">
+              <img data-s="pixel-art" data-seed="solo-deductible" data-sz="56" alt="Solo Deductible" />
+            </div>
+            <h4 class="font-bold text-amber-400 text-sm tracking-wider uppercase">Deductible (ไม่มีประกันกลุ่ม)</h4>
+          </div>
+          <p id="outcomeDeductibleSoloText" class="text-slate-300 text-sm leading-relaxed">-</p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- DiceBear Initializer -->
+  <script>
+    document.querySelectorAll('img[data-s]').forEach(img => {
+      const params = new URLSearchParams();
+      params.set('seed', img.dataset.seed);
+      params.set('size', img.dataset.sz || 128);
+      img.src = `https://api.dicebear.com/10.x/${img.dataset.s}/svg?${params.toString()}`;
+    });
+  </script>
+
+  <!-- Interactive Script -->
+  <script>
+    const returnSlider = document.getElementById('returnSlider');
+    const returnVal = document.getElementById('returnVal');
+    const returnLabel = document.getElementById('returnLabel');
+    const deductibleSelect = document.getElementById('deductibleSelect');
+    const ageSlider = document.getElementById('ageSlider');
+    const ageVal = document.getElementById('ageVal');
+
+    const normalPremiumText = document.getElementById('normalPremiumText');
+    const deductiblePremiumText = document.getElementById('deductiblePremiumText');
+    const diffPerYear = document.getElementById('diffPerYear');
+    const totalSaved10Y = document.getElementById('totalSaved10Y');
+    const futureValue = document.getElementById('futureValue');
+
+    let selectedCoverage = 1000000;
+    let selectedGender = 'male';
+
+    const premiumMatrix = {
+      male: {
+        1000000: { noDeductible: 17500, deductible20k: 7500, deductible30k: 5200, deductible50k: 3800 },
+        5000000: { noDeductible: 23000, deductible20k: 12500, deductible30k: 9800, deductible50k: 7200 }
+      },
+      female: {
+        1000000: { noDeductible: 21000, deductible20k: 9500, deductible30k: 6800, deductible50k: 5200 },
+        5000000: { noDeductible: 28000, deductible20k: 15500, deductible30k: 11800, deductible50k: 8500 }
+      }
+    };
+
+    function setGender(gender) {
+      selectedGender = gender;
+      const btnMale = document.getElementById('btn-gender-male');
+      const btnFemale = document.getElementById('btn-gender-female');
+      const activeClass = "py-2.5 px-4 rounded-xl border font-semibold text-sm transition text-center border-indigo-500 bg-indigo-500/20 text-indigo-300";
+      const inactiveClass = "py-2.5 px-4 rounded-xl border font-semibold text-sm transition text-center border-slate-700 bg-slate-800 text-slate-400 hover:border-slate-600";
+
+      if (gender === 'male') {
+        btnMale.className = activeClass;
+        btnFemale.className = inactiveClass;
+      } else {
+        btnFemale.className = activeClass;
+        btnMale.className = inactiveClass;
+      }
+      calculatePremiums();
+    }
+
+    function setCoverage(amount) {
+      selectedCoverage = amount;
+      const btn1m = document.getElementById('btn-cov-1m');
+      const btn5m = document.getElementById('btn-cov-5m');
+      const activeClass = "py-2.5 px-4 rounded-xl border font-semibold text-sm transition text-center border-indigo-500 bg-indigo-500/20 text-indigo-300";
+      const inactiveClass = "py-2.5 px-4 rounded-xl border font-semibold text-sm transition text-center border-slate-700 bg-slate-800 text-slate-400 hover:border-slate-600";
+
+      if (amount === 1000000) {
+        btn1m.className = activeClass;
+        btn5m.className = inactiveClass;
+      } else {
+        btn5m.className = activeClass;
+        btn1m.className = inactiveClass;
+      }
+      calculatePremiums();
+    }
+
+    function calculatePremiums() {
+      const deductibleVal = deductibleSelect.value;
+      const rate = parseFloat(returnSlider.value) / 100;
+      const age = parseInt(ageSlider.value);
+
+      let ageMultiplier = 1;
+      if (age > 25) {
+        ageMultiplier = 1 + ((age - 25) * 0.04);
+      } else if (age < 25) {
+        ageMultiplier = 1 - ((25 - age) * 0.02);
+      }
+
+      let finalNormal = premiumMatrix[selectedGender][selectedCoverage].noDeductible * ageMultiplier;
+      let finalDeductible = premiumMatrix[selectedGender][selectedCoverage].deductible30k * ageMultiplier;
+
+      if (deductibleVal === "20000") {
+        finalDeductible = premiumMatrix[selectedGender][selectedCoverage].deductible20k * ageMultiplier;
+      } else if (deductibleVal === "50000") {
+        finalDeductible = premiumMatrix[selectedGender][selectedCoverage].deductible50k * ageMultiplier;
+      }
+
+      finalNormal = Math.round(finalNormal);
+      finalDeductible = Math.round(finalDeductible);
+
+      const annualSavings = finalNormal - finalDeductible;
+      const savingsAccumulated = annualSavings * 10;
+
+      let fv = 0;
+      if (rate === 0) {
+        fv = savingsAccumulated;
+      } else {
+        fv = annualSavings * ((Math.pow(1 + rate, 10) - 1) / rate);
+      }
+
+      normalPremiumText.innerText = `~${finalNormal.toLocaleString()} บาท/ปี`;
+      deductiblePremiumText.innerText = `~${finalDeductible.toLocaleString()} บาท/ปี`;
+      diffPerYear.innerText = `${annualSavings.toLocaleString()} บาท`;
+      totalSaved10Y.innerText = `${savingsAccumulated.toLocaleString()} บาท`;
+      futureValue.innerText = `${Math.round(fv).toLocaleString()} บาท`;
+    }
+
+    const scenarios = {
+      healthy: {
+        normal: "ไม่ต้องควักเงินสดเพิ่มในการรักษาตัว แต่อย่าลืมว่าจ่ายค่าเบี้ยทิ้งปีละก้อนสะสมยาวนาน 10 ปีเต็ม เงินส่วนต่างสะสมถูกจ่ายทิ้งไปเต็มจำนวนเพื่อแลกความสบายใจที่ไม่ได้ใช้จริง ขัดขวางโอกาสสะสมทุนเพื่อสร้างอนาคต",
+        deductible: "จ่ายจริงเฉลี่ยเพียงไม่กี่พันบาทต่อปี ปลดล็อกให้มีเงินสะสมไหลเข้าพอร์ตเพิ่มขึ้นในระยะยาว ประหยัดต้นทุนไปมากกว่าแสนสี่หมื่นบาท ปิดประตูเงินจมไปได้อย่างมีประสิทธิภาพ",
+        deductibleSolo: "ประหยัดค่าเบี้ยได้สูงสุดเช่นกัน ได้เงินส่วนต่างไปลงทุนต่อยอดเต็มเม็ดเต็มหน่วย เหมาะสำหรับคนสุขภาพแข็งแรงที่ยอมรับความเสี่ยงที่จะต้องจ่ายค่ารักษาเล็กน้อยเองได้"
+      },
+      minor: {
+        normal: "ประกันสุขภาพทั่วไปคุ้มครองให้เต็มจำนวน 25,000 บาทตั้งแต่บาทแรก ไม่ต้องจ่ายเอง แต่ในความเป็นจริง คือต้องจ่ายเบี้ยที่ราคาสูงกว่าเพื่อมาแลกค่าคุ้มครองโรคเล็กๆ ที่แทบไม่ส่งผลกระทบต่อสถานะการเงิน",
+        deductible: "ยอดค่ารักษา 25,000 ไม่ถึงเกณฑ์ขั้นต่ำที่จะเริ่มเคลมของประกันส่วนบุคคลนี้ แต่สิทธิ์นี้จะถูกส่งไปเคลมที่ <strong>ประกันกลุ่มของบริษัท</strong> ซึ่งครอบคลุมเต็มจำนวนแทนพอดิบพอดี ทำให้ไม่ต้องควักเนื้อและเซฟค่าเบี้ยออมในกระเป๋าเท่าเดิม",
+        deductibleSolo: "<strong>ต้องควักเงินจ่ายเองทั้งหมด 25,000 บาท</strong> เนื่องจากยอดค่ารักษายังไม่ถึงเกณฑ์ความรับผิดส่วนแรก (Deductible) ที่ตั้งไว้ แลกกับการได้จ่ายเบี้ยประกันรายปีที่ถูกกว่ามาก"
+      },
+      major: {
+        normal: "ประกันเคลมยอดผ่าตัดใหญ่และรักษาตัว 500,000 บาทให้ครบ ป้องกันพอร์ตและเงินเก็บไม่ให้พังทลายลงมา",
+        deductible: "วงเงินทำงานประสานงานทันที: หักเงินส่วนแรก (ตามแผนที่เลือก) ไปเบิกเคลมกับประกันกลุ่มของบริษัท จากนั้นส่วนเกินทั้งหมดจนถึง 500,000 บาท ประกัน Deductible เล่มนี้จ่ายให้ทั้งหมด <strong>ผลลัพธ์คือไม่ต้องจ่ายเองเช่นเดียวกัน</strong> แต่ประหยัดเบี้ยสะสมสิบปีได้หลักแสน",
+        deductibleSolo: "<strong>ต้องจ่ายเงินส่วนแรกเอง (เช่น 20,000-50,000 บาท)</strong> จากนั้นส่วนเกินทั้งหมด ประกันเล่มนี้จะจ่ายให้ ถือเป็นการจำกัดความเสียหาย (Stop Loss) ไม่ให้เงินเก็บทั้งชีวิตพังทลายจากโรคร้าย"
+      }
+    };
+
+    let activeScenario = 'healthy';
+    function changeScenario(key) {
+      activeScenario = key;
+      document.getElementById('outcomeNormalText').innerHTML = scenarios[key].normal;
+      document.getElementById('outcomeDeductibleText').innerHTML = scenarios[key].deductible;
+      document.getElementById('outcomeDeductibleSoloText').innerHTML = scenarios[key].deductibleSolo;
+
+      document.querySelectorAll('.scenario-tab').forEach(btn => {
+        btn.classList.remove('border-indigo-500', 'bg-indigo-950/20', 'ring-1', 'ring-indigo-500/20');
+        btn.classList.add('border-slate-800', 'bg-slate-900/50');
+      });
+      const activeBtn = document.getElementById(`btn-${key}`);
+      activeBtn.classList.remove('border-slate-800', 'bg-slate-900/50');
+      activeBtn.classList.add('border-indigo-500', 'bg-indigo-950/20', 'ring-1', 'ring-indigo-500/20');
+    }
+
+    returnSlider.addEventListener('input', (e) => {
+      returnVal.innerText = `${e.target.value}%`;
+      returnLabel.innerText = `${e.target.value}%`;
+      calculatePremiums();
+    });
+
+    ageSlider.addEventListener('input', (e) => {
+      ageVal.innerText = `${e.target.value} ปี`;
+      calculatePremiums();
+    });
+
+    deductibleSelect.addEventListener('change', () => {
+      calculatePremiums();
+    });
+
+    calculatePremiums();
+    changeScenario('healthy');
+  </script>
+</body>
+</html>
