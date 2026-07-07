@@ -79,7 +79,7 @@ export default async function handler() {
             marginBottom: '16px',
           }}
         >
-          เครื่องมือวิเคราะห์และเปรียบเทียบประกันสุขภาพ
+          แบบไหน
         </div>
 
         {/* Subtitle */}
