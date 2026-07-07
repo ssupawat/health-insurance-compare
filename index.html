@@ -545,7 +545,6 @@
     const returnLabel = document.getElementById('returnLabel');
     const returnSliderOC = document.getElementById('returnSliderOC');
     const returnValOC = document.getElementById('returnValOC');
-    const deductibleSelect = document.getElementById('deductibleSelect');
     const ageSlider = document.getElementById('ageSlider');
     const ageVal = document.getElementById('ageVal');
 
@@ -594,7 +593,7 @@
     }
 
     function calculatePremiums() {
-      const deductibleVal = deductibleSelect.value;
+      const deductibleVal = selectedDeductible;
       const rawRate = parseFloat(returnSlider.value) / 100;
       const rate = tvmMode === 'principal' ? 0 : rawRate;
       const age = parseInt(ageSlider.value);
@@ -711,8 +710,6 @@
       ageVal.innerText = `${e.target.value} ปี`;
       calculatePremiums();
     });
-
-    deductibleSelect.addEventListener('change', () => calculatePremiums());
 
     const PILL_ACTIVE_TVM = 'px-2.5 py-0.5 text-xs font-medium transition bg-ink text-white';
     const PILL_INACTIVE_TVM = 'px-2.5 py-0.5 text-xs font-medium transition bg-elevated text-body';
