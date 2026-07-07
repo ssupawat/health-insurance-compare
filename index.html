@@ -172,13 +172,13 @@
           <div class="mb-5 relative">
             <label class="block text-sm font-medium text-body mb-2">วงเงินรับผิดส่วนแรกที่เลือก (Deductible)</label>
             <button id="deductibleDropdown" onclick="toggleDropdown()" class="w-full flex items-center justify-between bg-elevated border border-hairline rounded-[6px] px-3 py-2 text-ink text-sm text-left focus:outline-none focus:border-ink transition cursor-pointer">
-              <span id="deductibleLabel">30,000 บาท (แนะนำ)</span>
+              <span id="deductibleLabel">30,000 บาท (แนะนำ - ล้อกับประกันกลุ่มส่วนใหญ่)</span>
               <svg class="w-3 h-3 text-mute transition-transform" id="dropdownArrow" viewBox="0 0 16 16" fill="currentColor"><path d="M8 11L3 6h10z"/></svg>
             </button>
             <div id="deductibleMenu" class="hidden absolute z-10 mt-1 w-full bg-elevated border border-hairline rounded-[6px] shadow-[0_2px_8px_rgba(0,0,0,0.08)] overflow-hidden">
-              <button onclick="selectDeductible('20000')" data-value="20000" class="w-full text-left px-3 py-2 text-sm text-body hover:bg-hairlineSoft transition">20,000 บาท</button>
-              <button onclick="selectDeductible('30000')" data-value="30000" class="w-full text-left px-3 py-2 text-sm text-ink bg-hairlineSoft font-medium">30,000 บาท (แนะนำ)</button>
-              <button onclick="selectDeductible('50000')" data-value="50000" class="w-full text-left px-3 py-2 text-sm text-body hover:bg-hairlineSoft transition">50,000 บาท</button>
+              <button onclick="selectDeductible('20000')" data-value="20000" class="w-full text-left px-3 py-2 text-sm text-body hover:bg-hairlineSoft transition">20,000 บาท (เหมาะกับคนไม่มีประกันกลุ่ม หรือประกันกลุ่มวงเงินจำกัด)</button>
+              <button onclick="selectDeductible('30000')" data-value="30000" class="w-full text-left px-3 py-2 text-sm text-ink bg-hairlineSoft font-medium">30,000 บาท (แนะนำ - ล้อกับประกันกลุ่มส่วนใหญ่)</button>
+              <button onclick="selectDeductible('50000')" data-value="50000" class="w-full text-left px-3 py-2 text-sm text-body hover:bg-hairlineSoft transition">50,000 บาท (เหมาะกับประกันกลุ่มวงเงินสูง)</button>
             </div>
           </div>
 
@@ -765,7 +765,7 @@
 
     function selectDeductible(value) {
       selectedDeductible = value;
-      const labels = { '20000': '20,000 บาท', '30000': '30,000 บาท (แนะนำ)', '50000': '50,000 บาท' };
+      const labels = { '20000': '20,000 บาท (เหมาะกับคนไม่มีประกันกลุ่ม หรือประกันกลุ่มวงเงินจำกัด)', '30000': '30,000 บาท (แนะนำ - ล้อกับประกันกลุ่มส่วนใหญ่)', '50000': '50,000 บาท (เหมาะกับประกันกลุ่มวงเงินสูง)' };
       document.getElementById('deductibleLabel').innerText = labels[value];
       document.getElementById('deductibleMenu').classList.add('hidden');
       document.getElementById('dropdownArrow').classList.remove('rotate-180');
