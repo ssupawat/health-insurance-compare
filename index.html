@@ -623,6 +623,14 @@
       }
     };
 
+    let calcPending = false;
+    function scheduleCalc() {
+      if (!calcPending) {
+        calcPending = true;
+        requestAnimationFrame(() => { calculatePremiums(); calcPending = false; });
+      }
+    }
+
     function animateValue(el, target, fmt) {
       const current = parseInt((el.innerText.match(/[\d,]+/) || ['0'])[0].replace(/,/g, ''));
       if (current === target) { el.innerText = fmt(target); return; }
@@ -756,22 +764,21 @@
       activeBtn.className = `scenario-tab inline-flex items-center gap-2 px-4 py-2 rounded-[64px] border font-medium text-sm transition ${PILL_ACTIVE}`;
     }
 
-    function syncRate(value) {
+    function syncRateDisplay(value) {
       const rl = document.getElementById('returnLabel');
       returnVal.innerText = `${value}%`;
       returnValOC.innerText = `${value}%`;
       if (rl) rl.innerText = `${value}%`;
       returnSlider.value = value;
       returnSliderOC.value = value;
-      calculatePremiums();
     }
 
-    returnSlider.addEventListener('input', (e) => syncRate(e.target.value));
-    returnSliderOC.addEventListener('input', (e) => syncRate(e.target.value));
+    returnSlider.addEventListener('input', (e) => { syncRateDisplay(e.target.value); scheduleCalc(); });
+    returnSliderOC.addEventListener('input', (e) => { syncRateDisplay(e.target.value); scheduleCalc(); });
 
     ageSlider.addEventListener('input', (e) => {
       ageVal.innerText = `${e.target.value} ปี`;
-      calculatePremiums();
+      scheduleCalc();
     });
 
     const PILL_ACTIVE_TVM = 'px-2.5 py-0.5 text-xs font-medium transition bg-ink text-white';
