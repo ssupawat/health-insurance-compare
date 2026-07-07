@@ -620,20 +620,22 @@
       input.addEventListener('input', () => updatePos(parseFloat(input.value)));
 
       // Drag
+      let dragging = false;
       wrap.addEventListener('mousedown', (e) => {
         e.preventDefault();
-        wrap.classList.add('dragging');
         input.value = valFromClientX(e.clientX);
         input.dispatchEvent(new Event('input', { bubbles: true }));
         updatePos(parseFloat(input.value));
 
         function onMove(ev) {
+          if (!dragging) { dragging = true; wrap.classList.add('dragging'); }
           input.value = valFromClientX(ev.clientX);
           input.dispatchEvent(new Event('input', { bubbles: true }));
           updatePos(parseFloat(input.value));
         }
         function onUp() {
           wrap.classList.remove('dragging');
+          dragging = false;
           document.removeEventListener('mousemove', onMove);
           document.removeEventListener('mouseup', onUp);
         }
