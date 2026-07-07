@@ -40,7 +40,8 @@
       background:
         radial-gradient(ellipse 80% 80% at 20% 0%, rgba(121, 40, 202, 0.06) 0%, transparent 60%),
         radial-gradient(ellipse 60% 60% at 80% 0%, rgba(0, 124, 240, 0.06) 0%, transparent 60%),
-        radial-gradient(ellipse 50% 50% at 50% 100%, rgba(235, 54, 127, 0.04) 0%, transparent 60%);
+        radial-gradient(ellipse 50% 50% at 50% 100%, rgba(235, 54, 127, 0.04) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 40% at 90% 80%, rgba(249, 203, 40, 0.05) 0%, transparent 60%);
     }
 
     /* Slider styling */
@@ -83,7 +84,7 @@
 
       <!-- Header -->
       <header class="text-center">
-        <span class="inline-block font-semibold text-xs tracking-widest uppercase text-mute bg-accentSoft/50 px-3 py-1.5 rounded-[64px] mb-4">
+        <span class="inline-block font-semibold text-xs tracking-widest uppercase text-mute bg-elevated border border-hairline px-3 py-1.5 rounded-[64px] mb-4">
           Financial Risk Management
         </span>
         <div class="flex items-center justify-center gap-3 md:gap-5">
@@ -97,7 +98,7 @@
             <img data-s="lorelei" data-seed="health-shield" data-sz="128" alt="Health Guardian" />
           </div>
         </div>
-        <p class="text-body text-sm md:text-base max-w-2xl mx-auto mt-3">
+        <p class="text-body text-base max-w-2xl mx-auto mt-3">
           เปรียบเทียบส่วนต่างเบี้ยประกันและวิเคราะห์ค่าเสียโอกาสระหว่าง ประกันสุขภาพทั่วไป กับ ประกันสุขภาพแบบมีความรับผิดส่วนแรก (Deductible)
         </p>
       </header>
@@ -152,7 +153,7 @@
           <div class="mb-5">
             <div class="flex justify-between items-center mb-2">
               <label class="text-sm font-medium text-body">อายุของผู้ทำประกัน</label>
-              <span class="text-accent font-semibold text-sm" id="ageVal">25 ปี</span>
+              <span class="text-ink font-semibold text-sm" id="ageVal">25 ปี</span>
             </div>
             <input type="range" id="ageSlider" min="20" max="55" value="25" class="w-full">
             <p class="text-mute text-xs mt-1">ฐานราคาเริ่มต้นที่อายุ 25 ปี (ระบบจะคำนวณเบี้ยเพิ่มขึ้นตามความเสี่ยงของอายุ)</p>
@@ -172,7 +173,7 @@
           <div>
             <div class="flex justify-between items-center mb-2">
               <label class="text-sm font-medium text-body">ผลตอบแทนการลงทุนคาดหวังต่อปี</label>
-              <span class="text-accent font-semibold text-sm" id="returnVal">7%</span>
+              <span class="text-ink font-semibold text-sm" id="returnVal">7%</span>
             </div>
             <input type="range" id="returnSlider" min="2" max="15" value="7" class="w-full">
             <p class="text-mute text-xs mt-1">อัตราผลตอบแทนจากการนำเงินส่วนต่างเบี้ยไปลงทุนในสินทรัพย์เติบโต</p>
@@ -200,7 +201,7 @@
         <!-- Normal Card -->
         <div class="bg-elevated border border-hairline rounded-[12px] p-6 flex flex-col justify-between shadow-[0_1px_1px_rgba(0,0,0,0.04)]">
           <div>
-            <span class="inline-block bg-accentSoft text-accentDeep text-xs font-semibold px-2.5 py-0.5 rounded-[64px] mb-3">คุ้มครองตั้งแต่บาทแรก</span>
+            <span class="inline-block bg-elevated border border-hairline text-body text-xs font-semibold px-2.5 py-0.5 rounded-[64px] mb-3">คุ้มครองตั้งแต่บาทแรก</span>
             <div class="flex items-center gap-3 mb-1">
               <div class="dicebear-ring w-11 h-11 border border-hairline">
                 <img data-s="bottts" data-seed="insurance-normal" data-sz="88" alt="Normal Insurance" />
@@ -235,7 +236,7 @@
         <div class="bg-elevated border-2 border-ink rounded-[12px] p-6 flex flex-col justify-between relative shadow-[0_1px_1px_rgba(0,0,0,0.04)]">
           <span class="absolute -top-3 right-6 bg-ink text-white text-xs font-semibold px-3 py-1 rounded-[64px] shadow-[0_1px_2px_rgba(0,0,0,0.1)]">ตอบโจทย์การเติบโต</span>
           <div>
-            <span class="inline-block bg-hairlineSoft text-body text-xs font-semibold px-2.5 py-0.5 rounded-[64px] mb-3">มีความรับผิดส่วนแรก</span>
+            <span class="inline-block bg-elevated border border-hairline text-body text-xs font-semibold px-2.5 py-0.5 rounded-[64px] mb-3">มีความรับผิดส่วนแรก</span>
             <div class="flex items-center gap-3 mb-1">
               <div class="dicebear-ring w-11 h-11 border border-hairline">
                 <img data-s="adventurer" data-seed="insurance-deductible" data-sz="88" alt="Deductible Insurance" />
@@ -342,11 +343,11 @@
             </div>
           </div>
         </div>
-        <div class="md:col-span-5 text-center bg-accentSoft/50 p-6 rounded-[16px] border border-accentSoft">
+        <div class="md:col-span-5 text-center bg-hairlineSoft p-6 rounded-[16px] border border-hairline">
           <div class="dicebear-ring w-16 h-16 mx-auto mb-4 border-2 border-hairline">
             <img data-s="fun-emoji" data-seed="wealth-growth" data-sz="128" alt="Wealth Growth" />
           </div>
-          <span class="text-xs text-accentDeep font-semibold block uppercase tracking-wider">มูลค่าพอร์ตเติบโตรวมดอกเบี้ยทบต้น (10 ปี)</span>
+          <span class="text-xs text-mute font-semibold block uppercase tracking-wider">มูลค่าพอร์ตเติบโตรวมดอกเบี้ยทบต้น (10 ปี)</span>
           <div class="text-4xl md:text-5xl font-semibold text-ink my-4 tracking-tight" id="futureValue">- บาท</div>
           <p class="text-xs text-mute leading-normal">
             จากการนำเงินประหยัดรายปีไปออมหรือลงทุนตามอัตราดอกผล <span id="returnLabel" class="font-semibold text-ink">7%</span> ต่อปีทบต้นเป็นเวลา 10 ปีเต็ม
