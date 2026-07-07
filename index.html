@@ -357,75 +357,78 @@
     </section>
 
     <!-- Scenario Simulator -->
-    <section class="bg-elevated border border-hairline rounded-[16px] p-6 md:p-8 shadow-[0_1px_1px_rgba(0,0,0,0.04)]">
+    <section class="mb-16">
       <div class="mb-6">
-        <h3 class="text-xl font-semibold text-ink flex items-center gap-2 tracking-tight">
-          <span>🔍</span>
-          จำลองสถานการณ์จริง (Scenario Analysis)
-        </h3>
-        <p class="text-mute text-sm mt-1">เลือกเหตุการณ์จำลองด้านล่างเพื่อเปรียบเทียบกลไกการจ่ายเงินจริง</p>
+        <span class="text-xs tracking-widest uppercase text-mute font-semibold">Scenario Analysis</span>
+        <h3 class="text-xl font-semibold text-ink mt-1 tracking-tight">จำลองสถานการณ์จริง</h3>
+        <p class="text-mute text-sm mt-1">เลือกเหตุการณ์เพื่อเปรียบเทียบกลไกการจ่ายเงินจริงของประกันแต่ละแบบ</p>
       </div>
 
-      <!-- Scenario Tabs -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-8">
-        <button onclick="changeScenario('healthy')" id="btn-healthy" class="scenario-tab py-4 px-5 text-left rounded-[12px] border border-hairlineSoft bg-hairlineSoft hover:bg-elevated hover:border-hairline transition flex items-start gap-3">
-          <div class="dicebear-ring w-8 h-8 shrink-0">
-            <img data-s="fun-emoji" data-seed="scenario-healthy" data-sz="64" alt="Healthy" />
-          </div>
-          <div>
-            <div class="font-semibold text-sm text-ink">สุขภาพดี ไม่นอน รพ. เลย</div>
-            <div class="text-mute text-xs mt-1">โอกาสเกิดสูงที่สุดสำหรับคนช่วงอายุ 20-35 ปี</div>
-          </div>
+      <!-- Category Pills -->
+      <div class="flex flex-wrap gap-2 mb-5">
+        <button onclick="changeScenario('healthy')" id="btn-healthy" class="scenario-tab inline-flex items-center gap-2 px-4 py-2 rounded-[64px] border font-medium text-sm transition border-hairlineSoft bg-hairlineSoft text-body hover:border-hairline">
+          <span class="dicebear-ring w-6 h-6">
+            <img data-s="fun-emoji" data-seed="scenario-healthy" data-sz="48" alt="" />
+          </span>
+          สุขภาพดี
         </button>
-        <button onclick="changeScenario('minor')" id="btn-minor" class="scenario-tab py-4 px-5 text-left rounded-[12px] border border-hairlineSoft bg-hairlineSoft hover:bg-elevated hover:border-hairline transition flex items-start gap-3">
-          <div class="dicebear-ring w-8 h-8 shrink-0">
-            <img data-s="fun-emoji" data-seed="scenario-minor" data-sz="64" alt="Minor Illness" />
-          </div>
-          <div>
-            <div class="font-semibold text-sm text-ink">ป่วยจุกจิก (ค่ารักษา 25,000 บาท)</div>
-            <div class="text-mute text-xs mt-1">เจ็บป่วยปานกลาง เช่น ไข้หวัดใหญ่ อาหารเป็นพิษ</div>
-          </div>
+        <button onclick="changeScenario('minor')" id="btn-minor" class="scenario-tab inline-flex items-center gap-2 px-4 py-2 rounded-[64px] border font-medium text-sm transition border-hairlineSoft bg-hairlineSoft text-body hover:border-hairline">
+          <span class="dicebear-ring w-6 h-6">
+            <img data-s="fun-emoji" data-seed="scenario-minor" data-sz="48" alt="" />
+          </span>
+          ป่วยจุกจิก
         </button>
-        <button onclick="changeScenario('major')" id="btn-major" class="scenario-tab py-4 px-5 text-left rounded-[12px] border border-hairlineSoft bg-hairlineSoft hover:bg-elevated hover:border-hairline transition flex items-start gap-3">
-          <div class="dicebear-ring w-8 h-8 shrink-0">
-            <img data-s="fun-emoji" data-seed="scenario-major" data-sz="64" alt="Major Illness" />
-          </div>
-          <div>
-            <div class="font-semibold text-sm text-ink">เจอโรคร้าย/อุบัติเหตุใหญ่ (500,000 บาท)</div>
-            <div class="text-mute text-xs mt-1">ความเสี่ยงระดับหายนะ (Tail Risk)</div>
-          </div>
+        <button onclick="changeScenario('major')" id="btn-major" class="scenario-tab inline-flex items-center gap-2 px-4 py-2 rounded-[64px] border font-medium text-sm transition border-hairlineSoft bg-hairlineSoft text-body hover:border-hairline">
+          <span class="dicebear-ring w-6 h-6">
+            <img data-s="fun-emoji" data-seed="scenario-major" data-sz="48" alt="" />
+          </span>
+          โรคร้าย
         </button>
       </div>
 
-      <!-- Outcome Grid -->
-      <div class="grid md:grid-cols-3 gap-5 bg-hairlineSoft p-5 rounded-[12px] border border-hairline">
+      <!-- Active Scenario Detail -->
+      <div class="flex items-center gap-3 px-4 py-3 bg-hairlineSoft rounded-[12px] border border-hairline mb-6">
+        <div class="dicebear-ring w-10 h-10 shrink-0">
+          <img data-s="fun-emoji" data-seed="scenario-healthy" data-sz="80" alt="" id="scenarioDetailIcon" />
+        </div>
+        <div>
+          <div class="font-semibold text-sm text-ink" id="scenarioDetailTitle">สุขภาพดี ไม่นอน รพ. เลย</div>
+          <div class="text-mute text-xs" id="scenarioDetailDesc">โอกาสเกิดสูงที่สุดสำหรับคนช่วงอายุ 20-35 ปี — ค่ารักษา 0 บาท</div>
+        </div>
+      </div>
 
-        <div class="border-t-[3px] border-[#ee0000] bg-elevated rounded-[12px] p-5 shadow-[0_1px_1px_rgba(0,0,0,0.04)]">
+      <!-- Outcome Cards -->
+      <div class="grid md:grid-cols-3 gap-4">
+
+        <div class="bg-elevated border border-hairline rounded-[12px] p-5 shadow-[0_1px_1px_rgba(0,0,0,0.04)]">
           <div class="flex items-center gap-2 mb-3">
-            <div class="dicebear-ring w-7 h-7">
-              <img data-s="bottts" data-seed="insurance-normal" data-sz="56" alt="Normal" />
+            <span class="w-2 h-2 rounded-full bg-[#ee0000] shrink-0"></span>
+            <div class="dicebear-ring w-6 h-6">
+              <img data-s="bottts" data-seed="insurance-normal" data-sz="48" alt="" />
             </div>
-            <h4 class="font-semibold text-[#ee0000] text-xs tracking-wider uppercase">ประกันสุขภาพทั่วไป</h4>
+            <h4 class="font-semibold text-ink text-xs tracking-wider uppercase">ประกันสุขภาพทั่วไป</h4>
           </div>
           <p id="outcomeNormalText" class="text-body text-sm leading-relaxed">-</p>
         </div>
 
-        <div class="border-t-[3px] border-accent bg-elevated rounded-[12px] p-5 shadow-[0_1px_1px_rgba(0,0,0,0.04)]">
+        <div class="bg-elevated border border-hairline rounded-[12px] p-5 shadow-[0_1px_1px_rgba(0,0,0,0.04)]">
           <div class="flex items-center gap-2 mb-3">
-            <div class="dicebear-ring w-7 h-7">
-              <img data-s="adventurer" data-seed="insurance-deductible" data-sz="56" alt="Deductible" />
+            <span class="w-2 h-2 rounded-full bg-accent shrink-0"></span>
+            <div class="dicebear-ring w-6 h-6">
+              <img data-s="adventurer" data-seed="insurance-deductible" data-sz="48" alt="" />
             </div>
-            <h4 class="font-semibold text-accentDeep text-xs tracking-wider uppercase">Deductible + ประกันกลุ่ม</h4>
+            <h4 class="font-semibold text-ink text-xs tracking-wider uppercase">Deductible + ประกันกลุ่ม</h4>
           </div>
           <p id="outcomeDeductibleText" class="text-body text-sm leading-relaxed">-</p>
         </div>
 
-        <div class="border-t-[3px] border-[#f5a623] bg-elevated rounded-[12px] p-5 shadow-[0_1px_1px_rgba(0,0,0,0.04)]">
+        <div class="bg-elevated border border-hairline rounded-[12px] p-5 shadow-[0_1px_1px_rgba(0,0,0,0.04)]">
           <div class="flex items-center gap-2 mb-3">
-            <div class="dicebear-ring w-7 h-7">
-              <img data-s="pixel-art" data-seed="solo-deductible" data-sz="56" alt="Solo Deductible" />
+            <span class="w-2 h-2 rounded-full bg-[#f5a623] shrink-0"></span>
+            <div class="dicebear-ring w-6 h-6">
+              <img data-s="pixel-art" data-seed="solo-deductible" data-sz="48" alt="" />
             </div>
-            <h4 class="font-semibold text-[#ab570a] text-xs tracking-wider uppercase">Deductible (ไม่มีประกันกลุ่ม)</h4>
+            <h4 class="font-semibold text-ink text-xs tracking-wider uppercase">Deductible (ไม่มีประกันกลุ่ม)</h4>
           </div>
           <p id="outcomeDeductibleSoloText" class="text-body text-sm leading-relaxed">-</p>
         </div>
@@ -521,40 +524,57 @@
       futureValue.innerText = `${Math.round(fv).toLocaleString()} บาท`;
     }
 
-    const scenarios = {
+    const scenarioMeta = {
       healthy: {
-        normal: "ไม่ต้องควักเงินสดเพิ่มในการรักษาตัว แต่อย่าลืมว่าจ่ายค่าเบี้ยทิ้งปีละก้อนสะสมยาวนาน 10 ปีเต็ม เงินส่วนต่างสะสมถูกจ่ายทิ้งไปเต็มจำนวนเพื่อแลกความสบายใจที่ไม่ได้ใช้จริง ขัดขวางโอกาสสะสมทุนเพื่อสร้างอนาคต",
-        deductible: "จ่ายจริงเฉลี่ยเพียงไม่กี่พันบาทต่อปี ปลดล็อกให้มีเงินสะสมไหลเข้าพอร์ตเพิ่มขึ้นในระยะยาว ประหยัดต้นทุนไปมากกว่าแสนสี่หมื่นบาท ปิดประตูเงินจมไปได้อย่างมีประสิทธิภาพ",
-        deductibleSolo: "ประหยัดค่าเบี้ยได้สูงสุดเช่นกัน ได้เงินส่วนต่างไปลงทุนต่อยอดเต็มเม็ดเต็มหน่วย เหมาะสำหรับคนสุขภาพแข็งแรงที่ยอมรับความเสี่ยงที่จะต้องจ่ายค่ารักษาเล็กน้อยเองได้"
+        title: 'สุขภาพดี ไม่นอน รพ. เลย',
+        desc: 'โอกาสเกิดสูงที่สุดสำหรับคนช่วงอายุ 20-35 ปี — ค่ารักษา 0 บาท',
+        icon: 'scenario-healthy',
+        normal: 'ไม่ต้องควักเงินสดเพิ่มในการรักษาตัว แต่อย่าลืมว่าจ่ายค่าเบี้ยทิ้งปีละก้อนสะสมยาวนาน 10 ปีเต็ม เงินส่วนต่างสะสมถูกจ่ายทิ้งไปเต็มจำนวนเพื่อแลกความสบายใจที่ไม่ได้ใช้จริง ขัดขวางโอกาสสะสมทุนเพื่อสร้างอนาคต',
+        deductible: 'จ่ายจริงเฉลี่ยเพียงไม่กี่พันบาทต่อปี ปลดล็อกให้มีเงินสะสมไหลเข้าพอร์ตเพิ่มขึ้นในระยะยาว ประหยัดต้นทุนไปมากกว่าแสนสี่หมื่นบาท ปิดประตูเงินจมไปได้อย่างมีประสิทธิภาพ',
+        deductibleSolo: 'ประหยัดค่าเบี้ยได้สูงสุดเช่นกัน ได้เงินส่วนต่างไปลงทุนต่อยอดเต็มเม็ดเต็มหน่วย เหมาะสำหรับคนสุขภาพแข็งแรงที่ยอมรับความเสี่ยงที่จะต้องจ่ายค่ารักษาเล็กน้อยเองได้'
       },
       minor: {
-        normal: "ประกันสุขภาพทั่วไปคุ้มครองให้เต็มจำนวน 25,000 บาทตั้งแต่บาทแรก ไม่ต้องจ่ายเอง แต่ในความเป็นจริง คือต้องจ่ายเบี้ยที่ราคาสูงกว่าเพื่อมาแลกค่าคุ้มครองโรคเล็กๆ ที่แทบไม่ส่งผลกระทบต่อสถานะการเงิน",
-        deductible: "ยอดค่ารักษา 25,000 ไม่ถึงเกณฑ์ขั้นต่ำที่จะเริ่มเคลมของประกันส่วนบุคคลนี้ แต่สิทธิ์นี้จะถูกส่งไปเคลมที่ <strong>ประกันกลุ่มของบริษัท</strong> ซึ่งครอบคลุมเต็มจำนวนแทนพอดิบพอดี ทำให้ไม่ต้องควักเนื้อและเซฟค่าเบี้ยออมในกระเป๋าเท่าเดิม",
-        deductibleSolo: "<strong>ต้องควักเงินจ่ายเองทั้งหมด 25,000 บาท</strong> เนื่องจากยอดค่ารักษายังไม่ถึงเกณฑ์ความรับผิดส่วนแรก (Deductible) ที่ตั้งไว้ แลกกับการได้จ่ายเบี้ยประกันรายปีที่ถูกกว่ามาก"
+        title: 'ป่วยจุกจิก (ค่ารักษา 25,000 บาท)',
+        desc: 'เจ็บป่วยปานกลาง เช่น ไข้หวัดใหญ่ อาหารเป็นพิษ — ค่ารักษา 25,000 บาท',
+        icon: 'scenario-minor',
+        normal: 'ประกันสุขภาพทั่วไปคุ้มครองให้เต็มจำนวน 25,000 บาทตั้งแต่บาทแรก ไม่ต้องจ่ายเอง แต่ในความเป็นจริง คือต้องจ่ายเบี้ยที่ราคาสูงกว่าเพื่อมาแลกค่าคุ้มครองโรคเล็กๆ ที่แทบไม่ส่งผลกระทบต่อสถานะการเงิน',
+        deductible: 'ยอดค่ารักษา 25,000 ไม่ถึงเกณฑ์ขั้นต่ำที่จะเริ่มเคลมของประกันส่วนบุคคลนี้ แต่สิทธิ์นี้จะถูกส่งไปเคลมที่ <strong>ประกันกลุ่มของบริษัท</strong> ซึ่งครอบคลุมเต็มจำนวนแทนพอดิบพอดี ทำให้ไม่ต้องควักเนื้อและเซฟค่าเบี้ยออมในกระเป๋าเท่าเดิม',
+        deductibleSolo: '<strong>ต้องควักเงินจ่ายเองทั้งหมด 25,000 บาท</strong> เนื่องจากยอดค่ารักษายังไม่ถึงเกณฑ์ความรับผิดส่วนแรก (Deductible) ที่ตั้งไว้ แลกกับการได้จ่ายเบี้ยประกันรายปีที่ถูกกว่ามาก'
       },
       major: {
-        normal: "ประกันเคลมยอดผ่าตัดใหญ่และรักษาตัว 500,000 บาทให้ครบ ป้องกันพอร์ตและเงินเก็บไม่ให้พังทลายลงมา",
-        deductible: "วงเงินทำงานประสานงานทันที: หักเงินส่วนแรก (ตามแผนที่เลือก) ไปเบิกเคลมกับประกันกลุ่มของบริษัท จากนั้นส่วนเกินทั้งหมดจนถึง 500,000 บาท ประกัน Deductible เล่มนี้จ่ายให้ทั้งหมด <strong>ผลลัพธ์คือไม่ต้องจ่ายเองเช่นเดียวกัน</strong> แต่ประหยัดเบี้ยสะสมสิบปีได้หลักแสน",
-        deductibleSolo: "<strong>ต้องจ่ายเงินส่วนแรกเอง (เช่น 20,000-50,000 บาท)</strong> จากนั้นส่วนเกินทั้งหมด ประกันเล่มนี้จะจ่ายให้ ถือเป็นการจำกัดความเสียหาย (Stop Loss) ไม่ให้เงินเก็บทั้งชีวิตพังทลายจากโรคร้าย"
+        title: 'เจอโรคร้าย/อุบัติเหตุใหญ่ (500,000 บาท)',
+        desc: 'ความเสี่ยงระดับหายนะ (Tail Risk) — ค่ารักษา 500,000 บาท',
+        icon: 'scenario-major',
+        normal: 'ประกันเคลมยอดผ่าตัดใหญ่และรักษาตัว 500,000 บาทให้ครบ ป้องกันพอร์ตและเงินเก็บไม่ให้พังทลายลงมา',
+        deductible: 'วงเงินทำงานประสานงานทันที: หักเงินส่วนแรก (ตามแผนที่เลือก) ไปเบิกเคลมกับประกันกลุ่มของบริษัท จากนั้นส่วนเกินทั้งหมดจนถึง 500,000 บาท ประกัน Deductible เล่มนี้จ่ายให้ทั้งหมด <strong>ผลลัพธ์คือไม่ต้องจ่ายเองเช่นเดียวกัน</strong> แต่ประหยัดเบี้ยสะสมสิบปีได้หลักแสน',
+        deductibleSolo: '<strong>ต้องจ่ายเงินส่วนแรกเอง (เช่น 20,000-50,000 บาท)</strong> จากนั้นส่วนเกินทั้งหมด ประกันเล่มนี้จะจ่ายให้ ถือเป็นการจำกัดความเสียหาย (Stop Loss) ไม่ให้เงินเก็บทั้งชีวิตพังทลายจากโรคร้าย'
       }
     };
 
-    function changeScenario(key) {
-      document.getElementById('outcomeNormalText').innerHTML = scenarios[key].normal;
-      document.getElementById('outcomeDeductibleText').innerHTML = scenarios[key].deductible;
-      document.getElementById('outcomeDeductibleSoloText').innerHTML = scenarios[key].deductibleSolo;
+    const PILL_ACTIVE = 'border-ink bg-ink text-white';
+    const PILL_INACTIVE = 'border-hairlineSoft bg-hairlineSoft text-body hover:border-hairline';
 
-      const activeClasses = ['border-ink', 'bg-elevated', 'shadow-[0_1px_2px_rgba(0,0,0,0.06)]'];
-      const inactiveClasses = ['border-hairlineSoft', 'bg-hairlineSoft'];
+    function changeScenario(key) {
+      const meta = scenarioMeta[key];
+      document.getElementById('outcomeNormalText').innerHTML = meta.normal;
+      document.getElementById('outcomeDeductibleText').innerHTML = meta.deductible;
+      document.getElementById('outcomeDeductibleSoloText').innerHTML = meta.deductibleSolo;
+      document.getElementById('scenarioDetailTitle').innerText = meta.title;
+      document.getElementById('scenarioDetailDesc').innerText = meta.desc;
+
+      const iconEl = document.getElementById('scenarioDetailIcon');
+      iconEl.dataset.seed = meta.icon;
+      const p = new URLSearchParams();
+      p.set('seed', meta.icon);
+      p.set('size', '80');
+      iconEl.src = `https://api.dicebear.com/10.x/fun-emoji/svg?${p.toString()}`;
 
       document.querySelectorAll('.scenario-tab').forEach(btn => {
-        inactiveClasses.forEach(c => btn.classList.add(c));
-        activeClasses.forEach(c => btn.classList.remove(c));
+        btn.className = `scenario-tab inline-flex items-center gap-2 px-4 py-2 rounded-[64px] border font-medium text-sm transition ${PILL_INACTIVE}`;
       });
 
       const activeBtn = document.getElementById(`btn-${key}`);
-      inactiveClasses.forEach(c => activeBtn.classList.remove(c));
-      activeClasses.forEach(c => activeBtn.classList.add(c));
+      activeBtn.className = `scenario-tab inline-flex items-center gap-2 px-4 py-2 rounded-[64px] border font-medium text-sm transition ${PILL_ACTIVE}`;
     }
 
     returnSlider.addEventListener('input', (e) => {
