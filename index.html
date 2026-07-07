@@ -531,6 +531,43 @@
     </section>
   </div>
 
+  <!-- Footer -->
+  <footer class="border-t border-hairline">
+    <div class="max-w-6xl mx-auto px-4 py-16">
+
+      <!-- Insurance disclaimer -->
+      <div class="bg-hairlineSoft border border-hairline rounded-[12px] p-5 mb-10">
+        <div class="flex items-start gap-3">
+          <div class="w-5 h-5 rounded-full bg-warning flex items-center justify-center shrink-0 mt-0.5">
+            <span class="text-white text-[10px] font-bold leading-none">!</span>
+          </div>
+          <div>
+            <h4 class="font-semibold text-sm text-ink mb-1">คำเตือนเกี่ยวกับข้อมูลประกัน</h4>
+            <p class="text-xs text-body leading-relaxed">
+              ข้อมูลเบี้ยประกันเป็นค่าเฉลี่ยจากตลาดปี 2026 อาจเปลี่ยนแปลงตามเงื่อนไขการรับประกันของแต่ละบริษัท
+              ตัวเลขที่แสดงเป็นเพียงการคำนวณตามสมมติฐาน ไม่ใช่คำแนะนำทางการเงิน
+              ควรตรวจสอบข้อมูลปัจจุบันและเงื่อนไขกรมธรรม์กับบริษัทประกันโดยตรงก่อนตัดสินใจ
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Brand row -->
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div class="flex items-center gap-3">
+          <div class="dicebear-ring w-8 h-8 border border-hairline">
+            <img data-s="lorelei" data-seed="health-guardian" data-sz="64" alt="" />
+          </div>
+          <div>
+            <div class="font-semibold text-sm text-ink">เครื่องมือวิเคราะห์และเปรียบเทียบประกันสุขภาพ</div>
+            <a href="https://github.com/ssupawat/health-insurance-compare" class="text-xs text-mute hover:text-ink transition">github.com/ssupawat/health-insurance-compare</a>
+          </div>
+        </div>
+        <span class="text-xs text-faint">ข้อมูลอ้างอิงปี 2026</span>
+      </div>
+    </div>
+  </footer>
+
   <!-- DiceBear Initializer -->
   <script>
     document.querySelectorAll('img[data-s]').forEach(img => {
