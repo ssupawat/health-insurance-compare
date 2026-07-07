@@ -45,16 +45,16 @@ export default async function handler() {
         {/* Title */}
         <div
           style={{
-            fontSize: '48px',
+            fontSize: '36px',
             fontWeight: 600,
             color: '#171717',
-            lineHeight: '56px',
+            lineHeight: '44px',
             letterSpacing: '-2px',
             maxWidth: '900px',
             marginBottom: '16px',
           }}
         >
-          ทั่วไปหรือ Deductible
+          เลือกประกันสุขภาพแบบทั่วไปหรือ Deductible ดี?
         </div>
 
         {/* Subtitle */}
