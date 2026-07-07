@@ -43,6 +43,7 @@
     };
   </script>
   <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://api.dicebear.com" />
   <style>
     body { font-family: 'Sarabun', sans-serif; background: #fafafa; color: #171717; }
     .dicebear-ring { border-radius: 9999px; overflow: hidden; flex-shrink: 0; }
@@ -314,7 +315,7 @@
         <div class="bg-elevated border border-hairline rounded-[12px] p-6 hover:border-ink transition shadow-[0_1px_1px_rgba(0,0,0,0.04)]">
           <div class="flex items-center gap-3 border-b border-hairline pb-3 mb-3">
             <div class="dicebear-ring w-10 h-10 border border-hairline">
-              <img data-s="fun-emoji" data-seed="sick-minor" data-sz="80" alt="Minor Illness" />
+              <img data-s="fun-emoji" data-seed="sick-minor" data-sz="80" alt="Minor Illness" loading="lazy" />
             </div>
             <h4 class="font-semibold text-ink text-sm">ป่วยจุกจิก บ่อยๆ (เล็กน้อย)</h4>
           </div>
@@ -327,7 +328,7 @@
         <div class="bg-elevated border border-hairline rounded-[12px] p-6 hover:border-ink transition shadow-[0_1px_1px_rgba(0,0,0,0.04)]">
           <div class="flex items-center gap-3 border-b border-hairline pb-3 mb-3">
             <div class="dicebear-ring w-10 h-10 border border-hairline">
-              <img data-s="lorelei" data-seed="healthy-strong" data-sz="80" alt="Healthy" />
+              <img data-s="lorelei" data-seed="healthy-strong" data-sz="80" alt="Healthy" loading="lazy" />
             </div>
             <h4 class="font-semibold text-ink text-sm">แข็งแรงดี (ป่วยน้อย/ไม่ป่วย)</h4>
           </div>
@@ -340,7 +341,7 @@
         <div class="bg-elevated border border-hairline rounded-[12px] p-6 hover:border-ink transition shadow-[0_1px_1px_rgba(0,0,0,0.04)]">
           <div class="flex items-center gap-3 border-b border-hairline pb-3 mb-3">
             <div class="dicebear-ring w-10 h-10 border border-hairline">
-              <img data-s="bottts" data-seed="major-illness" data-sz="80" alt="Major Illness" />
+              <img data-s="bottts" data-seed="major-illness" data-sz="80" alt="Major Illness" loading="lazy" />
             </div>
             <h4 class="font-semibold text-ink text-sm">แจ็กพอตแตก (ป่วยหนัก/ผ่าตัด)</h4>
           </div>
@@ -390,7 +391,7 @@
         <div class="md:col-span-7 bg-elevated border border-hairline rounded-[12px] p-6 shadow-[0_1px_1px_rgba(0,0,0,0.04)]">
           <div class="flex items-center gap-3 mb-5">
             <div class="dicebear-ring w-10 h-10 border border-hairline">
-              <img data-s="adventurer" data-seed="growth-investor" data-sz="80" alt="Investor" />
+              <img data-s="adventurer" data-seed="growth-investor" data-sz="80" alt="Investor" loading="lazy" />
             </div>
             <div>
               <div class="font-semibold text-sm text-ink">เงินส่วนต่างที่ประหยัดได้</div>
@@ -413,7 +414,7 @@
         <div class="md:col-span-5 bg-elevated border border-hairline rounded-[12px] p-6 shadow-[0_1px_1px_rgba(0,0,0,0.04)]">
           <div class="flex items-center gap-3 mb-5">
             <div class="dicebear-ring w-10 h-10 border border-hairline">
-              <img data-s="fun-emoji" data-seed="wealth-growth" data-sz="80" alt="Wealth Growth" />
+              <img data-s="fun-emoji" data-seed="wealth-growth" data-sz="80" alt="Wealth Growth" loading="lazy" />
             </div>
             <div>
               <div class="font-semibold text-sm text-ink">ผลตอบแทนทบต้น</div>
@@ -474,19 +475,19 @@
       <div class="flex flex-wrap gap-2 mb-5">
         <button onclick="changeScenario('healthy')" id="btn-healthy" class="scenario-tab inline-flex items-center gap-2 px-4 py-2 rounded-[64px] border font-medium text-sm transition border-hairlineSoft bg-hairlineSoft text-body hover:border-hairline">
           <span class="dicebear-ring w-6 h-6">
-            <img data-s="fun-emoji" data-seed="scenario-healthy" data-sz="48" alt="" />
+            <img data-s="fun-emoji" data-seed="scenario-healthy" data-sz="48" alt="" loading="lazy" />
           </span>
           สุขภาพดี
         </button>
         <button onclick="changeScenario('minor')" id="btn-minor" class="scenario-tab inline-flex items-center gap-2 px-4 py-2 rounded-[64px] border font-medium text-sm transition border-hairlineSoft bg-hairlineSoft text-body hover:border-hairline">
           <span class="dicebear-ring w-6 h-6 border border-hairline">
-            <img data-s="fun-emoji" data-seed="scenario-minor" data-sz="48" alt="" />
+            <img data-s="fun-emoji" data-seed="scenario-minor" data-sz="48" alt="" loading="lazy" />
           </span>
           ป่วยจุกจิก
         </button>
         <button onclick="changeScenario('major')" id="btn-major" class="scenario-tab inline-flex items-center gap-2 px-4 py-2 rounded-[64px] border font-medium text-sm transition border-hairlineSoft bg-hairlineSoft text-body hover:border-hairline">
           <span class="dicebear-ring w-6 h-6">
-            <img data-s="fun-emoji" data-seed="scenario-major" data-sz="48" alt="" />
+            <img data-s="fun-emoji" data-seed="scenario-major" data-sz="48" alt="" loading="lazy" />
           </span>
           โรคร้าย
         </button>
@@ -495,7 +496,7 @@
       <!-- Active Scenario Detail -->
       <div class="flex items-center gap-3 px-4 py-3 bg-hairlineSoft rounded-[12px] border border-hairline mb-6">
         <div class="dicebear-ring w-10 h-10 shrink-0">
-          <img data-s="fun-emoji" data-seed="scenario-healthy" data-sz="80" alt="" id="scenarioDetailIcon" />
+          <img data-s="fun-emoji" data-seed="scenario-healthy" data-sz="80" alt="" id="scenarioDetailIcon" loading="lazy" />
         </div>
         <div>
           <div class="font-semibold text-sm text-ink" id="scenarioDetailTitle">สุขภาพดี ไม่นอน รพ. เลย</div>
@@ -510,7 +511,7 @@
           <div class="flex items-center gap-2 mb-3">
             <span class="w-2 h-2 rounded-full bg-error shrink-0"></span>
             <div class="dicebear-ring w-6 h-6 border border-hairline">
-              <img data-s="bottts" data-seed="insurance-normal" data-sz="48" alt="" />
+              <img data-s="bottts" data-seed="insurance-normal" data-sz="48" alt="" loading="lazy" />
             </div>
             <h4 class="font-semibold text-ink text-xs tracking-wider uppercase">ประกันสุขภาพทั่วไป</h4>
           </div>
@@ -521,7 +522,7 @@
           <div class="flex items-center gap-2 mb-3">
             <span class="w-2 h-2 rounded-full bg-accent shrink-0"></span>
             <div class="dicebear-ring w-6 h-6 border border-hairline">
-              <img data-s="adventurer" data-seed="insurance-deductible" data-sz="48" alt="" />
+              <img data-s="adventurer" data-seed="insurance-deductible" data-sz="48" alt="" loading="lazy" />
             </div>
             <h4 class="font-semibold text-ink text-xs tracking-wider uppercase">Deductible + ประกันกลุ่ม</h4>
           </div>
@@ -532,7 +533,7 @@
           <div class="flex items-center gap-2 mb-3">
             <span class="w-2 h-2 rounded-full bg-warning shrink-0"></span>
             <div class="dicebear-ring w-6 h-6 border border-hairline">
-              <img data-s="pixel-art" data-seed="solo-deductible" data-sz="48" alt="" />
+              <img data-s="pixel-art" data-seed="solo-deductible" data-sz="48" alt="" loading="lazy" />
             </div>
             <h4 class="font-semibold text-ink text-xs tracking-wider uppercase">Deductible (ไม่มีประกันกลุ่ม)</h4>
           </div>
@@ -567,7 +568,7 @@
       <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div class="flex items-center gap-3">
           <div class="dicebear-ring w-8 h-8 border border-hairline">
-            <img data-s="lorelei" data-seed="health-guardian" data-sz="64" alt="" />
+            <img data-s="lorelei" data-seed="health-guardian" data-sz="64" alt="" loading="lazy" />
           </div>
           <div>
             <div class="font-semibold text-sm text-ink">เครื่องมือวิเคราะห์และเปรียบเทียบประกันสุขภาพ</div>
