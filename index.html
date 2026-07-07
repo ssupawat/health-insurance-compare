@@ -624,24 +624,18 @@
     };
 
     let calcPending = false;
-    let calcUrgent = false;
     function scheduleCalc() {
       if (!calcPending) {
         calcPending = true;
-        requestAnimationFrame(() => { calcUrgent = true; calculatePremiums(); calcPending = false; });
+        requestAnimationFrame(() => { calculatePremiums(); calcPending = false; });
       }
     }
 
     function animateValue(el, target, fmt) {
       const current = parseInt((el.innerText.match(/[\d,]+/) || ['0'])[0].replace(/,/g, ''));
       if (current === target) { el.innerText = fmt(target); return; }
-      const diff = Math.abs(target - current);
-      const max = Math.max(Math.abs(target), Math.abs(current), 1);
-      const ratio = diff / max;
-      const base = calcUrgent ? 60 : 200;
-      const duration = Math.min(base + ratio * 200, 400);
-      calcUrgent = false;
       const start = performance.now();
+      const duration = 160;
       function tick(now) {
         const t = Math.min((now - start) / duration, 1);
         const eased = 1 - Math.pow(1 - t, 3);
