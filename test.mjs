@@ -96,8 +96,39 @@ try {
   check('deductible = 5,320', ded50.deductible === 5320, `${ded50.deductible}`);
   check('savings = 19,180', ded50.diff === 19180, `${ded50.diff}`);
 
+  // ---- CASH FLOW DECISION GUIDE ----
+  console.log('\n-- Cash flow decision guide --');
+  // Reset to baseline (age 25, male, 1M, 30k ded)
+  await page.evaluate(() => {
+    const s = document.getElementById('ageSlider');
+    s.value = 25;
+    s.dispatchEvent(new Event('input', { bubbles: true }));
+  });
+  await act(() => page.click('#btn-gender-male'));
+  await act(() => page.click('#btn-cov-1m'));
+  await page.evaluate(() => selectDeductible('30000'));
+  const cf1bal = await page.textContent('#cf1Balance');
+  const cf2bal = await page.textContent('#cf2Balance');
+  const cf4bal = await page.textContent('#cf4Balance');
+  const cf1inv = await page.textContent('#cf1Invest');
+  check('cf1 balance = ~325,000', num(cf1bal) === 325000, cf1bal);
+  check('cf2 balance = ~198,000', num(cf2bal) === 198000, cf2bal);
+  check('cf4 balance = ~448,000', num(cf4bal) === 448000, cf4bal);
+  check('cf1 invest contains 639k or 7%', cf1inv.includes('639') || cf1inv.includes('7%'), cf1inv);
+  await act(() => page.click('#btn-tvm-principal'));
+  const cf1invP = await page.textContent('#cf1Invest');
+  check('cf1 invest = ไม่ลงทุน in principal mode', cf1invP.includes('ไม่ลงทุน'), cf1invP);
+  await act(() => page.click('#btn-tvm-tvm'));
+
   // ---- TVM PRINCIPAL MODE ----
   console.log('\n-- TVM: principal mode --');
+  // Reset to ded 50k + age 35 state (matches the ded50 test setup)
+  await act(() => page.evaluate(() => {
+    const s = document.getElementById('ageSlider');
+    s.value = 35;
+    s.dispatchEvent(new Event('input', { bubbles: true }));
+  }));
+  await act(() => page.evaluate(() => selectDeductible('50000')));
   await act(() => page.click('#btn-tvm-principal'));
   const principal = await scrape();
   check('principal 10yr = 191,800', principal.principal === 191800, `${principal.principal}`);
