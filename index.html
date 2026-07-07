@@ -297,6 +297,7 @@
             <li><span class="text-[#ee0000] font-semibold block text-xs">Deductible (จ่ายเอง):</span> ไม่ช่วยปกป้องเงินในกระเป๋าเลย ต้องควักจ่ายเองทั้งหมด (ไม่ตอบโจทย์)</li>
             <li><span class="text-accent font-semibold block text-xs">ประกันทั่วไป:</span> ปกป้องกระเป๋าเงินได้ดีที่สุด เคลมได้ตั้งแต่บาทแรก</li>
           </ul>
+          <p class="text-xs text-mute mt-3 pt-3 border-t border-hairline" id="matrixAgeMin">-</p>
         </div>
 
         <div class="bg-elevated border border-hairline rounded-[12px] p-5 hover:border-ink transition shadow-[0_1px_1px_rgba(0,0,0,0.04)]">
@@ -310,6 +311,7 @@
             <li><span class="text-[#ee0000] font-semibold block text-xs">ประกันทั่วไป:</span> ถลุงเงินในกระเป๋า กลายเป็นรายจ่ายก้อนใหญ่ที่ละลายหายไปทุกปี</li>
             <li><span class="text-accent font-semibold block text-xs">Deductible:</span> ปกป้องความมั่งคั่งได้ดีที่สุด เซฟเงินก้อนใหญ่ไว้เติบโต (ตอบโจทย์สุด)</li>
           </ul>
+          <p class="text-xs text-mute mt-3 pt-3 border-t border-hairline" id="matrixAgeStrong">-</p>
         </div>
 
         <div class="bg-elevated border border-hairline rounded-[12px] p-5 hover:border-ink transition shadow-[0_1px_1px_rgba(0,0,0,0.04)]">
@@ -323,6 +325,7 @@
             <li><span class="text-accent font-semibold block text-xs">ทั้ง 2 แบบ:</span> ปกป้องเงินล้านในกระเป๋าได้เหมือนกัน</li>
             <li><span class="text-ink font-semibold block text-xs">Deductible ชนะขาด:</span> เพราะปิดความเสี่ยงระดับหายนะได้ ในราคาที่ถูกกว่ากันมาก (Stop Loss ที่คุ้มค่า)</li>
           </ul>
+          <p class="text-xs text-mute mt-3 pt-3 border-t border-hairline" id="matrixAgeMajor">-</p>
         </div>
       </div>
     </section>
@@ -610,6 +613,19 @@
       return `ความเสี่ยงระดับหายนะ — โอกาสเกิดสูงขึ้นใน${b.label} — ค่ารักษา 500,000 บาท`;
     }
 
+    function updateMatrixAge() {
+      const b = ageBracket(parseInt(ageSlider.value));
+      const lines = {
+        'matrixAgeMin':    `ใน${b.label} (${b.range}) — โอกาสป่วยจุกจิก${b.range === '20-29 ปี' ? 'สูงที่สุด' : 'ยังมีอยู่'} แต่ไม่กระทบสถานะการเงิน`,
+        'matrixAgeStrong': `${b.label} — ${b.range === '20-29 ปี' ? 'โอกาสแข็งแรงทั้งปีสูงมาก Deductible คือตัวเลือกที่คมที่สุด' : b.range === '30-39 ปี' ? 'ยังแข็งแรงดี โอกาสใช้ประกันต่ำ' : 'เริ่มตรวจสุขภาพถี่ขึ้น โอกาสแข็งแรงทั้งปีลดลง'}`,
+        'matrixAgeMajor':  `${b.label} — ${b.range === '20-29 ปี' ? 'โอกาสเกิดต่ำมาก แต่ถ้าเกิดคือหายนะ — ประกันยังจำเป็น' : b.range === '30-39 ปี' ? 'ความเสี่ยงเริ่มมีนัยสำคัญ ควรมีประกันรองรับ' : 'ความเสี่ยงโรคเรื้อรังและโรคร้ายแรงเพิ่มชัดเจน — Deductible คุ้มค่าที่สุด'}`
+      };
+      Object.entries(lines).forEach(([id, text]) => {
+        const el = document.getElementById(id);
+        if (el) el.innerText = text;
+      });
+    }
+
     const scenarioMeta = {
       healthy: {
         title: 'สุขภาพดี ไม่นอน รพ. เลย',
@@ -679,6 +695,7 @@
     ageSlider.addEventListener('input', (e) => {
       ageVal.innerText = `${e.target.value} ปี`;
       document.getElementById('scenarioDetailDesc').innerText = scenarioDesc(activeScenario);
+      updateMatrixAge();
       calculatePremiums();
     });
 
@@ -724,6 +741,7 @@
 
     calculatePremiums();
     changeScenario('healthy');
+    updateMatrixAge();
   </script>
 </body>
 </html>
