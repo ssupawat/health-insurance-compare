@@ -374,21 +374,21 @@
 
           <!-- TVM toggle -->
           <div class="flex items-center justify-between mb-4">
-            <span class="text-xs text-mute">มุมมองการคำนวณ</span>
+            <span class="text-xs text-mute">การคำนวณ</span>
             <div class="inline-flex rounded-[6px] border border-hairline overflow-hidden">
-              <button onclick="setTvmMode('fv')" id="btn-tvm-fv" class="px-3 py-1 text-xs font-medium transition bg-ink text-white">FV</button>
-              <button onclick="setTvmMode('pv')" id="btn-tvm-pv" class="px-3 py-1 text-xs font-medium transition bg-elevated text-body">PV</button>
+              <button onclick="setTvmMode('principal')" id="btn-tvm-principal" class="px-3 py-1 text-xs font-medium transition bg-elevated text-body">เงินต้น</button>
+              <button onclick="setTvmMode('tvm')" id="btn-tvm-tvm" class="px-3 py-1 text-xs font-medium transition bg-ink text-white">TVM</button>
             </div>
           </div>
 
           <!-- Growth projection -->
           <div class="grid grid-cols-2 gap-3 mb-4">
             <div class="text-center bg-hairlineSoft rounded-[12px] p-3 border border-hairline">
-              <div class="text-xs text-mute mb-1" id="labelYear5">ปีที่ 5 (FV)</div>
+              <div class="text-xs text-mute mb-1" id="labelYear5">ปีที่ 5</div>
               <div class="text-lg font-semibold text-ink tracking-tight" id="fvYear5">-</div>
             </div>
             <div class="text-center bg-ink rounded-[12px] p-3">
-              <div class="text-xs text-white/60 mb-1" id="labelYear10">ปีที่ 10 (FV)</div>
+              <div class="text-xs text-white/60 mb-1" id="labelYear10">ปีที่ 10</div>
               <div class="text-lg font-semibold text-white tracking-tight" id="futureValue">-</div>
             </div>
           </div>
@@ -512,7 +512,7 @@
     const labelYear5 = document.getElementById('labelYear5');
     const labelYear10 = document.getElementById('labelYear10');
 
-    let tvmMode = 'fv';
+    let tvmMode = 'tvm';
 
     let selectedCoverage = 1000000;
     let selectedGender = 'male';
@@ -574,16 +574,8 @@
         ? annualSavings * 5
         : annualSavings * ((Math.pow(1 + rate, 5) - 1) / rate);
 
-      let pv = rate === 0
-        ? savingsAccumulated
-        : annualSavings * ((1 - Math.pow(1 + rate, -10)) / rate);
-
-      let pv5 = rate === 0
-        ? annualSavings * 5
-        : annualSavings * ((1 - Math.pow(1 + rate, -5)) / rate);
-
-      const val10 = tvmMode === 'fv' ? fv : pv;
-      const val5 = tvmMode === 'fv' ? fv5 : pv5;
+      const val10 = tvmMode === 'tvm' ? fv : savingsAccumulated;
+      const val5 = tvmMode === 'tvm' ? fv5 : annualSavings * 5;
 
       normalPremiumText.innerText = `~${finalNormal.toLocaleString()} บาท/ปี`;
       deductiblePremiumText.innerText = `~${finalDeductible.toLocaleString()} บาท/ปี`;
@@ -669,24 +661,26 @@
 
     function setTvmMode(mode) {
       tvmMode = mode;
-      const btnFv = document.getElementById('btn-tvm-fv');
-      const btnPv = document.getElementById('btn-tvm-pv');
+      const btnPrincipal = document.getElementById('btn-tvm-principal');
+      const btnTvm = document.getElementById('btn-tvm-tvm');
       const tvmPrefix = document.getElementById('tvmPrefix');
       const tvmSuffix = document.getElementById('tvmSuffix');
-      if (mode === 'fv') {
-        btnFv.className = 'px-3 py-1 text-xs font-medium transition bg-ink text-white';
-        btnPv.className = 'px-3 py-1 text-xs font-medium transition bg-elevated text-body';
-        labelYear5.innerText = 'ปีที่ 5 (FV)';
-        labelYear10.innerText = 'ปีที่ 10 (FV)';
+      const ACTIVE = 'px-3 py-1 text-xs font-medium transition bg-ink text-white';
+      const INACTIVE = 'px-3 py-1 text-xs font-medium transition bg-elevated text-body';
+      if (mode === 'tvm') {
+        btnTvm.className = ACTIVE;
+        btnPrincipal.className = INACTIVE;
+        labelYear5.innerText = 'ปีที่ 5';
+        labelYear10.innerText = 'ปีที่ 10';
         tvmPrefix.innerText = 'นำเงิน';
         tvmSuffix.innerHTML = 'บาท/ปี ลงทุนที่ <span id="returnLabel" class="font-semibold text-ink">' + returnSlider.value + '%</span> ต่อปี';
       } else {
-        btnPv.className = 'px-3 py-1 text-xs font-medium transition bg-ink text-white';
-        btnFv.className = 'px-3 py-1 text-xs font-medium transition bg-elevated text-body';
-        labelYear5.innerText = 'ปีที่ 5 (PV)';
-        labelYear10.innerText = 'ปีที่ 10 (PV)';
-        tvmPrefix.innerText = 'มูลค่าปัจจุบันของเงิน';
-        tvmSuffix.innerHTML = 'บาท/ปี อัตราคิดลด <span id="returnLabel" class="font-semibold text-ink">' + returnSlider.value + '%</span> ต่อปี';
+        btnPrincipal.className = ACTIVE;
+        btnTvm.className = INACTIVE;
+        labelYear5.innerText = 'ปีที่ 5';
+        labelYear10.innerText = 'ปีที่ 10';
+        tvmPrefix.innerText = 'เงินต้นรวม';
+        tvmSuffix.innerHTML = 'บาท/ปี สะสมโดยยังไม่ได้รวมดอกเบี้ย';
       }
       calculatePremiums();
     }
