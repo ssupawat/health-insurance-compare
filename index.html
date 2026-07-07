@@ -372,20 +372,29 @@
             <input type="range" id="returnSliderOC" min="2" max="15" value="7" class="w-full">
           </div>
 
+          <!-- TVM toggle -->
+          <div class="flex items-center justify-between mb-4">
+            <span class="text-xs text-mute">มุมมองการคำนวณ</span>
+            <div class="inline-flex rounded-[6px] border border-hairline overflow-hidden">
+              <button onclick="setTvmMode('fv')" id="btn-tvm-fv" class="px-3 py-1 text-xs font-medium transition bg-ink text-white">FV</button>
+              <button onclick="setTvmMode('pv')" id="btn-tvm-pv" class="px-3 py-1 text-xs font-medium transition bg-elevated text-body">PV</button>
+            </div>
+          </div>
+
           <!-- Growth projection -->
           <div class="grid grid-cols-2 gap-3 mb-4">
             <div class="text-center bg-hairlineSoft rounded-[12px] p-3 border border-hairline">
-              <div class="text-xs text-mute mb-1">ปีที่ 5</div>
+              <div class="text-xs text-mute mb-1" id="labelYear5">ปีที่ 5 (FV)</div>
               <div class="text-lg font-semibold text-ink tracking-tight" id="fvYear5">-</div>
             </div>
             <div class="text-center bg-ink rounded-[12px] p-3">
-              <div class="text-xs text-white/60 mb-1">ปีที่ 10</div>
+              <div class="text-xs text-white/60 mb-1" id="labelYear10">ปีที่ 10 (FV)</div>
               <div class="text-lg font-semibold text-white tracking-tight" id="futureValue">-</div>
             </div>
           </div>
 
           <p class="text-xs text-mute leading-normal text-center">
-            นำเงิน <span id="savingsLabel" class="font-semibold text-ink">-</span> บาท/ปี ลงทุนที่ <span id="returnLabel" class="font-semibold text-ink">7%</span> ต่อปี
+            <span id="tvmPrefix">นำเงิน</span> <span id="savingsLabel" class="font-semibold text-ink">-</span> <span id="tvmSuffix">บาท/ปี ลงทุนที่ <span id="returnLabel" class="font-semibold text-ink">7%</span> ต่อปี</span>
           </p>
         </div>
       </div>
@@ -499,6 +508,11 @@
     const futureValue = document.getElementById('futureValue');
     const fvYear5 = document.getElementById('fvYear5');
     const savingsLabel = document.getElementById('savingsLabel');
+    const tvmFootnote = document.getElementById('tvmFootnote');
+    const labelYear5 = document.getElementById('labelYear5');
+    const labelYear10 = document.getElementById('labelYear10');
+
+    let tvmMode = 'fv';
 
     let selectedCoverage = 1000000;
     let selectedGender = 'male';
@@ -560,12 +574,23 @@
         ? annualSavings * 5
         : annualSavings * ((Math.pow(1 + rate, 5) - 1) / rate);
 
+      let pv = rate === 0
+        ? savingsAccumulated
+        : annualSavings * ((1 - Math.pow(1 + rate, -10)) / rate);
+
+      let pv5 = rate === 0
+        ? annualSavings * 5
+        : annualSavings * ((1 - Math.pow(1 + rate, -5)) / rate);
+
+      const val10 = tvmMode === 'fv' ? fv : pv;
+      const val5 = tvmMode === 'fv' ? fv5 : pv5;
+
       normalPremiumText.innerText = `~${finalNormal.toLocaleString()} บาท/ปี`;
       deductiblePremiumText.innerText = `~${finalDeductible.toLocaleString()} บาท/ปี`;
       diffPerYear.innerText = `${annualSavings.toLocaleString()} บาท`;
       totalSaved10Y.innerText = `${savingsAccumulated.toLocaleString()} บาท`;
-      futureValue.innerText = `${Math.round(fv).toLocaleString()} บาท`;
-      fvYear5.innerText = `${Math.round(fv5).toLocaleString()} บาท`;
+      futureValue.innerText = `${Math.round(val10).toLocaleString()} บาท`;
+      fvYear5.innerText = `${Math.round(val5).toLocaleString()} บาท`;
       savingsLabel.innerText = `${annualSavings.toLocaleString()}`;
     }
 
@@ -623,9 +648,10 @@
     }
 
     function syncRate(value) {
+      const rl = document.getElementById('returnLabel');
       returnVal.innerText = `${value}%`;
       returnValOC.innerText = `${value}%`;
-      returnLabel.innerText = `${value}%`;
+      if (rl) rl.innerText = `${value}%`;
       returnSlider.value = value;
       returnSliderOC.value = value;
       calculatePremiums();
@@ -640,6 +666,30 @@
     });
 
     deductibleSelect.addEventListener('change', () => calculatePremiums());
+
+    function setTvmMode(mode) {
+      tvmMode = mode;
+      const btnFv = document.getElementById('btn-tvm-fv');
+      const btnPv = document.getElementById('btn-tvm-pv');
+      const tvmPrefix = document.getElementById('tvmPrefix');
+      const tvmSuffix = document.getElementById('tvmSuffix');
+      if (mode === 'fv') {
+        btnFv.className = 'px-3 py-1 text-xs font-medium transition bg-ink text-white';
+        btnPv.className = 'px-3 py-1 text-xs font-medium transition bg-elevated text-body';
+        labelYear5.innerText = 'ปีที่ 5 (FV)';
+        labelYear10.innerText = 'ปีที่ 10 (FV)';
+        tvmPrefix.innerText = 'นำเงิน';
+        tvmSuffix.innerHTML = 'บาท/ปี ลงทุนที่ <span id="returnLabel" class="font-semibold text-ink">' + returnSlider.value + '%</span> ต่อปี';
+      } else {
+        btnPv.className = 'px-3 py-1 text-xs font-medium transition bg-ink text-white';
+        btnFv.className = 'px-3 py-1 text-xs font-medium transition bg-elevated text-body';
+        labelYear5.innerText = 'ปีที่ 5 (PV)';
+        labelYear10.innerText = 'ปีที่ 10 (PV)';
+        tvmPrefix.innerText = 'มูลค่าปัจจุบันของเงิน';
+        tvmSuffix.innerHTML = 'บาท/ปี อัตราคิดลด <span id="returnLabel" class="font-semibold text-ink">' + returnSlider.value + '%</span> ต่อปี';
+      }
+      calculatePremiums();
+    }
 
     calculatePremiums();
     changeScenario('healthy');
