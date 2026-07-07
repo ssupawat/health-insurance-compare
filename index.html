@@ -319,19 +319,26 @@
     </section>
 
     <!-- Opportunity Cost -->
-    <section class="bg-elevated border border-hairline rounded-[16px] p-6 md:p-8 mb-16 shadow-[0_1px_1px_rgba(0,0,0,0.04)]">
-      <div class="grid md:grid-cols-12 gap-8 items-center">
-        <div class="md:col-span-7">
-          <div class="flex items-center gap-3 mb-3">
+    <section class="mb-16">
+      <div class="mb-6">
+        <span class="text-xs tracking-widest uppercase text-mute font-semibold">Opportunity Cost Analysis</span>
+        <h3 class="text-xl font-semibold text-ink mt-1 tracking-tight">มูลค่าการเติบโตของชีวิตที่สูญเสียไป (ในเวลา 10 ปี)</h3>
+        <p class="text-mute text-sm mt-1">หากเลือกจ่ายเบี้ยแพงเกินจำเป็น เงินส่วนต่างที่ควรนำไปลงทุนสร้างสินทรัพย์ทบต้น จะถูกจ่ายทิ้งปีต่อปี</p>
+      </div>
+
+      <div class="grid md:grid-cols-12 gap-6">
+
+        <!-- Left: savings stats -->
+        <div class="md:col-span-7 bg-elevated border border-hairline rounded-[12px] p-6 shadow-[0_1px_1px_rgba(0,0,0,0.04)]">
+          <div class="flex items-center gap-3 mb-5">
             <div class="dicebear-ring w-10 h-10 border border-hairline">
               <img data-s="adventurer" data-seed="growth-investor" data-sz="80" alt="Investor" />
             </div>
-            <span class="text-xs tracking-widest uppercase text-mute font-semibold">Opportunity Cost Analysis</span>
+            <div>
+              <div class="font-semibold text-sm text-ink">เงินส่วนต่างที่ประหยัดได้</div>
+              <div class="text-mute text-xs">ส่วนต่างระหว่างเบี้ยประกันทั่วไป กับเบี้ยประกันแบบ Deductible</div>
+            </div>
           </div>
-          <h3 class="text-2xl font-semibold text-ink mt-1 mb-3 tracking-tight">มูลค่าการเติบโตของชีวิตที่สูญเสียไป (ในเวลา 10 ปี)</h3>
-          <p class="text-body text-sm leading-relaxed mb-4">
-            หากเลือกจ่ายเบี้ยแพงเกินความจำเป็นไปกับ ประกันสุขภาพทั่วไป เงินส่วนต่างสะสมแทนที่จะถูกนำไปลงทุนสร้างสินทรัพย์ทบต้น จะถูกจ่ายทิ้งปีต่อปีอย่างน่าเสียดาย การเลือกประกันแบบ Deductible จะปลดล็อกเงินส่วนต่างดังนี้:
-          </p>
           <div class="grid grid-cols-2 gap-4">
             <div class="bg-hairlineSoft p-3.5 rounded-[12px] border border-hairline">
               <span class="text-xs text-mute block">ส่วนต่างเบี้ยออมได้ต่อปี</span>
@@ -343,14 +350,42 @@
             </div>
           </div>
         </div>
-        <div class="md:col-span-5 text-center bg-hairlineSoft p-6 rounded-[16px] border border-hairline">
-          <div class="dicebear-ring w-16 h-16 mx-auto mb-4 border-2 border-hairline">
-            <img data-s="fun-emoji" data-seed="wealth-growth" data-sz="128" alt="Wealth Growth" />
+
+        <!-- Right: compound growth calculator -->
+        <div class="md:col-span-5 bg-elevated border border-hairline rounded-[12px] p-6 shadow-[0_1px_1px_rgba(0,0,0,0.04)]">
+          <div class="flex items-center gap-3 mb-5">
+            <div class="dicebear-ring w-10 h-10 border border-hairline">
+              <img data-s="fun-emoji" data-seed="wealth-growth" data-sz="80" alt="Wealth Growth" />
+            </div>
+            <div>
+              <div class="font-semibold text-sm text-ink">ผลตอบแทนทบต้น</div>
+              <div class="text-mute text-xs">ปรับอัตราเพื่อดูผลลัพธ์</div>
+            </div>
           </div>
-          <span class="text-xs text-mute font-semibold block uppercase tracking-wider">มูลค่าพอร์ตเติบโตรวมดอกเบี้ยทบต้น (10 ปี)</span>
-          <div class="text-4xl md:text-5xl font-semibold text-ink my-4 tracking-tight" id="futureValue">- บาท</div>
-          <p class="text-xs text-mute leading-normal">
-            จากการนำเงินประหยัดรายปีไปออมหรือลงทุนตามอัตราดอกผล <span id="returnLabel" class="font-semibold text-ink">7%</span> ต่อปีทบต้นเป็นเวลา 10 ปีเต็ม
+
+          <!-- Inline rate control -->
+          <div class="mb-5">
+            <div class="flex justify-between items-center mb-2">
+              <span class="text-xs text-mute">อัตราผลตอบแทนต่อปี</span>
+              <span class="text-ink font-semibold text-sm" id="returnValOC">7%</span>
+            </div>
+            <input type="range" id="returnSliderOC" min="2" max="15" value="7" class="w-full">
+          </div>
+
+          <!-- Growth projection -->
+          <div class="grid grid-cols-2 gap-3 mb-4">
+            <div class="text-center bg-hairlineSoft rounded-[12px] p-3 border border-hairline">
+              <div class="text-xs text-mute mb-1">ปีที่ 5</div>
+              <div class="text-lg font-semibold text-ink tracking-tight" id="fvYear5">-</div>
+            </div>
+            <div class="text-center bg-ink rounded-[12px] p-3">
+              <div class="text-xs text-white/60 mb-1">ปีที่ 10</div>
+              <div class="text-lg font-semibold text-white tracking-tight" id="futureValue">-</div>
+            </div>
+          </div>
+
+          <p class="text-xs text-mute leading-normal text-center">
+            นำเงิน <span id="savingsLabel" class="font-semibold text-ink">-</span> บาท/ปี ลงทุนที่ <span id="returnLabel" class="font-semibold text-ink">7%</span> ต่อปี
           </p>
         </div>
       </div>
@@ -451,6 +486,8 @@
     const returnSlider = document.getElementById('returnSlider');
     const returnVal = document.getElementById('returnVal');
     const returnLabel = document.getElementById('returnLabel');
+    const returnSliderOC = document.getElementById('returnSliderOC');
+    const returnValOC = document.getElementById('returnValOC');
     const deductibleSelect = document.getElementById('deductibleSelect');
     const ageSlider = document.getElementById('ageSlider');
     const ageVal = document.getElementById('ageVal');
@@ -460,6 +497,8 @@
     const diffPerYear = document.getElementById('diffPerYear');
     const totalSaved10Y = document.getElementById('totalSaved10Y');
     const futureValue = document.getElementById('futureValue');
+    const fvYear5 = document.getElementById('fvYear5');
+    const savingsLabel = document.getElementById('savingsLabel');
 
     let selectedCoverage = 1000000;
     let selectedGender = 'male';
@@ -517,11 +556,17 @@
         ? savingsAccumulated
         : annualSavings * ((Math.pow(1 + rate, 10) - 1) / rate);
 
+      let fv5 = rate === 0
+        ? annualSavings * 5
+        : annualSavings * ((Math.pow(1 + rate, 5) - 1) / rate);
+
       normalPremiumText.innerText = `~${finalNormal.toLocaleString()} บาท/ปี`;
       deductiblePremiumText.innerText = `~${finalDeductible.toLocaleString()} บาท/ปี`;
       diffPerYear.innerText = `${annualSavings.toLocaleString()} บาท`;
       totalSaved10Y.innerText = `${savingsAccumulated.toLocaleString()} บาท`;
       futureValue.innerText = `${Math.round(fv).toLocaleString()} บาท`;
+      fvYear5.innerText = `${Math.round(fv5).toLocaleString()} บาท`;
+      savingsLabel.innerText = `${annualSavings.toLocaleString()}`;
     }
 
     const scenarioMeta = {
@@ -577,11 +622,17 @@
       activeBtn.className = `scenario-tab inline-flex items-center gap-2 px-4 py-2 rounded-[64px] border font-medium text-sm transition ${PILL_ACTIVE}`;
     }
 
-    returnSlider.addEventListener('input', (e) => {
-      returnVal.innerText = `${e.target.value}%`;
-      returnLabel.innerText = `${e.target.value}%`;
+    function syncRate(value) {
+      returnVal.innerText = `${value}%`;
+      returnValOC.innerText = `${value}%`;
+      returnLabel.innerText = `${value}%`;
+      returnSlider.value = value;
+      returnSliderOC.value = value;
       calculatePremiums();
-    });
+    }
+
+    returnSlider.addEventListener('input', (e) => syncRate(e.target.value));
+    returnSliderOC.addEventListener('input', (e) => syncRate(e.target.value));
 
     ageSlider.addEventListener('input', (e) => {
       ageVal.innerText = `${e.target.value} ปี`;
