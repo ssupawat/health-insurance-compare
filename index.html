@@ -96,14 +96,14 @@
             <img data-s="lorelei" data-seed="health-guardian" data-sz="128" alt="Health Guardian" />
           </div>
           <h1 class="text-3xl md:text-5xl font-semibold text-ink tracking-tight leading-tight">
-            เลือกประกันสุขภาพแบบทั่วไปหรือ Deductible ดี?
+            ระหว่างประกันสุขภาพทั่วไปกับ Deductible (ความรับผิดส่วนแรก) เลือกแบบไหน?
           </h1>
           <div class="dicebear-ring w-14 h-14 md:w-16 md:h-16 border-2 border-hairline">
             <img data-s="adventurer" data-seed="health-advisor" data-sz="128" alt="Health Advisor" />
           </div>
         </div>
         <p class="text-body text-base max-w-2xl mx-auto mt-3">
-          เปรียบเทียบส่วนต่างเบี้ยประกันและวิเคราะห์ค่าเสียโอกาสระหว่าง ประกันสุขภาพทั่วไป กับ ประกันสุขภาพแบบมีความรับผิดส่วนแรก (Deductible)
+          เปรียบเทียบเบี้ยประกัน ค่ารักษาพยาบาล และผลตอบแทนจากการลงทุนส่วนต่างเบี้ย เพื่อตัดสินใจระหว่างประกันสุขภาพทั่วไปกับประกันแบบ Deductible (ความรับผิดส่วนแรก)
         </p>
       </header>
     </div>
@@ -173,7 +173,7 @@
           <div class="mb-5 relative">
             <label class="block text-sm font-medium text-body mb-2">วงเงินรับผิดส่วนแรกที่เลือก (Deductible)</label>
             <button id="deductibleDropdown" onclick="toggleDropdown()" class="w-full flex items-center justify-between bg-elevated border border-hairline rounded-[6px] px-3 py-2 text-ink text-sm text-left focus:outline-none focus:border-ink transition cursor-pointer">
-              <span id="deductibleLabel">30,000 บาท (ล้อกับประกันกลุ่มส่วนใหญ่)</span>
+              <span id="deductibleLabel">30,000 บาท (ตรงกับประกันกลุ่มส่วนใหญ่)</span>
               <svg class="w-3 h-3 text-mute transition-transform" id="dropdownArrow" viewBox="0 0 16 16" fill="currentColor"><path d="M8 11L3 6h10z"/></svg>
             </button>
             <div id="deductibleMenu" class="hidden absolute z-10 mt-1 w-full bg-elevated border border-hairline rounded-[6px] shadow-[0_2px_8px_rgba(0,0,0,0.08)] overflow-hidden">
@@ -401,12 +401,12 @@
           <h4 class="font-semibold text-sm text-ink">Cash Flow Analysis</h4>
           <button onclick="toggleCashFlow()" id="cashFlowToggle" class="text-[10px] text-mute hover:text-ink transition">แสดง</button>
           </div>
-          <p class="text-[11px] text-mute mb-3">สมมติป่วย 10 ครั้งใน 10 ปี (ครั้งละ 25,000) · เริ่มต้น 100,000 · เก็บปีละ 40,000</p>
+          <p class="text-[11px] text-mute mb-3">สมมติป่วย 10 ครั้งใน 10 ปี (ต่อครั้ง 25,000 บาท) · เงินต้น 100,000 · ออมปีละ 40,000</p>
           <div class="flex flex-wrap gap-x-3 gap-y-1 text-[10px] text-mute mb-3">
-            <span><span class="w-3 h-[3px] rounded-full bg-save/60 inline-block align-middle mr-1"></span>เงินเก็บ 40k/ปี</span>
-            <span><span class="w-3 h-[3px] rounded-full bg-save/40 inline-block align-middle mr-1"></span>เงินเริ่มต้น 100k</span>
+            <span><span class="w-3 h-[3px] rounded-full bg-save/60 inline-block align-middle mr-1"></span>ออม 40k/ปี</span>
+            <span><span class="w-3 h-[3px] rounded-full bg-save/40 inline-block align-middle mr-1"></span>เงินต้น 100k</span>
             <span><span class="w-3 h-[3px] rounded-full bg-warning inline-block align-middle mr-1"></span>เบี้ยประกัน</span>
-            <span><span class="w-3 h-[3px] rounded-full bg-error inline-block align-middle mr-1"></span>ค่ารักษาจ่ายเอง</span>
+            <span><span class="w-3 h-[3px] rounded-full bg-error inline-block align-middle mr-1"></span>ค่ารักษาที่จ่ายเอง</span>
           </div>
           <div class="flex flex-wrap gap-2 mt-2">
           <button onclick="toggleAccident(1000000)" id="accident1MBtn" class="text-[10px] px-2 py-0.5 rounded-full border border-hairline text-body hover:border-ink transition">+ เหตุฉุกเฉิน 1M (ปีที่ 5)</button>
@@ -419,7 +419,7 @@
           
         <div class="bg-hairlineSoft rounded-[12px] p-4 border border-hairline" id="cfCard1">
           <div class="flex items-center justify-between mb-3">
-            <span class="text-xs font-semibold text-ink">ป่วยบ่อย/ไม่ค่อยป่วย + ทั่วไป</span>
+            <span class="text-xs font-semibold text-ink">ทั่วไป (ไม่ขึ้นกับความถี่ป่วย)</span>
           </div>
           <div class="flex items-end gap-[1px] h-[124px] mb-1">
               <div class="flex-1 flex flex-col items-center justify-end"><div class="cf-bar in w-[2px] h-[120px] bg-save/40 rounded-full"></div></div>
@@ -455,7 +455,7 @@
           <div class="mt-3 pt-3 border-t border-hairline">
             <div class="text-[11px] font-semibold text-error" id="cf1CashOut">💸 จ่ายออกรวม ~175,000</div>
             <div class="text-[10px] text-mute mt-1" id="cf1Balance">เงินเก็บเหลือ ~325,000</div>
-            <div class="text-[10px] text-accent mt-1" id="cf1Invest">→ ลงทุน 7% ต่ออีก 10 ปี = ~639,000</div>
+            <div class="text-[10px] text-accent mt-1" id="cf1Invest">→ ลงทุน 7% ต่อปี = ~639,000</div>
           </div>
         </div>
           
@@ -497,7 +497,7 @@
           <div class="mt-3 pt-3 border-t border-hairline">
             <div class="text-[11px] font-semibold text-error" id="cf2CashOut">💸 จ่ายออกรวม ~302,000</div>
             <div class="text-[10px] text-mute mt-1" id="cf2Balance">เงินเก็บเหลือ ~198,000</div>
-            <div class="text-[10px] text-accent mt-1" id="cf2Invest">→ ลงทุน 7% ต่ออีก 10 ปี = ~390,000</div>
+            <div class="text-[10px] text-accent mt-1" id="cf2Invest">→ ลงทุน 7% ต่อปี = ~390,000</div>
           </div>
         </div>
           
@@ -540,7 +540,7 @@
           <div class="mt-3 pt-3 border-t border-hairline">
             <div class="text-[11px] font-semibold text-error" id="cf4CashOut">💸 จ่ายออกรวม ~52,000</div>
             <div class="text-[10px] text-mute mt-1" id="cf4Balance">เงินเก็บเหลือ ~448,000</div>
-            <div class="text-[10px] text-accent mt-1" id="cf4Invest">→ ลงทุน 7% ต่ออีก 10 ปี = ~881,000</div>
+            <div class="text-[10px] text-accent mt-1" id="cf4Invest">→ ลงทุน 7% ต่อปี = ~881,000</div>
           </div>
         </div>
       </div>
@@ -552,8 +552,8 @@
     <section class="mb-16">
       <div class="mb-6">
         <span class="text-xs tracking-widest uppercase text-mute font-semibold">Opportunity Cost Analysis</span>
-        <h3 class="text-xl font-semibold text-ink mt-1 tracking-tight">มูลค่าการเติบโตของชีวิตที่สูญเสียไป (ในเวลา 10 ปี)</h3>
-        <p class="text-mute text-sm mt-1">เปรียบเทียบกรณีไม่ค่อยป่วย: ทั่วไป vs Deductible — หากเลือกจ่ายเบี้ยแพงเกินจำเป็น เงินส่วนต่างที่ควรนำไปลงทุนสร้างสินทรัพย์ทบต้น จะถูกจ่ายทิ้งปีต่อปี</p>
+        <h3 class="text-xl font-semibold text-ink mt-1 tracking-tight">มูลค่าความมั่งคั่งที่สูญเสียไป (ภายใน 10 ปี)</h3>
+        <p class="text-mute text-sm mt-1">เปรียบเทียบกรณีที่ไม่ค่อยป่วย: ประกันทั่วไป vs Deductible — หากเลือกจ่ายเบี้ยแพงเกินจำเป็น เงินส่วนต่างที่ควรนำไปลงทุนเพื่อสร้างความมั่งคั่งทบต้น จะถูกจ่ายทิ้งไปปีต่อปี</p>
       </div>
 
       <div class="grid md:grid-cols-12 gap-6">
@@ -571,11 +571,11 @@
           </div>
           <div class="grid grid-cols-2 gap-4">
             <div class="bg-hairlineSoft p-3.5 rounded-[12px] border border-hairline">
-              <span class="text-xs text-mute block">ส่วนต่างเบี้ยออมได้ต่อปี</span>
+              <span class="text-xs text-mute block">เบี้ยส่วนต่างที่ประหยัดได้ต่อปี</span>
               <span class="text-lg font-semibold text-ink truncate block" id="diffPerYear">- บาท</span>
             </div>
             <div class="bg-hairlineSoft p-3.5 rounded-[12px] border border-hairline">
-              <span class="text-xs text-mute block">เงินต้นสะสมใน 10 ปี</span>
+              <span class="text-xs text-mute block">เงินต้นสะสม 10 ปี</span>
               <span class="text-lg font-semibold text-ink truncate block" id="totalSaved10Y">- บาท</span>
             </div>
           </div>
@@ -762,12 +762,20 @@
     const labelYear5 = document.getElementById('labelYear5');
     const labelYear10 = document.getElementById('labelYear10');
 
-    let tvmMode = 'tvm';
-    let accidentOn = 0;
+    // Load saved settings from localStorage
+    const SAVED = JSON.parse(localStorage.getItem('hic-settings') || '{}');
+    let tvmMode = SAVED.tvmMode || 'tvm';
+    let accidentOn = SAVED.accidentOn || 0;
+    let selectedDeductible = SAVED.selectedDeductible || '30000';
+    let selectedCoverage = SAVED.selectedCoverage || 1000000;
+    let selectedGender = SAVED.selectedGender || 'male';
 
-    let selectedDeductible = '30000';
-    let selectedCoverage = 1000000;
-    let selectedGender = 'male';
+    function saveSettings() {
+      localStorage.setItem('hic-settings', JSON.stringify({
+        tvmMode, accidentOn, selectedDeductible, selectedCoverage, selectedGender,
+        age: ageSlider.value, rate: returnSlider.value
+      }));
+    }
 
     const premiumMatrix = {
       male: {
@@ -811,6 +819,7 @@
       selectedGender = gender;
       document.getElementById('btn-gender-male').className = gender === 'male' ? ACTIVE_BTN : INACTIVE_BTN;
       document.getElementById('btn-gender-female').className = gender === 'female' ? ACTIVE_BTN : INACTIVE_BTN;
+      saveSettings();
       calculatePremiums();
     }
 
@@ -818,6 +827,7 @@
       selectedCoverage = amount;
       document.getElementById('btn-cov-1m').className = amount === 1000000 ? ACTIVE_BTN : INACTIVE_BTN;
       document.getElementById('btn-cov-5m').className = amount === 5000000 ? ACTIVE_BTN : INACTIVE_BTN;
+      saveSettings();
       calculatePremiums();
     }
 
@@ -923,7 +933,7 @@
           }
         } else {
           if (v < 0) {
-            el.textContent = '⚠️ เกินงบ ~' + Math.round(-v).toLocaleString() + ' (ล้มละลาย)';
+            el.textContent = '⚠️ เงินเก็บติดลบ ~' + Math.round(-v).toLocaleString() + '  (เงินไม่พอ)';
             el.className = 'text-[10px] text-error font-semibold mt-1';
           } else {
             el.textContent = 'เงินเก็บเหลือ ' + fmt(v);
@@ -984,25 +994,25 @@
 
     const scenarioMeta = {
       healthy: {
-        title: 'สุขภาพดี ไม่นอน รพ. เลย',
+        title: 'สุขภาพดี ไม่ต้องนอนโรงพยาบาล',
         icon: 'scenario-healthy',
-        normal: 'ไม่ต้องควักเงินสดเพิ่มในการรักษาตัว แต่อย่าลืมว่าจ่ายค่าเบี้ยทิ้งปีละก้อนสะสมยาวนาน 10 ปีเต็ม เงินส่วนต่างสะสมถูกจ่ายทิ้งไปเต็มจำนวนเพื่อแลกความสบายใจที่ไม่ได้ใช้จริง ขัดขวางโอกาสสะสมทุนเพื่อสร้างอนาคต',
-        deductible: 'จ่ายจริงเฉลี่ยเพียงไม่กี่พันบาทต่อปี ปลดล็อกให้มีเงินสะสมไหลเข้าพอร์ตเพิ่มขึ้นในระยะยาว ประหยัดต้นทุนได้กว่าแสนบาท ปิดประตูเงินจมไปได้อย่างมีประสิทธิภาพ',
-        deductibleSolo: 'ประหยัดค่าเบี้ยได้สูงสุดเช่นกัน ได้เงินส่วนต่างไปลงทุนต่อยอดเต็มเม็ดเต็มหน่วย เหมาะสำหรับคนสุขภาพแข็งแรงที่ยอมรับความเสี่ยงที่จะต้องจ่ายค่ารักษาเล็กน้อยเองได้'
+        normal: 'ค่ารักษา 0 บาท ไม่มีค่าใช้จ่ายเพิ่มเติม แต่จ่ายเบี้ยเต็มจำนวนทุกปี เงินส่วนต่างจากเบี้ยที่สูงกว่าสามารถนำไปลงทุนเพิ่มได้',
+        deductible: 'ค่ารักษา 0 บาท ใช้สิทธิ์เคลมประกันกลุ่มไม่ได้ จ่ายเฉพาะเบี้ยแผน Deductible (ต่ำกว่า) ส่วนต่างเบี้ยที่ประหยัดได้นำไปลงทุนได้',
+        deductibleSolo: 'ค่ารักษา 0 บาท จ่ายเฉพาะเบี้ยแผน Deductible (ต่ำที่สุด) ส่วนต่างเบี้ยที่ประหยัดได้นำไปลงทุนได้'
       },
       minor: {
         title: 'ป่วยจุกจิก (ค่ารักษา 25,000 บาท)',
         icon: 'scenario-minor',
-        normal: 'ประกันสุขภาพทั่วไปคุ้มครองให้เต็มจำนวน 25,000 บาทตั้งแต่บาทแรก ไม่ต้องจ่ายเอง แต่ในความเป็นจริง คือต้องจ่ายเบี้ยที่ราคาสูงกว่าเพื่อมาแลกค่าคุ้มครองโรคเล็กๆ ที่แทบไม่ส่งผลกระทบต่อสถานะการเงิน',
-        deductible: 'ยอดค่ารักษา 25,000 ไม่ถึงเกณฑ์ขั้นต่ำที่จะเริ่มเคลมของประกันส่วนบุคคลนี้ แต่สิทธิ์นี้จะถูกส่งไปเคลมที่ <strong>ประกันกลุ่มของบริษัท</strong> ซึ่งครอบคลุมเต็มจำนวนแทนพอดิบพอดี ทำให้ไม่ต้องควักเนื้อและเซฟค่าเบี้ยออมในกระเป๋าเท่าเดิม',
-        deductibleSolo: '<strong>ต้องควักเงินจ่ายเองทั้งหมด 25,000 บาท</strong> เนื่องจากยอดค่ารักษายังไม่ถึงเกณฑ์ความรับผิดส่วนแรก (Deductible) ที่ตั้งไว้ แลกกับการได้จ่ายเบี้ยประกันรายปีที่ถูกกว่ามาก'
+        normal: 'เคลมค่ารักษา 25,000 บาทเต็มจำนวน ไม่ต้องจ่ายเอง แต่ค่าเบี้ยรายปีสูงกว่าแผน Deductible',
+        deductible: 'ยอดค่ารักษา 25,000 บาทไม่ถึงเกณฑ์ Deductible ที่ตั้งไว้ ส่งเคลมผ่านประกันกลุ่มของบริษัทได้ ถ้าบริษัทมีประกันกลุ่ม',
+        deductibleSolo: 'ต้องจ่ายเอง 25,000 บาท เพราะไม่ถึงเกณฑ์ Deductible และไม่มีประกันกลุ่ม แลกกับค่าเบี้ยรายปีที่ต่ำกว่า'
       },
       major: {
         title: 'เจอโรคร้าย/อุบัติเหตุใหญ่ (500,000 บาท)',
         icon: 'scenario-major',
-        normal: 'ประกันเคลมยอดผ่าตัดใหญ่และรักษาตัว 500,000 บาทให้ครบ ป้องกันพอร์ตและเงินเก็บไม่ให้พังทลายลงมา',
-        deductible: 'วงเงินทำงานประสานงานทันที: หักเงินส่วนแรก (ตามแผนที่เลือก) ไปเบิกเคลมกับประกันกลุ่มของบริษัท จากนั้นส่วนเกินทั้งหมดจนถึง 500,000 บาท ประกัน Deductible เล่มนี้จ่ายให้ทั้งหมด <strong>ผลลัพธ์คือไม่ต้องจ่ายเองเช่นเดียวกัน</strong> แต่ประหยัดเบี้ยสะสมสิบปีได้หลักแสน',
-        deductibleSolo: '<strong>ต้องจ่ายเงินส่วนแรกเอง (เช่น 20,000-50,000 บาท)</strong> จากนั้นส่วนเกินทั้งหมด ประกันเล่มนี้จะจ่ายให้ ถือเป็นการจำกัดความเสียหาย (Stop Loss) ไม่ให้เงินเก็บทั้งชีวิตพังทลายจากโรคร้าย'
+        normal: 'เคลมค่ารักษา 500,000 บาทเต็มจำนวน ไม่ต้องจ่ายเอง แต่ค่าเบี้ยรายปีสูงกว่าแผน Deductible',
+        deductible: 'จ่ายเองเฉพาะส่วน Deductible (เช่น 30,000 บาท) ส่วนที่เหลือเคลมผ่านประกันกลุ่มได้ (ถ้ามี) ผลลัพธ์สุทธิคล้ายกับแผนประกันทั่วไป แต่จ่ายเบี้ยต่ำกว่า',
+        deductibleSolo: 'จ่ายเองเฉพาะส่วน Deductible (เช่น 30,000 บาท) ประกันจ่ายส่วนที่เหลือทั้งหมด จำกัดความเสียหายไม่ให้เงินเก็บหมดจากเหตุการณ์ร้ายแรง'
       }
     };
 
@@ -1044,13 +1054,56 @@
       rateOCS.update(value);
     }
 
-    returnSlider.addEventListener('input', (e) => { syncRateDisplay(e.target.value); scheduleCalc(); });
+    let saveTimer = null;
+    function debouncedSave() { clearTimeout(saveTimer); saveTimer = setTimeout(saveSettings, 500); }
+
+    returnSlider.addEventListener('input', (e) => { syncRateDisplay(e.target.value); scheduleCalc(); debouncedSave(); });
     returnSliderOC.addEventListener('input', (e) => { syncRateDisplay(e.target.value); scheduleCalc(); });
 
     ageSlider.addEventListener('input', (e) => {
       ageVal.innerText = `${e.target.value} ปี`;
       scheduleCalc();
+      debouncedSave();
     });
+
+    // Apply saved slider values (or keep defaults)
+    if (SAVED.age) { ageSlider.value = SAVED.age; }
+    ageVal.innerText = `${ageSlider.value} ปี`;
+    if (SAVED.rate) { returnSlider.value = SAVED.rate; returnSliderOC.value = SAVED.rate; }
+    syncRateDisplay(returnSlider.value);
+    // Apply saved button states
+    if (selectedGender) { document.getElementById('btn-gender-male').className = selectedGender === 'male' ? ACTIVE_BTN : INACTIVE_BTN; document.getElementById('btn-gender-female').className = selectedGender === 'female' ? ACTIVE_BTN : INACTIVE_BTN; }
+    if (selectedCoverage) { document.getElementById('btn-cov-1m').className = selectedCoverage === 1000000 ? ACTIVE_BTN : INACTIVE_BTN; document.getElementById('btn-cov-5m').className = selectedCoverage === 5000000 ? ACTIVE_BTN : INACTIVE_BTN; }
+    if (selectedDeductible) {
+      const labels = { '20000': '20,000 บาท (เหมาะกับคนไม่มีประกันกลุ่ม หรือประกันกลุ่มวงเงินจำกัด)', '30000': '30,000 บาท (ตรงกับประกันกลุ่มส่วนใหญ่)', '50000': '50,000 บาท (เหมาะกับประกันกลุ่มวงเงินสูง)' };
+      document.getElementById('deductibleLabel').innerText = labels[selectedDeductible] || labels['30000'];
+      document.querySelectorAll('#deductibleMenu button').forEach(btn => {
+        btn.className = btn.dataset.value === selectedDeductible
+          ? 'w-full text-left px-3 py-2 text-sm text-ink bg-hairlineSoft font-medium'
+          : 'w-full text-left px-3 py-2 text-sm text-body hover:bg-hairlineSoft transition';
+      });
+    }
+    if (tvmMode) {
+      const activeTvm = 'px-2.5 py-0.5 text-xs font-medium transition bg-ink text-white';
+      const inactiveTvm = 'px-2.5 py-0.5 text-xs font-medium transition bg-elevated text-body';
+      ['btn-tvm-principal', 'btn-tvm2-principal'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.className = tvmMode === 'principal' ? activeTvm : inactiveTvm;
+      });
+      ['btn-tvm-tvm', 'btn-tvm2-tvm'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.className = tvmMode === 'tvm' ? activeTvm : inactiveTvm;
+      });
+    }
+    if (accidentOn) {
+      ['accident1MBtn', 'accident5MBtn'].forEach((id, i) => {
+        const amt = i === 0 ? 1000000 : 5000000;
+        const btn = document.getElementById(id);
+        if (btn) btn.className = (accidentOn === amt)
+          ? 'text-[10px] px-2 py-0.5 rounded-full border border-ink bg-ink text-white transition'
+          : 'text-[10px] px-2 py-0.5 rounded-full border border-hairline text-body hover:border-ink transition';
+      });
+    }
 
     const PILL_ACTIVE_TVM = 'px-2.5 py-0.5 text-xs font-medium transition bg-ink text-white';
     const PILL_INACTIVE_TVM = 'px-2.5 py-0.5 text-xs font-medium transition bg-elevated text-body';
@@ -1085,14 +1138,11 @@
         labelYear5.innerText = 'ปีที่ 5';
         labelYear10.innerText = 'ปีที่ 10';
         tvmPrefix.innerText = 'เงินต้นรวม';
-        tvmSuffix.innerHTML = 'บาท/ปี สะสมโดยยังไม่ได้รวมดอกเบี้ย';
+        tvmSuffix.innerHTML = 'บาท/ปี สะสมโดยยังไม่รวมผลตอบแทน';
       }
+      saveSettings();
       calculatePremiums();
     }
-
-    calculatePremiums();
-    changeScenario('healthy');
-    changeScenario('healthy');
 
     function toggleCashFlow() {
       const content = document.getElementById('cashFlowContent');
@@ -1110,6 +1160,7 @@
           ? 'text-[10px] px-2 py-0.5 rounded-full border border-ink bg-ink text-white transition'
           : 'text-[10px] px-2 py-0.5 rounded-full border border-hairline text-body hover:border-ink transition';
       });
+      saveSettings();
       calculatePremiums();
     }
 
@@ -1123,7 +1174,7 @@
 
     function selectDeductible(value) {
       selectedDeductible = value;
-      const labels = { '20000': '20,000 บาท (เหมาะกับคนไม่มีประกันกลุ่ม หรือประกันกลุ่มวงเงินจำกัด)', '30000': '30,000 บาท (แนะนำ - ล้อกับประกันกลุ่มส่วนใหญ่)', '50000': '50,000 บาท (เหมาะกับประกันกลุ่มวงเงินสูง)' };
+      const labels = { '20000': '20,000 บาท (เหมาะกับคนไม่มีประกันกลุ่ม หรือประกันกลุ่มวงเงินจำกัด)', '30000': '30,000 บาท (ตรงกับประกันกลุ่มส่วนใหญ่)', '50000': '50,000 บาท (เหมาะกับประกันกลุ่มวงเงินสูง)' };
       document.getElementById('deductibleLabel').innerText = labels[value];
       document.getElementById('deductibleMenu').classList.add('hidden');
       document.getElementById('dropdownArrow').classList.remove('rotate-180');
@@ -1132,6 +1183,7 @@
           ? 'w-full text-left px-3 py-2 text-sm text-ink bg-hairlineSoft font-medium'
           : 'w-full text-left px-3 py-2 text-sm text-body hover:bg-hairlineSoft transition';
       });
+      saveSettings();
       calculatePremiums();
     }
 
@@ -1143,6 +1195,9 @@
         document.getElementById('dropdownArrow').classList.remove('rotate-180');
       }
     });
+
+    calculatePremiums();
+    changeScenario('healthy');
   </script>
 </body>
 </html>

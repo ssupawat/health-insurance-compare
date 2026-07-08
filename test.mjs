@@ -19,8 +19,10 @@ try {
   page.on('console', m => { if (m.type() === 'error') console.log('CONSOLE ERROR:', m.text()); });
 
   await page.goto(FILE);
+  await page.evaluate(() => localStorage.clear());
+  await page.reload();
   await page.waitForSelector('#ageSlider');
-  await page.waitForTimeout(500);
+  await page.waitForTimeout(1000);
 
   async function scrape() {
     return {

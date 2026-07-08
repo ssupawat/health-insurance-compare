@@ -54,7 +54,7 @@ export default async function handler() {
             marginBottom: '16px',
           }}
         >
-          เลือกประกันสุขภาพแบบทั่วไปหรือ Deductible ดี?
+          ระหว่างประกันสุขภาพทั่วไปกับ Deductible (ความรับผิดส่วนแรก) เลือกแบบไหน?
         </div>
 
         {/* Subtitle */}
