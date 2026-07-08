@@ -303,8 +303,42 @@
       <div class="mb-6">
         <span class="text-xs tracking-widest uppercase text-mute font-semibold">Protection Matrix</span>
         <h3 class="text-xl font-semibold text-ink mt-1 tracking-tight">วิเคราะห์การปกป้องเงินในกระเป๋า</h3>
-        <p class="text-mute text-sm mt-1">เปรียบเทียบว่าประกันแต่ละแบบปกป้องเงินคุณอย่างไร ใน 3 สถานการณ์สุขภาพ (ซิงค์กับ Scenario Simulator ด้านล่าง)</p>
+        <p class="text-mute text-sm mt-1">เปรียบเทียบว่าประกันแต่ละแบบปกป้องเงินคุณอย่างไร ใน 3 สถานการณ์สุขภาพ</p>
       </div>
+
+      <!-- Category Pills -->
+      <div class="flex flex-wrap gap-2 mb-5">
+        <button onclick="changeScenario('healthy')" id="btn-healthy" class="scenario-tab inline-flex items-center gap-2 px-4 py-2 rounded-[64px] border font-medium text-sm transition border-hairlineSoft bg-hairlineSoft text-body hover:border-hairline">
+          <span class="dicebear-ring w-6 h-6">
+            <img data-s="fun-emoji" data-seed="scenario-healthy" data-sz="48" alt="" loading="lazy" />
+          </span>
+          สุขภาพดี
+        </button>
+        <button onclick="changeScenario('minor')" id="btn-minor" class="scenario-tab inline-flex items-center gap-2 px-4 py-2 rounded-[64px] border font-medium text-sm transition border-hairlineSoft bg-hairlineSoft text-body hover:border-hairline">
+          <span class="dicebear-ring w-6 h-6">
+            <img data-s="fun-emoji" data-seed="scenario-minor" data-sz="48" alt="" loading="lazy" />
+          </span>
+          ป่วยจุกจิก
+        </button>
+        <button onclick="changeScenario('major')" id="btn-major" class="scenario-tab inline-flex items-center gap-2 px-4 py-2 rounded-[64px] border font-medium text-sm transition border-hairlineSoft bg-hairlineSoft text-body hover:border-hairline">
+          <span class="dicebear-ring w-6 h-6">
+            <img data-s="fun-emoji" data-seed="scenario-major" data-sz="48" alt="" loading="lazy" />
+          </span>
+          โรคร้าย
+        </button>
+      </div>
+
+      <!-- Active Scenario Detail -->
+      <div class="flex items-center gap-3 px-4 py-3 bg-hairlineSoft rounded-[12px] border border-hairline mb-6">
+        <div class="dicebear-ring w-10 h-10 shrink-0">
+          <img data-s="fun-emoji" data-seed="scenario-healthy" data-sz="80" alt="" id="scenarioDetailIcon" loading="lazy" />
+        </div>
+        <div>
+          <div class="font-semibold text-sm text-ink" id="scenarioDetailTitle">สุขภาพดี ไม่นอน รพ. เลย</div>
+          <div class="text-mute text-xs" id="scenarioDetailDesc">โอกาสเกิดสูงที่สุดสำหรับคนช่วงอายุ 20-35 ปี — ค่ารักษา 0 บาท</div>
+        </div>
+      </div>
+
       <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
 
         <div class="bg-elevated border border-hairline rounded-[12px] p-6 shadow-[0_1px_1px_rgba(0,0,0,0.04)]">
@@ -363,7 +397,10 @@
             <span class="text-white text-[10px] font-bold leading-none">?</span>
           </div>
           <div>
-          <h4 class="font-semibold text-sm text-ink mb-1">แนวทางเลือกตามพฤติกรรมการใช้</h4>
+          <div class="flex items-center justify-between mb-1">
+          <h4 class="font-semibold text-sm text-ink">Cash Flow Analysis</h4>
+          <button onclick="toggleCashFlow()" id="cashFlowToggle" class="text-[10px] text-mute hover:text-ink transition">แสดง</button>
+          </div>
           <p class="text-[11px] text-mute mb-3">สมมติป่วย 10 ครั้งใน 10 ปี (ครั้งละ 25,000) · เริ่มต้น 100,000 · เก็บปีละ 40,000</p>
           <div class="flex flex-wrap gap-x-3 gap-y-1 text-[10px] text-mute mb-3">
             <span><span class="w-3 h-[3px] rounded-full bg-save/60 inline-block align-middle mr-1"></span>เงินเก็บ 40k/ปี</span>
@@ -377,6 +414,7 @@
           </div>
           </div>
         </div>
+        <div id="cashFlowContent" class="hidden">
         <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
           
         <div class="bg-hairlineSoft rounded-[12px] p-4 border border-hairline" id="cfCard1">
@@ -507,6 +545,7 @@
         </div>
       </div>
       </div>
+      </div>
     </section>
 
     <!-- Opportunity Cost -->
@@ -601,85 +640,6 @@
       </div>
     </section>
 
-    <!-- Scenario Simulator -->
-    <section class="mb-16">
-      <div class="mb-6">
-        <span class="text-xs tracking-widest uppercase text-mute font-semibold">Scenario Analysis</span>
-        <h3 class="text-xl font-semibold text-ink mt-1 tracking-tight">จำลองสถานการณ์จริง</h3>
-        <p class="text-mute text-sm mt-1">เลือกเหตุการณ์เพื่อเปรียบเทียบกลไกการจ่ายเงินจริงของประกันแต่ละแบบ</p>
-      </div>
-
-      <!-- Category Pills -->
-      <div class="flex flex-wrap gap-2 mb-5">
-        <button onclick="changeScenario('healthy')" id="btn-healthy" class="scenario-tab inline-flex items-center gap-2 px-4 py-2 rounded-[64px] border font-medium text-sm transition border-hairlineSoft bg-hairlineSoft text-body hover:border-hairline">
-          <span class="dicebear-ring w-6 h-6">
-            <img data-s="fun-emoji" data-seed="scenario-healthy" data-sz="48" alt="" loading="lazy" />
-          </span>
-          สุขภาพดี
-        </button>
-        <button onclick="changeScenario('minor')" id="btn-minor" class="scenario-tab inline-flex items-center gap-2 px-4 py-2 rounded-[64px] border font-medium text-sm transition border-hairlineSoft bg-hairlineSoft text-body hover:border-hairline">
-          <span class="dicebear-ring w-6 h-6">
-            <img data-s="fun-emoji" data-seed="scenario-minor" data-sz="48" alt="" loading="lazy" />
-          </span>
-          ป่วยจุกจิก
-        </button>
-        <button onclick="changeScenario('major')" id="btn-major" class="scenario-tab inline-flex items-center gap-2 px-4 py-2 rounded-[64px] border font-medium text-sm transition border-hairlineSoft bg-hairlineSoft text-body hover:border-hairline">
-          <span class="dicebear-ring w-6 h-6">
-            <img data-s="fun-emoji" data-seed="scenario-major" data-sz="48" alt="" loading="lazy" />
-          </span>
-          โรคร้าย
-        </button>
-      </div>
-
-      <!-- Active Scenario Detail -->
-      <div class="flex items-center gap-3 px-4 py-3 bg-hairlineSoft rounded-[12px] border border-hairline mb-6">
-        <div class="dicebear-ring w-10 h-10 shrink-0">
-          <img data-s="fun-emoji" data-seed="scenario-healthy" data-sz="80" alt="" id="scenarioDetailIcon" loading="lazy" />
-        </div>
-        <div>
-          <div class="font-semibold text-sm text-ink" id="scenarioDetailTitle">สุขภาพดี ไม่นอน รพ. เลย</div>
-          <div class="text-mute text-xs" id="scenarioDetailDesc">โอกาสเกิดสูงที่สุดสำหรับคนช่วงอายุ 20-35 ปี — ค่ารักษา 0 บาท</div>
-        </div>
-      </div>
-
-      <!-- Outcome Cards -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-
-        <div class="bg-elevated border border-hairline rounded-[12px] p-6 shadow-[0_1px_1px_rgba(0,0,0,0.04)]">
-          <div class="flex items-center gap-2 mb-3">
-            <span class="w-2 h-2 rounded-full bg-error shrink-0"></span>
-            <div class="dicebear-ring w-6 h-6">
-              <img data-s="bottts" data-seed="insurance-normal" data-sz="48" alt="" loading="lazy" />
-            </div>
-            <h4 class="font-semibold text-ink text-xs tracking-wider uppercase">ประกันสุขภาพทั่วไป</h4>
-          </div>
-          <p id="outcomeNormalText" class="text-body text-sm leading-relaxed">-</p>
-        </div>
-
-        <div class="bg-elevated border border-hairline rounded-[12px] p-6 shadow-[0_1px_1px_rgba(0,0,0,0.04)]">
-          <div class="flex items-center gap-2 mb-3">
-            <span class="w-2 h-2 rounded-full bg-accent shrink-0"></span>
-            <div class="dicebear-ring w-6 h-6">
-              <img data-s="adventurer" data-seed="insurance-deductible" data-sz="48" alt="" loading="lazy" />
-            </div>
-            <h4 class="font-semibold text-ink text-xs tracking-wider uppercase">Deductible + ประกันกลุ่ม</h4>
-          </div>
-          <p id="outcomeDeductibleText" class="text-body text-sm leading-relaxed">-</p>
-        </div>
-
-        <div class="bg-elevated border border-hairline rounded-[12px] p-6 shadow-[0_1px_1px_rgba(0,0,0,0.04)]">
-          <div class="flex items-center gap-2 mb-3">
-            <span class="w-2 h-2 rounded-full bg-warning shrink-0"></span>
-            <div class="dicebear-ring w-6 h-6">
-              <img data-s="bottts" data-seed="solo-deductible" data-sz="48" alt="" loading="lazy" />
-            </div>
-            <h4 class="font-semibold text-ink text-xs tracking-wider uppercase">Deductible (ไม่มีประกันกลุ่ม)</h4>
-          </div>
-          <p id="outcomeDeductibleSoloText" class="text-body text-sm leading-relaxed">-</p>
-        </div>
-      </div>
-    </section>
-  </div>
 
   <!-- Footer -->
   <footer class="border-t border-hairline">
@@ -1052,11 +1012,7 @@
     let activeScenario = 'healthy';
 
     function changeScenario(key) {
-      activeScenario = key;
       const meta = scenarioMeta[key];
-      document.getElementById('outcomeNormalText').innerHTML = meta.normal;
-      document.getElementById('outcomeDeductibleText').innerHTML = meta.deductible;
-      document.getElementById('outcomeDeductibleSoloText').innerHTML = meta.deductibleSolo;
       document.getElementById('matrixNormalText').innerHTML = meta.normal;
       document.getElementById('matrixDeductibleText').innerHTML = meta.deductible;
       document.getElementById('matrixDeductibleSoloText').innerHTML = meta.deductibleSolo;
@@ -1071,11 +1027,10 @@
       iconEl.src = `https://api.dicebear.com/10.x/fun-emoji/svg?${p.toString()}`;
 
       document.querySelectorAll('.scenario-tab').forEach(btn => {
-        btn.className = `scenario-tab inline-flex items-center gap-2 px-4 py-2 rounded-[64px] border font-medium text-sm transition ${PILL_INACTIVE}`;
+        btn.className = btn.id === `btn-${key}`
+          ? `scenario-tab inline-flex items-center gap-2 px-4 py-2 rounded-[64px] border font-medium text-sm transition border-ink bg-ink text-white`
+          : `scenario-tab inline-flex items-center gap-2 px-4 py-2 rounded-[64px] border font-medium text-sm transition border-hairlineSoft bg-hairlineSoft text-body hover:border-hairline`;
       });
-
-      const activeBtn = document.getElementById(`btn-${key}`);
-      activeBtn.className = `scenario-tab inline-flex items-center gap-2 px-4 py-2 rounded-[64px] border font-medium text-sm transition ${PILL_ACTIVE}`;
     }
 
     function syncRateDisplay(value) {
@@ -1137,6 +1092,14 @@
 
     calculatePremiums();
     changeScenario('healthy');
+    changeScenario('healthy');
+
+    function toggleCashFlow() {
+      const content = document.getElementById('cashFlowContent');
+      const btn = document.getElementById('cashFlowToggle');
+      const hidden = content.classList.toggle('hidden');
+      btn.innerText = hidden ? 'แสดง' : 'ซ่อน';
+    }
 
     function toggleAccident(amount) {
       accidentOn = accidentOn === amount ? 0 : amount;
