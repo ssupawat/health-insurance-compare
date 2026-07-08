@@ -173,7 +173,7 @@
           <div class="mb-5 relative">
             <label class="block text-sm font-medium text-body mb-2">วงเงินรับผิดส่วนแรกที่เลือก (Deductible)</label>
             <button id="deductibleDropdown" onclick="toggleDropdown()" class="w-full flex items-center justify-between bg-elevated border border-hairline rounded-[6px] px-3 py-2 text-ink text-sm text-left focus:outline-none focus:border-ink transition cursor-pointer">
-              <span id="deductibleLabel">30,000 บาท (แนะนำ - ล้อกับประกันกลุ่มส่วนใหญ่)</span>
+              <span id="deductibleLabel">30,000 บาท (ล้อกับประกันกลุ่มส่วนใหญ่)</span>
               <svg class="w-3 h-3 text-mute transition-transform" id="dropdownArrow" viewBox="0 0 16 16" fill="currentColor"><path d="M8 11L3 6h10z"/></svg>
             </button>
             <div id="deductibleMenu" class="hidden absolute z-10 mt-1 w-full bg-elevated border border-hairline rounded-[6px] shadow-[0_2px_8px_rgba(0,0,0,0.08)] overflow-hidden">
@@ -263,7 +263,7 @@
 
         <!-- Deductible Card (Featured) -->
         <div class="bg-elevated border-2 border-ink rounded-[12px] p-6 flex flex-col justify-between relative shadow-[0_1px_1px_rgba(0,0,0,0.04)]">
-          <span class="absolute -top-3 right-6 bg-ink text-white text-xs font-semibold px-3 py-1 rounded-[64px] shadow-[0_1px_2px_rgba(0,0,0,0.1)]">ตอบโจทย์การเติบโต</span>
+          <span class="absolute -top-3 right-6 bg-ink text-white text-xs font-semibold px-3 py-1 rounded-[64px] shadow-[0_1px_2px_rgba(0,0,0,0.1)]">เบี้ยต่ำ</span>
           <div>
             <span class="inline-block bg-elevated border border-hairline text-body text-xs font-semibold px-2.5 py-0.5 rounded-[64px] mb-3">มีความรับผิดส่วนแรก</span>
             <div class="flex items-center gap-3 mb-1">
@@ -303,47 +303,41 @@
       <div class="mb-6">
         <span class="text-xs tracking-widest uppercase text-mute font-semibold">Protection Matrix</span>
         <h3 class="text-xl font-semibold text-ink mt-1 tracking-tight">วิเคราะห์การปกป้องเงินในกระเป๋า</h3>
-        <p class="text-mute text-sm mt-1">เปรียบเทียบว่าประกันแต่ละแบบปกป้องเงินคุณอย่างไร ใน 3 สถานการณ์สุขภาพ</p>
+        <p class="text-mute text-sm mt-1">เปรียบเทียบว่าประกันแต่ละแบบปกป้องเงินคุณอย่างไร ใน 3 สถานการณ์สุขภาพ (ซิงค์กับ Scenario Simulator ด้านล่าง)</p>
       </div>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
 
-        <div class="bg-elevated border border-hairline rounded-[12px] p-6 hover:border-ink transition shadow-[0_1px_1px_rgba(0,0,0,0.04)]">
-          <div class="flex items-center gap-3 border-b border-hairline pb-3 mb-3">
-            <div class="dicebear-ring w-10 h-10 border border-hairline">
-              <img data-s="fun-emoji" data-seed="sick-minor" data-sz="80" alt="Minor Illness" loading="lazy" />
+        <div class="bg-elevated border border-hairline rounded-[12px] p-6 shadow-[0_1px_1px_rgba(0,0,0,0.04)]">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="w-2 h-2 rounded-full bg-error shrink-0"></span>
+            <div class="dicebear-ring w-6 h-6">
+              <img data-s="bottts" data-seed="insurance-normal" data-sz="48" alt="" loading="lazy" />
             </div>
-            <h4 class="font-semibold text-ink text-sm">ป่วยจุกจิก บ่อยๆ (เล็กน้อย)</h4>
+            <h4 class="font-semibold text-ink text-xs tracking-wider uppercase">ประกันสุขภาพทั่วไป</h4>
           </div>
-          <ul class="space-y-2.5 text-sm text-body">
-            <li><span class="text-error font-semibold block text-xs">Deductible (จ่ายเอง):</span> ไม่ช่วยปกป้องเงินในกระเป๋าเลย ต้องควักจ่ายเองทั้งหมด (ไม่ตอบโจทย์)</li>
-            <li><span class="text-accent font-semibold block text-xs">ประกันทั่วไป:</span> ปกป้องกระเป๋าเงินได้ดีที่สุด เคลมได้ตั้งแต่บาทแรก</li>
-          </ul>
+          <p id="matrixNormalText" class="text-body text-sm leading-relaxed">-</p>
         </div>
 
-        <div class="bg-elevated border border-hairline rounded-[12px] p-6 hover:border-ink transition shadow-[0_1px_1px_rgba(0,0,0,0.04)]">
-          <div class="flex items-center gap-3 border-b border-hairline pb-3 mb-3">
-            <div class="dicebear-ring w-10 h-10 border border-hairline">
-              <img data-s="lorelei" data-seed="healthy-strong" data-sz="80" alt="Healthy" loading="lazy" />
+        <div class="bg-elevated border border-hairline rounded-[12px] p-6 shadow-[0_1px_1px_rgba(0,0,0,0.04)]">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="w-2 h-2 rounded-full bg-accent shrink-0"></span>
+            <div class="dicebear-ring w-6 h-6">
+              <img data-s="adventurer" data-seed="insurance-deductible" data-sz="48" alt="" loading="lazy" />
             </div>
-            <h4 class="font-semibold text-ink text-sm">แข็งแรงดี (ป่วยน้อย/ไม่ป่วย)</h4>
+            <h4 class="font-semibold text-ink text-xs tracking-wider uppercase">Deductible + ประกันกลุ่ม</h4>
           </div>
-          <ul class="space-y-2.5 text-sm text-body">
-            <li><span class="text-error font-semibold block text-xs">ประกันทั่วไป:</span> ถลุงเงินในกระเป๋า กลายเป็นรายจ่ายก้อนใหญ่ที่ละลายหายไปทุกปี</li>
-            <li><span class="text-accent font-semibold block text-xs">Deductible:</span> ปกป้องความมั่งคั่งได้ดีที่สุด เซฟเงินก้อนใหญ่ไว้เติบโต (ตอบโจทย์สุด)</li>
-          </ul>
+          <p id="matrixDeductibleText" class="text-body text-sm leading-relaxed">-</p>
         </div>
 
-        <div class="bg-elevated border border-hairline rounded-[12px] p-6 hover:border-ink transition shadow-[0_1px_1px_rgba(0,0,0,0.04)]">
-          <div class="flex items-center gap-3 border-b border-hairline pb-3 mb-3">
-            <div class="dicebear-ring w-10 h-10 border border-hairline">
-              <img data-s="bottts" data-seed="major-illness" data-sz="80" alt="Major Illness" loading="lazy" />
+        <div class="bg-elevated border border-hairline rounded-[12px] p-6 shadow-[0_1px_1px_rgba(0,0,0,0.04)]">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="w-2 h-2 rounded-full bg-warning shrink-0"></span>
+            <div class="dicebear-ring w-6 h-6">
+              <img data-s="bottts" data-seed="solo-deductible" data-sz="48" alt="" loading="lazy" />
             </div>
-            <h4 class="font-semibold text-ink text-sm">แจ็กพอตแตก (ป่วยหนัก/ผ่าตัด)</h4>
+            <h4 class="font-semibold text-ink text-xs tracking-wider uppercase">Deductible (ไม่มีประกันกลุ่ม)</h4>
           </div>
-          <ul class="space-y-2.5 text-sm text-body">
-            <li><span class="text-accent font-semibold block text-xs">ทั้ง 2 แบบ:</span> ปกป้องเงินล้านในกระเป๋าได้เหมือนกัน</li>
-            <li><span class="text-ink font-semibold block text-xs">Deductible ชนะขาด:</span> เพราะปิดความเสี่ยงระดับหายนะได้ ในราคาที่ถูกกว่ากันมาก (Stop Loss ที่คุ้มค่า)</li>
-          </ul>
+          <p id="matrixDeductibleSoloText" class="text-body text-sm leading-relaxed">-</p>
         </div>
       </div>
 
@@ -383,11 +377,11 @@
           </div>
           </div>
         </div>
-        <div class="grid grid-cols-2 gap-3">
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
           
         <div class="bg-hairlineSoft rounded-[12px] p-4 border border-hairline" id="cfCard1">
           <div class="flex items-center justify-between mb-3">
-            <span class="text-xs font-semibold text-ink">ป่วยบ่อย + ทั่วไป</span>
+            <span class="text-xs font-semibold text-ink">ป่วยบ่อย/ไม่ค่อยป่วย + ทั่วไป</span>
           </div>
           <div class="flex items-end gap-[1px] h-[124px] mb-1">
               <div class="flex-1 flex flex-col items-center justify-end"><div class="cf-bar in w-[2px] h-[120px] bg-save/40 rounded-full"></div></div>
@@ -469,47 +463,6 @@
           </div>
         </div>
           
-        <div class="bg-hairlineSoft rounded-[12px] p-4 border border-hairline" id="cfCard3">
-          <div class="flex items-center justify-between mb-3">
-            <span class="text-xs font-semibold text-ink">ไม่ค่อยป่วย + ทั่วไป</span>
-          </div>
-          <div class="flex items-end gap-[1px] h-[124px] mb-1">
-              <div class="flex-1 flex flex-col items-center justify-end"><div class="cf-bar in w-[2px] h-[120px] bg-save/40 rounded-full"></div></div>
-              <div class="flex-1 flex flex-col items-center justify-end"><div class="cf-bar in w-[2px] h-[48px] bg-save/60 rounded-full"></div></div>
-              <div class="flex-1 flex flex-col items-center justify-end"><div class="cf-bar in w-[2px] h-[48px] bg-save/60 rounded-full"></div></div>
-              <div class="flex-1 flex flex-col items-center justify-end"><div class="cf-bar in w-[2px] h-[48px] bg-save/60 rounded-full"></div></div>
-              <div class="flex-1 flex flex-col items-center justify-end"><div class="cf-bar in w-[2px] h-[48px] bg-save/60 rounded-full"></div></div>
-              <div class="flex-1 flex flex-col items-center justify-end"><div class="cf-bar in w-[2px] h-[48px] bg-save/60 rounded-full"></div></div>
-              <div class="flex-1 flex flex-col items-center justify-end"><div class="cf-bar in w-[2px] h-[48px] bg-save/60 rounded-full"></div></div>
-              <div class="flex-1 flex flex-col items-center justify-end"><div class="cf-bar in w-[2px] h-[48px] bg-save/60 rounded-full"></div></div>
-              <div class="flex-1 flex flex-col items-center justify-end"><div class="cf-bar in w-[2px] h-[48px] bg-save/60 rounded-full"></div></div>
-              <div class="flex-1 flex flex-col items-center justify-end"><div class="cf-bar in w-[2px] h-[48px] bg-save/60 rounded-full"></div></div>
-              <div class="flex-1 flex flex-col items-center justify-end"><div class="cf-bar in w-[2px] h-[48px] bg-save/60 rounded-full"></div></div>
-          </div>
-          <div class="flex gap-[1px] text-[9px] text-mute"><span class="flex-1 text-center">0</span><span class="flex-1 text-center">1</span><span class="flex-1 text-center">2</span><span class="flex-1 text-center">3</span><span class="flex-1 text-center">4</span><span class="flex-1 text-center">5</span><span class="flex-1 text-center">6</span><span class="flex-1 text-center">7</span><span class="flex-1 text-center">8</span><span class="flex-1 text-center">9</span><span class="flex-1 text-center">10</span></div>
-          <div class="text-[9px] text-save/60 text-center mb-1">↑ เริ่ม 100k + เก็บ 40k/ปี</div>
-          <div class="border-t-2 border-hairline mb-2"></div>
-          <div class="flex items-start gap-[1px] h-[26px] mb-1">
-              <div class="flex-1"></div>
-              <div class="flex-1 flex items-start justify-center"><div class="cf-bar prem w-[2px] h-[21px] bg-warning rounded-full"></div></div>
-              <div class="flex-1 flex items-start justify-center"><div class="cf-bar prem w-[2px] h-[21px] bg-warning rounded-full"></div></div>
-              <div class="flex-1 flex items-start justify-center"><div class="cf-bar prem w-[2px] h-[21px] bg-warning rounded-full"></div></div>
-              <div class="flex-1 flex items-start justify-center"><div class="cf-bar prem w-[2px] h-[21px] bg-warning rounded-full"></div></div>
-              <div class="flex-1 flex items-start justify-center"><div class="cf-bar prem w-[2px] h-[21px] bg-warning rounded-full"></div></div>
-              <div class="flex-1 flex items-start justify-center"><div class="cf-bar prem w-[2px] h-[21px] bg-warning rounded-full"></div></div>
-              <div class="flex-1 flex items-start justify-center"><div class="cf-bar prem w-[2px] h-[21px] bg-warning rounded-full"></div></div>
-              <div class="flex-1 flex items-start justify-center"><div class="cf-bar prem w-[2px] h-[21px] bg-warning rounded-full"></div></div>
-              <div class="flex-1 flex items-start justify-center"><div class="cf-bar prem w-[2px] h-[21px] bg-warning rounded-full"></div></div>
-              <div class="flex-1 flex items-start justify-center"><div class="cf-bar prem w-[2px] h-[21px] bg-warning rounded-full"></div></div>
-          </div>
-          <div class="text-[9px] text-mute text-center mb-1">↓ เบี้ย 17.5k/ปี</div>
-          
-          <div class="mt-3 pt-3 border-t border-hairline">
-            <div class="text-[11px] font-semibold text-error" id="cf3CashOut">💸 จ่ายออกรวม ~175,000</div>
-            <div class="text-[10px] text-mute mt-1" id="cf3Balance">เงินเก็บเหลือ ~325,000</div>
-            <div class="text-[10px] text-accent mt-1" id="cf3Invest">→ ลงทุน 7% ต่ออีก 10 ปี = ~639,000</div>
-          </div>
-        </div>
           
         <div class="bg-hairlineSoft rounded-[12px] p-4 border border-hairline" id="cfCard4">
           <div class="flex items-center justify-between mb-3">
@@ -973,17 +926,15 @@
       const accAmt = accidentOn || 0;
       const accOOP_normal = Math.max(0, accAmt - selectedCoverage);  // cases 1/3: pay above coverage
       const accOOP_deductible = accAmt > 0 ? Math.min(ACC_DED, accAmt) + Math.max(0, accAmt - ACC_DED - selectedCoverage) : 0;  // cases 2/4: pay deductible + above coverage
-      const acc1 = accOOP_normal, acc2 = accOOP_deductible, acc3 = accOOP_normal, acc4 = accOOP_deductible;
+      const acc1 = accOOP_normal, acc2 = accOOP_deductible, acc4 = accOOP_deductible;
       const b1 = START + ANNUAL_SAVE * 10 - finalNormal * 10 - acc1;
       const b2 = START + ANNUAL_SAVE * 10 - finalDeductible * 10 - SICK * TREAT - acc2;
-      const b3 = START + ANNUAL_SAVE * 10 - finalNormal * 10 - acc3;
       const b4 = START + ANNUAL_SAVE * 10 - finalDeductible * 10 - acc4;
 
       const fmt = n => '~' + Math.round(n).toLocaleString();
       // Total cash out over 10 years (premium + treatment OOP + accident OOP)
       const cashOut1 = finalNormal * 10 + acc1;
       const cashOut2 = finalDeductible * 10 + SICK * TREAT + acc2;
-      const cashOut3 = finalNormal * 10 + acc3;
       const cashOut4 = finalDeductible * 10 + acc4;
       // Investment = annuity FV of net annual cash flow (savings - premium - treatment - accident)
       // Accident is a lump sum at year 5: its FV contribution = accidentCost * (1+r)^5
@@ -991,14 +942,12 @@
       const accFV = cost => rate === 0 ? cost : cost * Math.pow(1 + rate, 5);
       const net1 = ANNUAL_SAVE - finalNormal;                          // case 1: 40k - normal
       const net2 = ANNUAL_SAVE - finalDeductible - TREAT;              // case 2: 40k - ded - treatment
-      const net3 = ANNUAL_SAVE - finalNormal;                          // case 3: same as case 1
       const net4 = ANNUAL_SAVE - finalDeductible;                      // case 4: 40k - ded
       const investFV = (net, acc) => net * annFactor - accFV(acc);      const investPrincipal = net => net * 10;
 
       const els = [
         ['cf1CashOut', cashOut1], ['cf1Balance', b1], ['cf1Invest', investFV(net1, acc1)],
         ['cf2CashOut', cashOut2], ['cf2Balance', b2], ['cf2Invest', investFV(net2, acc2)],
-        ['cf3CashOut', cashOut3], ['cf3Balance', b3], ['cf3Invest', investFV(net3, acc3)],
         ['cf4CashOut', cashOut4], ['cf4Balance', b4], ['cf4Invest', investFV(net4, acc4)]
       ];
       els.forEach(([id, v]) => {
@@ -1036,7 +985,6 @@
       const cardConfig = [
         { id: 'cfCard1', premium: normH, hasTreatment: false, label: 'เบี้ย', treatH: 0 },
         { id: 'cfCard2', premium: dedH, hasTreatment: true, label: 'จ่ายเอง 25k + เบี้ย', treatH: treatH },
-        { id: 'cfCard3', premium: normH, hasTreatment: false, label: 'เบี้ย', treatH: 0 },
         { id: 'cfCard4', premium: dedH, hasTreatment: false, label: 'เบี้ย', treatH: 0 }
       ];
 
@@ -1063,7 +1011,6 @@
           const dp = (finalDeductible / 1000).toFixed(1);
           if (cfg.id === 'cfCard1') labelDiv.textContent = '↓ เบี้ย ' + np + 'k/ปี (ประกันจ่ายค่ารักษา)';
           else if (cfg.id === 'cfCard2') labelDiv.textContent = '↓ จ่ายเอง 25k + เบี้ย ' + dp + 'k/ปี';
-          else if (cfg.id === 'cfCard3') labelDiv.textContent = '↓ เบี้ย ' + np + 'k/ปี';
           else if (cfg.id === 'cfCard4') labelDiv.textContent = '↓ เบี้ย ' + dp + 'k/ปี';
         }
       });
@@ -1110,6 +1057,9 @@
       document.getElementById('outcomeNormalText').innerHTML = meta.normal;
       document.getElementById('outcomeDeductibleText').innerHTML = meta.deductible;
       document.getElementById('outcomeDeductibleSoloText').innerHTML = meta.deductibleSolo;
+      document.getElementById('matrixNormalText').innerHTML = meta.normal;
+      document.getElementById('matrixDeductibleText').innerHTML = meta.deductible;
+      document.getElementById('matrixDeductibleSoloText').innerHTML = meta.deductibleSolo;
       document.getElementById('scenarioDetailTitle').innerText = meta.title;
       document.getElementById('scenarioDetailDesc').innerText = scenarioDesc(key);
 
