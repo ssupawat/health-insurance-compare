@@ -2,10 +2,9 @@
   "name": "health-insurance-compare",
   "private": true,
   "scripts": {
-    "dev": "vercel dev"
+    "dev": "python3 -m http.server 8000"
   },
-  "dependencies": {
-    "@vercel/og": "^0.6.5",
+  "devDependencies": {
     "playwright": "^1.61.1"
   },
   "version": "1.0.0",
